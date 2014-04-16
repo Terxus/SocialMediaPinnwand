@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.elite.itprojekt.shared.Nutzer;
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 

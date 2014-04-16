@@ -40,7 +40,7 @@ public class AboNavigation extends Composite {
 	
 		//Die Abonnierten User anzeigen
 		
-		this.AbonnierteUser = new Label("Gundel Gaukeley");
+		AboNavigation.AbonnierteUser = new Label("Gundel Gaukeley");
 		hPanel.add(AbonnierteUser);
 		
 		vPanel.add(hPanel);
