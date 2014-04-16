@@ -1,6 +1,7 @@
 package de.elite.itprojekt.shared.bo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public abstract class BusinessObject implements Serializable {
 
@@ -8,6 +9,8 @@ public abstract class BusinessObject implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Date erstellZeitpunkt;
 	
 	private int id = 0;
 
@@ -17,6 +20,21 @@ public abstract class BusinessObject implements Serializable {
 
 	public void setID(int id) {
 		this.id = id;
+	}
+	
+	public String toString() {
+		return null;
+	}
+	public void equals() {
+		
+	}
+
+	public Date getErstellZeitpunkt() {
+		return erstellZeitpunkt;
+	}
+
+	public void setErstellZeitpunkt(Date erstellZeitpunkt) {
+		this.erstellZeitpunkt = erstellZeitpunkt;
 	}
 
 }
