@@ -51,7 +51,7 @@ public class AboSuche extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			String text = tBoxH.getText();
-			AboNav.anzeigen(text);
+			AboNavigation.anzeigen(text);
 		}
 
 	}
