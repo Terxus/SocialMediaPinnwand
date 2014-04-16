@@ -1,4 +1,4 @@
-package de.elite.itprojekt.shared;
+package de.elite.itprojekt.shared.bo;
 
 public class Nutzer {
 	

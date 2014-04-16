@@ -2,7 +2,7 @@ package de.elite.itprojekt.server;
 
 import com.google.gwt.user.client.ui.Composite;
 
-import de.elite.itprojekt.shared.Nutzer;
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class ConnectionClass extends Composite {
 	
