@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AboNavigation extends Composite {
 	
-	//Composite: GWT Klasse: Widgets Composed out of other Widgets
+	//Composite: GWT Klasse: Widgets Composed out of other Widgets -> Wird eventuell nich benötigt lt. Thies?! <- Überprüfen
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	
