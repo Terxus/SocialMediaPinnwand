@@ -2,7 +2,6 @@ package de.elite.itprojekt.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -17,6 +16,8 @@ public class AboNavigation extends Composite {
 	//Composite: GWT Klasse: Widgets Composed out of other Widgets -> Wird eventuell nich benötigt lt. Thies?! <- Überprüfen
 	
 	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel hPanel = new HorizontalPanel();
+	private HorizontalPanel hPanel1 = new HorizontalPanel();
 	
 	
 	//Muss deklariert werden, da auf die Textbox sonst nicht zugegriffen werden kann von ausserhalb der methode onModuleLoad()
@@ -30,15 +31,15 @@ public class AboNavigation extends Composite {
 	
 	private PushButton aboAddButton;
 	
+	//Diese Objekte müssen ausserhalb deklariert Werden, da sonst nicht auf die ClickHandler zugegriffen werden kann.
+	
 	
 	public AboNavigation() {
 		initWidget(this.vPanel);
 		
 		//////////////////ABOSUCHE
 		
-		
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setBorderWidth(2);
+		hPanel.setBorderWidth(1);
 	
 		//Die Abonnierten User anzeigen
 		
@@ -52,8 +53,7 @@ public class AboNavigation extends Composite {
 		
 		////////////////////ABO LÖSCHEN
 		
-		HorizontalPanel hPanel1 = new HorizontalPanel();
-		hPanel1.setBorderWidth(2);
+		hPanel1.setBorderWidth(1);
 		
 		//Die Abosuchmethode aufrufen, die noch nicht abonnierte Anzeigen soll
 		this.ZuAbonnierendeUser = new Label("Dagobert Duck");
@@ -63,6 +63,8 @@ public class AboNavigation extends Composite {
 		
 		this.aboLoeschen = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/loeschen.png"));
 		hPanel1.add(aboLoeschen);
+		
+		aboLoeschen.addClickHandler(new AboDeleteClickandler());
 		
 		vPanel.add(hPanel1);
 		
@@ -90,5 +92,13 @@ public class AboNavigation extends Composite {
 
 		}
 	}
+	
+	private class AboDeleteClickandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			hPanel1.setVisible(false);
+		}
+	}
+	
 	///ENDE TESTSETSETS
 }

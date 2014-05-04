@@ -24,7 +24,6 @@ public class AboSuche extends Composite {
 	
 	private Button AboSucheButton;
 	
-	private  AboNavigation AboNav = new AboNavigation();
 	
 
 	public AboSuche() {
@@ -50,6 +49,9 @@ public class AboSuche extends Composite {
 	private class ButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
+
+			
+			
 			String text = tBoxH.getText();
 			AboNavigation.anzeigen(text);
 		}
