@@ -96,6 +96,75 @@ div#AboNav {
 	overflow: scroll;
 }
 
+div#neuer_Beitrag {
+	text-align: left;
+	border:1px solid #ddd;
+	height: 25px;
+}
+
+div#Beitrag {
+	text-align: left;
+	border:1px solid #ddd;
+	height: auto;
+	max-height: 60px;
+	margin-top: 4px;
+}
+
+div#Kommentar {
+	margin-left: 30px;
+	border:1px solid #ddd;
+	max-height: 60px;
+	margin-top: 12px;
+}
+
+/**
+Design des Beitrags
+*/
+
+div#KommentierenBeitrag {
+	float: right;
+	border: 1px solid #ddd;
+}
+div#BearbeitenLoeschenBeitrag {
+	float: right;
+	border: 1px solid #ddd;
+}
+div#NutzernameBeitrag, #NutzernameKommentar {
+	font-weight:bold;
+}
+div#TextBeitrag {
+
+}
+div#Date {
+	
+}
+div#LikeButton {
+	float: right;
+	border: 1px solid #ddd;
+}
+div#LikeCounter {
+	float: right;
+	border: 1px solid #ddd;
+}
+div#Loeschen {
+	float: right;
+	background-image: url(socialmediapinnwand/gwt/clean/images/loeschen.png);
+	width: 18px;
+	height: 18px;
+}
+
+/**
+Design des Kommentars
+*/
+
+div#BearbeitenLoeschenKommentar {
+	float: right;
+	border: 1px solid #ddd;
+}
+div#TextBeitragKommentar {
+	
+}
+
 
 div#Header {
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
