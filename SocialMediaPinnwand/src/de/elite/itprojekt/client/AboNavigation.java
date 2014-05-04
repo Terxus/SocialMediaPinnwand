@@ -5,7 +5,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
@@ -24,9 +26,9 @@ public class AboNavigation extends Composite {
 	
 	private Label ZuAbonnierendeUser;
 	//Selbes Problem wie oberhalb mit dem Labelobject
-	private Button aboLoeschen;
+	private PushButton aboLoeschen;
 	
-	private Button testButton;
+	private PushButton aboAddButton;
 	
 	
 	public AboNavigation() {
@@ -58,7 +60,8 @@ public class AboNavigation extends Composite {
 		hPanel1.add(ZuAbonnierendeUser);
 		
 		
-		this.aboLoeschen = new Button("AboDel");
+		
+		this.aboLoeschen = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/loeschen.png"));
 		hPanel1.add(aboLoeschen);
 		
 		vPanel.add(hPanel1);
@@ -66,10 +69,10 @@ public class AboNavigation extends Composite {
 		/////////////////////ENDE ABO LÖSCHEN
 		
 		///TESTESTESTSETSET
-		this.testButton = new Button("AboAdd");
-		hPanel.add(testButton);
+		this.aboAddButton = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/hinzufuegen.png"));
+		hPanel.add(aboAddButton);
 		
-		testButton.addClickHandler(new ButtonClickHandler());
+		aboAddButton.addClickHandler(new ButtonClickHandler());
 		/// ENDE TESTEESTS
 
 	}

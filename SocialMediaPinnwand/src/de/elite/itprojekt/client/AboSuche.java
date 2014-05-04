@@ -40,7 +40,7 @@ public class AboSuche extends Composite {
 		//Die Textbox soll der Klasse AboNavigation den Eintrag setzen, geht aber nicht?!
 		
 		//Button der die suche einleitet erstellen
-		this.AboSucheButton = new Button("Setze");
+		this.AboSucheButton = new Button("Suche");
 		this.AboSucheButton.addClickHandler(new ButtonClickHandler());
 		//Clickhandler hinzufügen
 		hPanel.add(AboSucheButton);

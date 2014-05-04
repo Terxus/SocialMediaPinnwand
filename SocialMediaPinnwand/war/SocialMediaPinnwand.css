@@ -84,7 +84,6 @@ div#AboUser {
 
 div#AboSuche {
 	
-	
 }
 
 div#AboNav {
@@ -152,7 +151,6 @@ div#Loeschen {
 	width: 18px;
 	height: 18px;
 }
-
 /**
 Design des Kommentars
 */
@@ -171,7 +169,7 @@ div#Header {
 	/* border: 1px dashed silver; */
 }
 
-div#Trailer {
+div#Footer {
 	clear: both;
 	padding: 10px 0;
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
