@@ -94,6 +94,9 @@ div#AboNav {
 	overflow: scroll;
 	border:1px solid #ddd;
 }
+.enlargeButton {
+	min-width: 130px;
+}
 
 div#neuer_Beitrag {
 	text-align: left;
@@ -161,15 +164,29 @@ div#TextBeitrag {
 	font-weight: bold;
 	font-style: italic;
 	color: gray;
-}
+}*/
 div#Date {
 	
+}*/
+.Date {
+	
 }
+/*
 div#LikeButton {
 	float: right;
 	border: 1px solid #ddd;
+}*/
+.LikeButton {
+	float: right;
+	border: 1px solid #ddd;
+	margin-left: 274px;
 }
+/*
 div#LikeCounter {
+	float: right;
+	border: 1px solid #ddd;
+}*/
+.likeCounter {
 	float: right;
 	border: 1px solid #ddd;
 }

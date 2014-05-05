@@ -3,6 +3,7 @@ package de.elite.itprojekt.client;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -24,7 +25,10 @@ public class Beitraege extends Composite {
 	private PushButton bearbeiten;
 	private Button loeschen;
 	private Label textBeitrag;
-	private Button like;
+	private Label datumsAnzeige;
+	private HorizontalPanel likePanel = new HorizontalPanel();
+	private PushButton like;
+	private Label anzahlLikes;
 	
 	private ConnectionClass connection = new ConnectionClass();
 	//Ruft die Allgemeine ConnectionKlasse auf
@@ -64,15 +68,31 @@ public class Beitraege extends Composite {
 		
 		/*Label für Textbeitrag*/
 		
-		this.textBeitrag = new Label("Heute war ich gut!");
+		this.textBeitrag = new Label("Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! Heute war ich gut! ");
 		this.textBeitrag.setStyleName("TextBeitrag");
 		vPanel.add(textBeitrag);
+		
+		/*Datumsanzeige im Label*/
+		 this.datumsAnzeige = new Label("01.01.2014 um 14:15 Uhr");
+		 this.datumsAnzeige.setStylePrimaryName("Date");
+		 likePanel.add(datumsAnzeige);
 
 		
 		/*Button für Like*/
 		
-		this.like = new Button();
+		this.like = new PushButton("like");
 		this.like.setStylePrimaryName("LikeButton");
+		likePanel.add(like);
+		
+		/*Anzahl der Likes in einem Label*/
+		
+		this.anzahlLikes = new Label("15");
+		this.anzahlLikes.setStylePrimaryName("LikeCounter");
+		likePanel.add(anzahlLikes);
+		
+		vPanel.add(likePanel);
+
+		
 	}
 
 }

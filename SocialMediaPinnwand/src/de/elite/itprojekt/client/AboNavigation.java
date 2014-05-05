@@ -44,6 +44,7 @@ public class AboNavigation extends Composite {
 		//Die Abonnierten User anzeigen
 		
 		AboNavigation.AbonnierteUser = new Label("Gundel Gaukeley");
+		AboNavigation.AbonnierteUser.setStyleName("enlargeButton");
 		hPanel.add(AbonnierteUser);
 		
 		vPanel.add(hPanel);
@@ -57,6 +58,7 @@ public class AboNavigation extends Composite {
 		
 		//Die Abosuchmethode aufrufen, die noch nicht abonnierte Anzeigen soll
 		this.ZuAbonnierendeUser = new Label("Dagobert Duck");
+		this.ZuAbonnierendeUser.setStyleName("enlargeButton");
 		hPanel1.add(ZuAbonnierendeUser);
 		
 		
