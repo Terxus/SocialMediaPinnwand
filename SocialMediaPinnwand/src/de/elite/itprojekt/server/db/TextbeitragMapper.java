@@ -22,7 +22,7 @@ import de.elite.itprojekt.shared.bo.Textbeitrag;
 public class TextbeitragMapper {
 	
 	/**
-	 * Die Klasse TextbeitragMapperwird nur einmal instanziiert. Man spricht hierbei 
+	 * Die Klasse TextbeitragMapper wird nur einmal instanziiert. Man spricht hierbei 
 	 * von einem sogenannten <b>Singleton</b>.
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
@@ -49,7 +49,7 @@ public class TextbeitragMapper {
 	 * 
 	 * <b>Fazit:</b> TextbeitragMapper sollte nicht mittels <code>new</code>
 	 * instanziiert werden, sondern stets durch Aufruf dieser statischen Methode.
-	 *  @return DAS <code>TextbitragMapper</code>-Objekt.
+	 *  @return DAS <code>TextbeitragMapper</code>-Objekt.
 	 *  @see tMapper
 	 */
 	public static TextbeitragMapper tMapper() {
@@ -95,7 +95,7 @@ public class TextbeitragMapper {
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			stmt.executeUpdate("INSERT INTO textbeitrag (ID, Text, Datum, Uhrzeit, NutzerID" + "VALUES ("
-			+ t.getID() + "," + t.getText() + "," + t.getDatum() + "," + t.getUhrzeit() + "," + t.getNutzerID+"')");
+			+ t.getID() + "," + t.getText() + "," + t.getDatum() + "," + t.getUhrzeit() + "," + t.getNutzerID()+"')");
 				
 				}
 			}
@@ -106,7 +106,7 @@ public class TextbeitragMapper {
 			 * Rückgabe, des vtl. korrigierten Leistungsbringung.
 			 * 
 			 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-			 * Objekte üergeben werden, wäre die NApassung des Textbeitrag-Objekts auch 
+			 * Objekte üergeben werden, wäre die Anpassung des Textbeitrag-Objekts auch 
 			 * ohne diese esplizite Rückgabe außerhalb dieser Methode sichtbar. Die
 			 * explizite Rückgabe von t ist eher ein Stilmittel, um zu signalisieren, 
 			 * dass sich das Objekt evtl. im Laufer der Methode verändert hat.
@@ -120,7 +120,7 @@ public class TextbeitragMapper {
 	 * @return das als Parameter übergebene Objekt
 	 */
 	
-	public Textbeitrag editieren(Textbeitrag t){
+	public Textbeitrag bearbeiten(Textbeitrag t){
 		Connection c = DBConnection.connection();
 		
 		try {
@@ -143,7 +143,7 @@ public class TextbeitragMapper {
 	 * @param t auf der DB zu löschende "objekt"
 	 */
 
-	public void löschenT(Textbeitrag t){
+	public void löschen(Textbeitrag t){
 		Connection con =DBConnection.connection();
 		
 		try {
