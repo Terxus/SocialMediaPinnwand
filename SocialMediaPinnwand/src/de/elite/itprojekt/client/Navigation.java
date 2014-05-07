@@ -80,13 +80,13 @@ private Label dummyName2 = new Label("Dagobert Duck");
 	private class pinnwandAbonnierenClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			dummyName2.setText("Wurde Deabonniert");
+			dummyName2.setText("Wurde Abonniert");
 		}
 	}
 	private class pinnwandDeabonnierenClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			dummyName.setText("Wurde Abonniert");
+			dummyName.setText("Wurde Deabonniert");
 		}
 	}
 	
