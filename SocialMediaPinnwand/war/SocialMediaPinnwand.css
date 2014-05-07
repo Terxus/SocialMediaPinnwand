@@ -62,8 +62,8 @@ div#TopLevelFrame {
 
 div#Details {
 	margin-left: 20em;
-	min-height: 400px;
-	max-height: 500px;
+	min-height: 500px; /*Früher 400px*/
+	max-height: 600px; /*Früher 500px*/
 	padding: 1em 1em;
 	border-top: 1px dashed silver;
 	border-left: 1px dashed silver;
@@ -72,28 +72,36 @@ div#Details {
 
 div#Navigator {
 	float: left;
-	width: 18em;
+	width: 19em;
 	min-height: 30px;
 	padding: 1em 1em;
 	border-top: 1px dashed silver;
-}
-
-div#AboUser {
-	
-}
-
-div#AboSuche {
-	
-	
-}
-
-div#AboNav {
-	margin-top: 50px;
-	float: left;
-	width: 18em;
-	min-height: 300px;
-	border:1px solid #ddd;
 	overflow: scroll;
+	max-height: 400px;
+}
+div#neuer_Beitrag {
+	text-align: left;
+	/*border:1px solid #ddd;*/
+	margin-top:4px;
+}
+
+div#Beitrag {
+	text-align: left;
+	border:1px solid #ddd;
+	height: auto;
+	margin-top: 4px;
+}
+
+div#Kommentar {
+	margin-left: 30px;
+	border:1px solid #ddd;
+	margin-top: 12px;
+}
+.Loeschen {
+		float: right;
+		background: url(socialmediapinnwand/gwt/clean/images/loeschen.png);
+		width: 18px;
+		height: 18px;
 }
 
 
@@ -102,7 +110,7 @@ div#Header {
 	/* border: 1px dashed silver; */
 }
 
-div#Trailer {
+div#Footer {
 	clear: both;
 	padding: 10px 0;
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
@@ -137,3 +145,19 @@ div#Trailer {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+/*Tabellendesign*/
+.abonnierteUserAnzeigenTabelle {
+	border: 1px solid #ddd;
+}
+.sucheResultatTabelle {
+	border: 1px solid #ddd;
+}
+.suchTabelle {
+	border: 1px solid #ddd;
+}
+
+
+
+
+
