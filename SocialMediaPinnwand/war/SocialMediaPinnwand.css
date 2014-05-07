@@ -62,8 +62,8 @@ div#TopLevelFrame {
 
 div#Details {
 	margin-left: 20em;
-	min-height: 400px;
-	max-height: 500px;
+	min-height: 500px; /*Früher 400px*/
+	max-height: 600px; /*Früher 500px*/
 	padding: 1em 1em;
 	border-top: 1px dashed silver;
 	border-left: 1px dashed silver;
@@ -72,36 +72,17 @@ div#Details {
 
 div#Navigator {
 	float: left;
-	width: 18em;
+	width: 19em;
 	min-height: 30px;
 	padding: 1em 1em;
 	border-top: 1px dashed silver;
-}
-
-div#AboUser {
-	
-}
-
-div#AboSuche {
-	
-}
-
-div#AboNav {
-	margin-top: 50px;
-	float: left;
-	width: 18em;
-	min-height: 300px;
 	overflow: scroll;
-	border:1px solid #ddd;
+	max-height: 400px;
 }
-.enlargeButton {
-	min-width: 130px;
-}
-
 div#neuer_Beitrag {
 	text-align: left;
 	/*border:1px solid #ddd;*/
-	height: 25px;
+	margin-top:4px;
 }
 
 div#Beitrag {
@@ -116,107 +97,11 @@ div#Kommentar {
 	border:1px solid #ddd;
 	margin-top: 12px;
 }
-
-/**
-Design des Beitrags
-*/
-/*
-div#KommentierenBeitrag {
-	float: right;
-	border: 1px solid #ddd;
-}
-*/
-
-.KommentierenBeitrag {
-	float: right;
-	border: 1px solid #ddd;
-	font-size: 12px;
-	margin-left: 165px;
-}
-
-
-/*
-div#BearbeitenLoeschenBeitrag {
-	float: right;
-	border: 1px solid #ddd;
-}*/
-
-.BearbeitenLoeschenBeitrag {
-	float: right;
-	border: 1px solid #ddd;
-	font-size: 12px;
-}
-
-
-
-div#NutzernameBeitrag, #NutzernameKommentar {
-	font-weight:bold;
-}
-/*
-div#TextBeitrag {
-
-}*/
-
-.TextBeitrag {
-	font-size: 80%;
-	font-weight: bold;
-	font-style: italic;
-	color: gray;
-}*/
-div#Date {
-	
-}*/
-.Date {
-	
-}
-/*
-div#LikeButton {
-	float: right;
-	border: 1px solid #ddd;
-}*/
-.LikeButton {
-	float: right;
-	border: 1px solid #ddd;
-	margin-left: 274px;
-}
-/*
-div#LikeCounter {
-	float: right;
-	border: 1px solid #ddd;
-}*/
-.likeCounter {
-	float: right;
-	border: 1px solid #ddd;
-}
-
-/*
-div#Loeschen {
-	float: right;
-	background-image: url(socialmediapinnwand/gwt/clean/images/loeschen.png);
-	width: 18px;
-	height: 18px;
-}
-*/
 .Loeschen {
 		float: right;
 		background: url(socialmediapinnwand/gwt/clean/images/loeschen.png);
 		width: 18px;
 		height: 18px;
-}
-/**
-Design des Kommentars
-*/
-
-div#BearbeitenLoeschenKommentar {
-	float: right;
-	border: 1px solid #ddd;
-}
-
-
-
-
-div#TextBeitragKommentar {
-	
 }
 
 
@@ -260,3 +145,19 @@ div#Footer {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+/*Tabellendesign*/
+.abonnierteUserAnzeigenTabelle {
+	border: 1px solid #ddd;
+}
+.sucheResultatTabelle {
+	border: 1px solid #ddd;
+}
+.suchTabelle {
+	border: 1px solid #ddd;
+}
+
+
+
+
+

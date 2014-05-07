@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
@@ -24,8 +25,16 @@ public class Beitrag extends Composite {
 	
 	
 	
+	//Für neuen Beitraghinzufügen
 	
+	private TextArea tArea = new TextArea();
 	
+	public Beitrag(int id) {
+		initWidget(this.tArea);
+		tArea.setVisibleLines(2);
+		tArea.setPixelSize(475, 15);
+	}
+
 
 
 	public Beitrag() {

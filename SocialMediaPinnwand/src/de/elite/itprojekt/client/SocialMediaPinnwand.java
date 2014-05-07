@@ -19,21 +19,21 @@ public class SocialMediaPinnwand implements EntryPoint {
 		RootPanel.get("Login").add(login);
 		*/
 
-		
-		
-		//AboUser AboUser = new AboUser();
-		//AboSuche AboSuche = new AboSuche();
-		//AboNavigation AboNavi = new AboNavigation();
-		//Beitraege Beitraege = new Beitraege();
-		Beitrag Beitrag = new Beitrag();
-		Kommentar Kommentar = new Kommentar();
+			Navigation navi = new Navigation();
+			Beitrag newBeitrag = new Beitrag(2);
+			Beitrag Beitrag = new Beitrag();
+			Kommentar Kommentar = new Kommentar();
 		// Die Klasse SeiteEins stellt die Komplette seite dar. Ein Objekt dieser Klasse wird erzeugt in der Variablen "seite".
-		//RootPanel.get("AboUser").add(AboUser);
-		//RootPanel.get("AboSuche").add(AboSuche);
-		//RootPanel.get("AboNav").add(AboNavi);
-		//RootPanel.get("NutzernameBeitrag").add(Beitraege);
-		RootPanel.get("Beitrag").add(Beitrag);
-		RootPanel.get("Kommentar").add(Kommentar);
+			
+			
+			
+			
+			
+			
+			RootPanel.get("neuer_Beitrag").add(newBeitrag);
+			RootPanel.get("Beitrag").add(Beitrag);
+			RootPanel.get("Kommentar").add(Kommentar);
+			RootPanel.get("Navigator").add(navi);
 		//Hier wird die Seite, ein Objekt der Klasse SeiteEins, in der Rootpage ausgegeben
 	
 		
