@@ -100,7 +100,7 @@ div#AboNav {
 
 div#neuer_Beitrag {
 	text-align: left;
-	border:1px solid #ddd;
+	/*border:1px solid #ddd;*/
 	height: 25px;
 }
 
@@ -108,14 +108,12 @@ div#Beitrag {
 	text-align: left;
 	border:1px solid #ddd;
 	height: auto;
-	max-height: 60px;
 	margin-top: 4px;
 }
 
 div#Kommentar {
 	margin-left: 30px;
 	border:1px solid #ddd;
-	max-height: 60px;
 	margin-top: 12px;
 }
 

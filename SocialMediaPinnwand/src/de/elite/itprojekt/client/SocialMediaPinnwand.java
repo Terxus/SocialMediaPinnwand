@@ -8,18 +8,35 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class SocialMediaPinnwand implements EntryPoint {
 	/**
 	 * This is the entry point method.
+	 * 
+	 * 
 	 */
+	
 	public void onModuleLoad() {
-		AboUser AboUser = new AboUser();
-		AboSuche AboSuche = new AboSuche();
-		AboNavigation AboNavi = new AboNavigation();
-		Beitraege Beitraege = new Beitraege();
+		
+		/*Login login = new Login();
+		
+		RootPanel.get("Login").add(login);
+		*/
+
+		
+		
+		//AboUser AboUser = new AboUser();
+		//AboSuche AboSuche = new AboSuche();
+		//AboNavigation AboNavi = new AboNavigation();
+		//Beitraege Beitraege = new Beitraege();
+		Beitrag Beitrag = new Beitrag();
+		Kommentar Kommentar = new Kommentar();
 		// Die Klasse SeiteEins stellt die Komplette seite dar. Ein Objekt dieser Klasse wird erzeugt in der Variablen "seite".
-		RootPanel.get("AboUser").add(AboUser);
-		RootPanel.get("AboSuche").add(AboSuche);
-		RootPanel.get("AboNav").add(AboNavi);
-		RootPanel.get("NutzernameBeitrag").add(Beitraege);
+		//RootPanel.get("AboUser").add(AboUser);
+		//RootPanel.get("AboSuche").add(AboSuche);
+		//RootPanel.get("AboNav").add(AboNavi);
+		//RootPanel.get("NutzernameBeitrag").add(Beitraege);
+		RootPanel.get("Beitrag").add(Beitrag);
+		RootPanel.get("Kommentar").add(Kommentar);
 		//Hier wird die Seite, ein Objekt der Klasse SeiteEins, in der Rootpage ausgegeben
+	
+		
 	}
 }
 
