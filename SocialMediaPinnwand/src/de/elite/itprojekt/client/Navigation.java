@@ -60,6 +60,10 @@ private Label dummyName2 = new Label("Dagobert Duck");
 		this.pinnwandSucheButton.addClickHandler(new pinnwandSucheClickHandler());
 		this.pinnwandAbonnierenButton.addClickHandler(new pinnwandAbonnierenClickHandler());
 		this.pinnwandDeabonnierenButton.addClickHandler(new pinnwandDeabonnierenClickHandler());
+		
+		
+		//Styles
+		this.name.setStylePrimaryName("NutzerName");
 
 		
 

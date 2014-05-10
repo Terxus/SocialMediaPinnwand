@@ -103,8 +103,14 @@ div#Kommentar {
 		width: 18px;
 		height: 18px;
 }
-
-
+.NutzerName {
+	font-size: 22px;
+	font-weight: bold;
+}
+.Date {
+	font-size: 10px;
+	font-weight: bold;
+}
 div#Header {
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
 	/* border: 1px dashed silver; */
