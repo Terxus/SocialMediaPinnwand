@@ -27,12 +27,20 @@ public class Beitrag extends Composite {
 	
 	//Für neuen Beitraghinzufügen
 	
+	private VerticalPanel vPanelAddBeitrag = new VerticalPanel();
 	private TextArea tArea = new TextArea();
+	private Button addBeitrag;
 	
 	public Beitrag(int id) {
-		initWidget(this.tArea);
+		initWidget(this.vPanelAddBeitrag);
+		
+		//Textarea und Button definieren
 		tArea.setVisibleLines(2);
-		tArea.setPixelSize(475, 15);
+		tArea.setPixelSize(473, 15);
+		this.addBeitrag = new Button("Hinzufuegen");
+		
+		this.vPanelAddBeitrag.add(tArea);
+		this.vPanelAddBeitrag.add(addBeitrag);
 	}
 
 
@@ -48,11 +56,13 @@ public class Beitrag extends Composite {
 		this.loeschen = new Button();
 		this.textBeitrag = new Label("Methode die dann die Textbeitraege holen soll! Methode die dann die Textbeitraege holen soll! Methode die dann die Textbeitraege holen soll!");
 		this.datumsAnzeige = new Label("24.06.2014 um 12:00 Uhr");
-		this.like = new PushButton("like");
+		this.like = new PushButton("Like");
 		this.anzahlLikes = new Label("2");
 		
 		//CSS Bezeichner
 		this.loeschen.setStylePrimaryName("Loeschen");
+		this.eingeloggterUser.setStylePrimaryName("NutzerName");
+		this.datumsAnzeige.setStylePrimaryName("Date");
 		
 		
 		beitragsGrid.setWidget(0, 0, eingeloggterUser);

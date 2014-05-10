@@ -23,7 +23,7 @@ public abstract class BusinessObject implements Serializable {
 	}
 	
 	public String toString() {
-		return null;
+		return "Pinnwandnutzer";
 	}
 	public void equals() {
 		

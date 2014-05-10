@@ -39,6 +39,8 @@ public class Kommentar extends Composite {
 		
 		//CSS Bezeichner
 		this.loeschen.setStylePrimaryName("Loeschen");
+		this.eingeloggterUser.setStylePrimaryName("NutzerName");
+		this.datumsAnzeige.setStylePrimaryName("Date");
 		
 		
 		kommentarFlexTable.setWidget(0, 0, eingeloggterUser);
