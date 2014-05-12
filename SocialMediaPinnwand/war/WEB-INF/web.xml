@@ -7,6 +7,17 @@
 
   <!-- Servlets -->
   
+  <servlet>
+  	<servlet-name>pinnwandVerwaltung</servlet-name>
+  	<servlet-class>de.elite.itprojekt.server.PinnwandVerwaltungImpl</servlet-class>
+  </servlet>
+  
+ <servlet-mapping>
+ <servlet-name>pinnwandVerwaltung</servlet-name>
+ <url-pattern>/socialmediapinnwand/pinnwandVerwaltung</url-pattern>
+ </servlet-mapping>
+  
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>SocialMediaPinnwand.html</welcome-file>

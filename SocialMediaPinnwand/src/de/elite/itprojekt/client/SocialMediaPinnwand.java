@@ -48,13 +48,7 @@ public class SocialMediaPinnwand implements EntryPoint {
 		    headerMenu.addItem("Home", home);
 		    headerMenu.addItem("ReportGenerator", report);
 		    headerMenu.addItem("Logout", logout);
-		    
 
-		
-	
-		   
-		
-		
 		
 		
 		

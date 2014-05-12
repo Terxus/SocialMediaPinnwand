@@ -65,7 +65,7 @@ div#Details {
 	min-height: 500px; /*Früher 400px*/
 	max-height: 600px; /*Früher 500px*/
 	padding: 1em 1em;
-	border-top: 1px dashed silver;
+	/*border-top: 1px dashed silver;*/
 	border-left: 1px dashed silver;
 	overflow:scroll;
 }
@@ -75,7 +75,7 @@ div#Navigator {
 	width: 19em;
 	min-height: 30px;
 	padding: 1em 1em;
-	border-top: 1px dashed silver;
+	/*border-top: 1px dashed silver;*/
 	overflow: scroll;
 	max-height: 400px;
 }

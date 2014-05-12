@@ -18,10 +18,12 @@ public class Navigation extends Composite {
 	
 private VerticalPanel vPanel = new VerticalPanel();
 private Label name = new Label("Gustav Gans");
+private TextBox aendereNameTextBox = new TextBox();
 private TextBox pinnwandSucheTextBox = new TextBox();
 private PushButton pinnwandSucheButton = new PushButton("Suchen");
 private PushButton pinnwandAbonnierenButton = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/hinzufuegen.png"));
 private PushButton pinnwandDeabonnierenButton = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/loeschen.png"));
+private FlexTable nutzerTabelle = new FlexTable();
 private FlexTable suchTabelle = new FlexTable();
 private FlexTable abonnierteUserAnzeigen = new FlexTable();
 private FlexTable sucheResultatTabelle = new FlexTable();
@@ -40,7 +42,8 @@ private Label dummyName2 = new Label("Dagobert Duck");
 		sucheResultatTabelle.getFlexCellFormatter().setWidth(0, 0, "120");
 		
 		
-		suchTabelle.setWidget(0, 0, name);
+		nutzerTabelle.setWidget(0, 0, name);
+		
 		suchTabelle.setWidget(1, 0, pinnwandSucheTextBox);
 		suchTabelle.setWidget(1, 1, pinnwandSucheButton);
 		suchTabelle.setStylePrimaryName("suchTabelle");
@@ -57,6 +60,8 @@ private Label dummyName2 = new Label("Dagobert Duck");
 		
 		//Clickhandler den Buttons adden
 
+		this.name.addClickHandler(new changeLabelToTextboxClickHandler());
+
 		this.pinnwandSucheButton.addClickHandler(new pinnwandSucheClickHandler());
 		this.pinnwandAbonnierenButton.addClickHandler(new pinnwandAbonnierenClickHandler());
 		this.pinnwandDeabonnierenButton.addClickHandler(new pinnwandDeabonnierenClickHandler());
@@ -69,11 +74,49 @@ private Label dummyName2 = new Label("Dagobert Duck");
 
 		
 		//Tabellen dem Vertikalen Panel hinzufügen
+		vPanel.add(nutzerTabelle);
 		vPanel.add(suchTabelle);
 		vPanel.add(abonnierteUserAnzeigen);
 		vPanel.add(sucheResultatTabelle);
 	}
+	
+	
+	//Methoden die das Label in TextBox umwandelt und den alten Namen in die TextBox reinschreiben
+	
+	public void changeLabel() {
+		aendereNameTextBox.setText(this.name.getText().toString()); //Hier wird der alte Name in die Textbox geschrieben
+		PushButton editNameButton = new PushButton("Speichern"); //Hier wird der Button zum Editieren erstellt
+		editNameButton.addClickHandler(new changeNameClickHandler()); //Hier wird dem Button einen Clickhandler zugeteilt
+		
+		
+		nutzerTabelle.setWidget(0, 1, editNameButton); //Der Button wird in die Tabelle auf Position 0, 1 eingefügt
+		nutzerTabelle.setWidget(0, 0, aendereNameTextBox); //Das Label an der Position 0, 0 wird mit der Textbox überschrieben
+	}
+	
+	public void changeName() { 
+		String geanderterName = aendereNameTextBox.getText(); //Der Neue Name wird in einem String gespeichert
+		this.name.setText(geanderterName); //Der neue Name wird in dem Label "name" gespeichert.
+		nutzerTabelle.setWidget(0, 0, name); //Die Textbox wird wieder mit dem Label überschrieben.
+		nutzerTabelle.clearCell(0, 1); //Der Button wird wieder versteckt.
+	}
+	
+	
+	
 	//Die ClickHandler
+	
+	private class changeLabelToTextboxClickHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			changeLabel();
+		}
+	}
+	
+	private class changeNameClickHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			changeName();
+		}
+	}
 	
 	private class pinnwandSucheClickHandler implements ClickHandler {
 		@Override

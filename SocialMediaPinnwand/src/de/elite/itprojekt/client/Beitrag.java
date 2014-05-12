@@ -22,7 +22,7 @@ public class Beitrag extends Composite {
 	private PushButton like;
 	private Label anzahlLikes;
 	FlexTable beitragsGrid = new FlexTable();
-	
+
 	
 	
 	//Für neuen Beitraghinzufügen
@@ -41,9 +41,8 @@ public class Beitrag extends Composite {
 		
 		this.vPanelAddBeitrag.add(tArea);
 		this.vPanelAddBeitrag.add(addBeitrag);
+
 	}
-
-
 
 	public Beitrag() {
 		initWidget(this.vPanel);
