@@ -35,7 +35,7 @@ public class SocialMediaPinnwand implements EntryPoint {
 			//Edit account listener
 			Command editNutzer = new Command() {
 			     public void execute() {
-			       Window.alert("Logout");
+			       Window.alert("Edit User");
 			     }
 			};
 			//Report Listener

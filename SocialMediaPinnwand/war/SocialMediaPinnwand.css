@@ -87,14 +87,14 @@ div#neuer_Beitrag {
 
 div#Beitrag {
 	text-align: left;
-	border:1px solid #ddd;
+	/*border:1px solid #ddd;*/
 	height: auto;
 	margin-top: 4px;
 }
 
 div#Kommentar {
 	margin-left: 30px;
-	border:1px solid #ddd;
+	/*border:1px solid #ddd;*/
 	margin-top: 12px;
 }
 .Loeschen {
