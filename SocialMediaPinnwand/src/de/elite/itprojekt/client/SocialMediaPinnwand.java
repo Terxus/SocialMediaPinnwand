@@ -32,6 +32,12 @@ public class SocialMediaPinnwand implements EntryPoint {
 			       Window.alert("HomeButton");
 			     }
 			};
+			//Edit account listener
+			Command editNutzer = new Command() {
+			     public void execute() {
+			       Window.alert("Logout");
+			     }
+			};
 			//Report Listener
 			Command report = new Command() {
 			     public void execute() {
@@ -46,6 +52,7 @@ public class SocialMediaPinnwand implements EntryPoint {
 			};
 		   
 		    headerMenu.addItem("Home", home);
+		    headerMenu.addItem("Account Editieren", editNutzer);
 		    headerMenu.addItem("ReportGenerator", report);
 		    headerMenu.addItem("Logout", logout);
 
