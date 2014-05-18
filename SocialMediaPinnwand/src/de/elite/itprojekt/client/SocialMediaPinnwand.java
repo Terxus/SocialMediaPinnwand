@@ -1,83 +1,42 @@
 package de.elite.itprojekt.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.RootPanel;
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
+
+import de.elite.itprojekt.client.gui.NutzerLogin;
+import de.elite.itprojekt.shared.PinnwandVerwaltung;
+import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
+import de.elite.itprojekt.shared.bo.Nutzer;
+
 public class SocialMediaPinnwand implements EntryPoint {
-	/**
-	 * This is the entry point method.
-	 * 
-	 * 
-	 */
 	
-	public void onModuleLoad() {
-		
-		
-		
-		
-		
-		//Baut den Header auf -> Muss wegen Login zukünftig getrennt werden
-
-		 
-		    MenuBar headerMenu = new MenuBar();
-		    
-			//ClickListener
-			Command home = new Command() {
-			     public void execute() {
-			       Window.alert("HomeButton");
-			     }
-			};
-			//Edit account listener
-			Command editNutzer = new Command() {
-			     public void execute() {
-			       Window.alert("Edit User");
-			     }
-			};
-			//Report Listener
-			Command report = new Command() {
-			     public void execute() {
-			       Window.alert("ReportGenerator");
-			     }
-			};
-			//Logout Listener
-			Command logout = new Command() {
-			     public void execute() {
-			       Window.alert("Logout");
-			     }
-			};
-		   
-		    headerMenu.addItem("Home", home);
-		    headerMenu.addItem("Account Editieren", editNutzer);
-		    headerMenu.addItem("ReportGenerator", report);
-		    headerMenu.addItem("Logout", logout);
-
-		
-		
-		
-		
-		/*Login login = new Login();
-		
-		RootPanel.get("Login").add(login);*/
-		
-		
-
-			Navigation navi = new Navigation();
-			Beitrag newBeitrag = new Beitrag(2);
-			Beitrag Beitrag = new Beitrag();
-			Kommentar Kommentar = new Kommentar();
-		// Die Klasse SeiteEins stellt die Komplette seite dar. Ein Objekt dieser Klasse wird erzeugt in der Variablen "seite".
-			
-			RootPanel.get("neuer_Beitrag").add(newBeitrag);
-			RootPanel.get("Beitrag").add(Beitrag);
-			RootPanel.get("Kommentar").add(Kommentar);
-			RootPanel.get("Navigator").add(navi);
-			RootPanel.get("Header").add(headerMenu);
-		//Hier wird die Seite, ein Objekt der Klasse SeiteEins, in der Rootpage ausgegeben
-	}
+	RootPanel rootPanel;
+	public final Nutzer n = new Nutzer();
+	
+	/*
+	 *
+	 * Remote proxy call
+	 */
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	
+	
+  public void onModuleLoad() {
+	  
+	  String cookie = Cookies.getCookie("gp5cookie");
+	  
+	  if(cookie == null) { // Wenn noch kein Cookie existiert loginseite Laden
+	  
+		  NutzerLogin startSeite = new NutzerLogin();
+		  startSeite.loadLoginView();
+		  System.out.println("Cookie ist nicht da");
+	  }
+	  else { // Wenn schon ein Cookie mit dem Namen gp5cookie existiert dann soll direkt die Pinnwand geladen werden.
+		  
+		  NutzerLogin startSeite = new NutzerLogin();
+		  startSeite.loadPinnwand();
+		  System.out.println("Cookie ist da");
+	  }
+  }
 }
-

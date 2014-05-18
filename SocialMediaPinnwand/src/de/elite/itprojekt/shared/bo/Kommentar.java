@@ -6,19 +6,13 @@ public class Kommentar extends BusinessObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int nutzerId;
 	
-	
-	
-	Kommentar() {
-		
+	public int getNutzerId() {
+		return nutzerId;
 	}
-	// Konstruktor
-	
-	public String getText() {
-		return null;
-	}
-	public void setText() {
-		
+	public void setNutzerId(int nutzerId) {
+		this.nutzerId = nutzerId;
 	}
 
 }

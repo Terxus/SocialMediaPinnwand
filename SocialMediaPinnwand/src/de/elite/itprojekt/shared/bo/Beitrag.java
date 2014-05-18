@@ -6,20 +6,15 @@ public class Beitrag extends BusinessObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int nutzerId;
 	
-	
-	
-	
-	Beitrag() {
-		
+	public int getNutzerId() {
+		return nutzerId;
 	}
-	// Konstruktor
+	public void setNutzerId(int nutzerId) {
+		this.nutzerId = nutzerId;
+	}
+
 	
-	public String getText() {
-		return null;
-	}
-	public void setText() {
-		
-	}
 
 }

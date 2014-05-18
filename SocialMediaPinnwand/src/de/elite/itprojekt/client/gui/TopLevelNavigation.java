@@ -1,7 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -22,25 +22,61 @@ public class TopLevelNavigation {
 		//ClickListener
 		Command home = new Command() {
 		     public void execute() {
-		       Window.alert("HomeButton");
+		    	 
+			      RootPanel.get("Navigator").clear();
+			      RootPanel.get("neuer_Beitrag").clear();
+			      RootPanel.get("Kommentar").clear();
+			      RootPanel.get("Beitrag").clear();
+			      /*RootPanel.get("Header").clear();*/
+			      
+		    	 NutzerLogin login = new NutzerLogin();
+		    	 login.refreshPinnwand();
 		     }
 		};
 		//Edit account listener
 		Command editNutzer = new Command() {
 		     public void execute() {
-		       Window.alert("Edit User");
+			      RootPanel.get("Navigator").clear();
+			      RootPanel.get("neuer_Beitrag").clear();
+			      RootPanel.get("Kommentar").clear();
+			      RootPanel.get("Beitrag").clear();
+			      /*RootPanel.get("Header").clear();*/
+		      
+		      System.out.println("bla");
+		      
+		      //NutzerEditieren editNutzer = new NutzerEditieren();
+		      //editNutzer.nutzerEditieren();
 		     }
 		};
 		//Report Listener
 		Command report = new Command() {
 		     public void execute() {
-		       Window.alert("ReportGenerator");
+		    	 
+		    	 //Erstmal alles aufräumen :P
+			      RootPanel.get("Navigator").clear();
+			      RootPanel.get("neuer_Beitrag").clear();
+			      RootPanel.get("Kommentar").clear();
+			      RootPanel.get("Beitrag").clear();
+			      /*RootPanel.get("Header").clear();*/
+			      
+			      
+			      Report rep = new Report();
+			      rep.reportNavigation();
 		     }
 		};
 		//Logout Listener
 		Command logout = new Command() {
 		     public void execute() {
-		       Window.alert("Logout");
+		    	 Cookies.removeCookie("gp5cookie");
+		    	 
+			      RootPanel.get("Navigator").clear();
+			      RootPanel.get("Beitrag").clear();
+			      RootPanel.get("neuer_Beitrag").clear();
+			      RootPanel.get("Kommentar").clear();
+			      RootPanel.get("Header").clear();
+			      
+			      NutzerLogin nl = new NutzerLogin();
+			      nl.loadLoginView();
 		     }
 		};
 	   

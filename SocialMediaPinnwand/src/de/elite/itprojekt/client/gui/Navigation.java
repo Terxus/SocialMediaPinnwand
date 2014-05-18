@@ -10,14 +10,21 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.shared.bo.Nutzer;
+
 
 
 
 public class Navigation {
 	
+	private Nutzer nutzer = new Nutzer();
+	
+	public void setNutzer(Nutzer nutzer) {
+		this.nutzer = nutzer;
+	}
 	
 private VerticalPanel vPanel = new VerticalPanel();
-private Label name = new Label("Gustav Gans");
+private Label name = new Label(nutzer.toString());
 private TextBox aendereNameTextBox = new TextBox();
 private TextBox pinnwandSucheTextBox = new TextBox();
 private PushButton pinnwandSucheButton = new PushButton("Suchen");
@@ -28,10 +35,14 @@ private FlexTable suchTabelle = new FlexTable();
 private FlexTable abonnierteUserAnzeigen = new FlexTable();
 private FlexTable sucheResultatTabelle = new FlexTable();
 
+
+
 //Dummy Namen zum Test
 
 private Label dummyName = new Label("Gundel Gaukeley");
 private Label dummyName2 = new Label("Dagobert Duck");
+
+
 
 	
 

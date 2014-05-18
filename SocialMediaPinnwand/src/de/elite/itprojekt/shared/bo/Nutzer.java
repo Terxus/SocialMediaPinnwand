@@ -6,12 +6,16 @@ public class Nutzer extends BusinessObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String vorName = "Gustav";
-	private String nachName = "Gans";
-	private String nickName = "GGans";
+	private String vorName, nachName, nickName, passWort;
 	
 	
 	
+	public String getPassWort() {
+		return passWort;
+	}
+	public void setPassWort(String passWort) {
+		this.passWort = passWort;
+	}
 	public String getVorname() {
 		return vorName;
 	}
@@ -33,13 +37,4 @@ public class Nutzer extends BusinessObject {
 	public String toString() {
 		    return super.toString() + " " + this.nickName + " " + this.vorName + " " + this.nachName;
 	}
-	public void setAbonnement() {
-		
-	}
-	public void getAbonnement() {
-		
-	}
-	
-	
-	
 }
