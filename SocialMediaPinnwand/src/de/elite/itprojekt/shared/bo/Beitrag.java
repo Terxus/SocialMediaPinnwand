@@ -1,6 +1,6 @@
 package de.elite.itprojekt.shared.bo;
 
-public class Beitrag extends BusinessObject {
+public class Beitrag extends Textbeitrag {
 
 	/**
 	 * 

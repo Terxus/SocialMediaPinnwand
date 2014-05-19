@@ -1,6 +1,6 @@
 package de.elite.itprojekt.shared.bo;
 
-public class Kommentar extends BusinessObject {
+public class Kommentar extends Textbeitrag {
 
 	/**
 	 * 

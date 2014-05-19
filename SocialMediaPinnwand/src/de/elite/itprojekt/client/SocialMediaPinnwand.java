@@ -3,7 +3,6 @@ package de.elite.itprojekt.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.ui.RootPanel;
 
 import de.elite.itprojekt.client.gui.NutzerLogin;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
@@ -12,7 +11,6 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class SocialMediaPinnwand implements EntryPoint {
 	
-	RootPanel rootPanel;
 	public final Nutzer n = new Nutzer();
 	
 	/*
