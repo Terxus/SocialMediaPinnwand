@@ -1,13 +1,21 @@
-package de.elite.itprojekt.shared.bo;
-import java.io.Serializable;
+package de.elite.itprojekt.server;
+
 import java.sql.Date;
 
-public class Pinnwand implements Serializable{
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import de.elite.itprojekt.client.Pinnwand;
+
+public class PinnwandImpl extends RemoteServiceServlet implements Pinnwand{
 
 	private int ID;
 	private Date Erstellzeitpunkt;
 	private int NutzerID;
 	private int AbonnementID;
+	
+	public PinnwandImpl() {
+		super();
+	}
 	
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +26,7 @@ public class Pinnwand implements Serializable{
 	public Date getErstellzeitpunkt() {
 		return this.Erstellzeitpunkt;
 	}
-	
+
 	
 	public int getNutzerID() {
 		return this.NutzerID;
@@ -36,7 +44,6 @@ public class Pinnwand implements Serializable{
 		this.Erstellzeitpunkt = Erstellzeitpunkt;
 	}
 	
-
 	
 	public void setNutzerID(int NutzerID) {
 		this.NutzerID = NutzerID;

@@ -1,9 +1,13 @@
-package de.elite.itprojekt.shared.bo;
-import java.io.Serializable;
+package de.elite.itprojekt.server;
+
 import java.sql.Date;
 
-public class Nutzer implements Serializable{
-	
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import de.elite.itprojekt.client.Nutzer;
+
+public class NutzerImpl extends RemoteServiceServlet implements Nutzer{
+
 	private int ID;
 	private String Vorname;
 	private String Nachname;
@@ -11,8 +15,12 @@ public class Nutzer implements Serializable{
 	private String EMail;
 	private String Passwort;
 	private Date Erstellzeitpunkt;
+
+	public NutzerImpl() {
+		super();
+		}
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	
 	public int getID() {
@@ -42,7 +50,7 @@ public class Nutzer implements Serializable{
 	public Date getErstellzeitpunkt() {
 		return this.Erstellzeitpunkt;
 	}
-		
+	
 
 	public void setID(int ID) {
 		this.ID = ID;
@@ -72,4 +80,5 @@ public class Nutzer implements Serializable{
 		this.Erstellzeitpunkt = Erstellzeitpunkt;
 	}
 	
+
 }

@@ -6,6 +6,7 @@ import com.google.cloud.sql.jdbc.Connection;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
+import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Textbeitrag;
 
 /**
@@ -93,8 +94,8 @@ public class LikeMapper {
 				stmt = con.createStatement();
 				
 				//Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO textbeitrag (ID, Text, Datum, Uhrzeit, NutzerID" + "VALUES ("
-				+ l.getID() + "," + l.getDatum() + "," + l.getUhrzeit() + "," + l.getNutzerID()+ "," + l.getBeitragsID() +
+				stmt.executeUpdate("INSERT INTO textbeitrag (ID, Text, Erstellzeitpunkt, NutzerID" + "VALUES ("
+				+ l.getID() + "," + l.getErstellzeitpunkt() + "," + l.getNutzerID()+ "," + l.getBeitragID() +
 				"')");
 					
 					}

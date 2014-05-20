@@ -6,7 +6,8 @@ import com.google.cloud.sql.jdbc.Connection;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
-import de.elite.itprojekt.shared.bo.Textbeitrag;
+import de.elite.itprojekt.shared.bo.Abonnement;
+import de.elite.itprojekt.client.Textbeitrag;
 
 /**
  * Mapper-Klassen, die <code>Abonnement</code>-Objekte auf eine relationale 
@@ -94,8 +95,8 @@ private static AbonnementMapper aMapper = null;
 			stmt = con.createStatement();
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO abonnement (ID, Datum, Uhrzeit, NutzerID, PinnwandID" + "VALUES ("
-			+ a.getID() + "," + a.getDatum() + "," + a.getUhrzeit() + "," + a.getNutzerID() + "," + a.getPinnwandID() + "')");
+			stmt.executeUpdate("INSERT INTO abonnement (ID, Erstellzeitpunkt , NutzerID, PinnwandID" + "VALUES ("
+			+ a.getID() + "," + a.getErstellzeitpunkt() + "," + a.getNutzerID() + "," + a.getPinnwandID() + "')");
 				
 				}
 			}
@@ -162,8 +163,7 @@ private static AbonnementMapper aMapper = null;
 				//Ergebnis-Tupel in Objekt umwandeln
 				Abonnement a = new Abonnement();
 				a.setID(rs.getInt("ID"));
-				a.setDatum(rs.getDate("Datum"));
-				a.setUhrzeit(rs.getTime("Uhrzeit"));
+				a.setErstellzeitpunkt(rs.getDate("Erstellzeitpunkt"));
 				a.setNutzerID(rs.getInt("NutzerID"));
 				a.setPinnwandID(rs.getInt ("PinnwandID"));
 				return a;

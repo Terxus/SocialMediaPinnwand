@@ -94,8 +94,8 @@ public class TextbeitragMapper {
 			stmt = con.createStatement();
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO textbeitrag (ID, Text, Datum, Uhrzeit, NutzerID" + "VALUES ("
-			+ t.getID() + "," + t.getText() + "," + t.getDatum() + "," + t.getUhrzeit() + "," + t.getNutzerID()+"')");
+			stmt.executeUpdate("INSERT INTO textbeitrag (ID, Text, Erstellzeitpunkt, Like, NutzerID" + "VALUES ("
+			+ t.getID() + "," + t.getText() + "," + t.getErstellzeitpunkt() + "," + t.getLikeID() + "," + t.getNutzerID()+"')");
 				
 				}
 			}
@@ -186,8 +186,8 @@ public class TextbeitragMapper {
 				Textbeitrag t = new Textbeitrag();
 				t.setID(rs.getInt("ID"));
 				t.setText(rs.getString ("Text"));
-				t.setDatum(rs.getDate("Datum"));
-				t.setUhrzeit(rs.getTime("Uhrzeit"));
+				t.setErstellzeitpunkt(rs.getDate("Erstellzeitpunkt"));
+				t.setLikeID(rs.getInt("LikeID"));
 				t.setNutzerID(rs.getInt("NutzerID"));
 				return t;
 			}

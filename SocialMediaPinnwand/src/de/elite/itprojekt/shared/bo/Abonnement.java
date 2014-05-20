@@ -1,27 +1,49 @@
 package de.elite.itprojekt.shared.bo;
+import java.io.Serializable;
+import java.sql.Date;
 
-public class Abonnement extends BusinessObject {
+public class Abonnement implements Serializable {
+	
+	private int ID;
+	private Date Erstellzeitpunkt;
+	private int NutzerID;
+	private int PinnwandID;
+	
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
-	Abonnement() {
+	public int getID() {
+		return this.ID;
 		
 	}
-	// Konstruktor
+	
+	public Date getErstellzeitpunkt() {
+		return this.Erstellzeitpunkt;
+	}
+	
 
-	public void setNutzer() {
-		
+	public int getNutzerID() {
+		return this.NutzerID;
 	}
-	public String getNutzer() {
-		return null;
+	
+	public int getPinnwandID() {
+		return this.PinnwandID;
+		}
+	
+	public void setID(int ID) {
+		this.ID = ID;
 	}
-	public void setPinnwand() {
-		
+	
+	public void setErstellzeitpunkt(Date Erstellzeitpunkt) {
+		this.Erstellzeitpunkt = Erstellzeitpunkt;
 	}
-	public String getPinnwand() {
-		return null;
+	
+	public void setNutzerID(int NutzerID) {
+		this.NutzerID = NutzerID;
+	}
+	
+	public void setPinnwandID(int PinnwandID) {
+		this.PinnwandID = PinnwandID;
 	}
 }

@@ -6,6 +6,7 @@ import com.google.cloud.sql.jdbc.Connection;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
+import de.elite.itprojekt.shared.bo.Pinnwand;
 import de.elite.itprojekt.shared.bo.Textbeitrag;
 
 /**
@@ -51,12 +52,12 @@ public class PinnwandMapper {
 	 *  @return DAS <code>PinnwandMapper</code>-Objekt.
 	 *  @see pMapper
 	 */
-	public static PinnwandMapper aMapper() {
-		if (aMapper == null) {
-			aMapper = new PinnwandMapper();
+	public static PinnwandMapper pMapper() {
+		if (pMapper == null) {
+			pMapper = new PinnwandMapper();
 		}
 		
-		return aMapper;
+		return pMapper;
 	}
 	
 	/**
@@ -94,7 +95,7 @@ public class PinnwandMapper {
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			stmt.executeUpdate("INSERT INTO textbeitrag (ID, Datum, Uhrzeit, NutzerID, AbonnementID" + "VALUES ("
-			+ p.getID() + "," + p.getDatum() + "," + p.getUhrzeit() + "," + p.getNutzerID() + "," + p.getAbonnementID() +"')");
+			+ p.getID() + "," + p.getErstellzeitpunkt() + ","+ p.getNutzerID() + "," + p.getAbonnementID() +"')");
 				
 				}
 			}
@@ -162,8 +163,7 @@ public class PinnwandMapper {
 				//Ergebnis-Tupel in Objekt umwandeln
 				Pinnwand p = new Pinnwand();
 				p.setID(rs.getInt("ID"));
-				p.setDatum(rs.getDate("Datum"));
-				p.setUhrzeit(rs.getTime("Uhrzeit"));
+				p.setErstellzeitpunkt(rs.getDate("Erstellzeitpunkt"));
 				p.setNutzerID(rs.getInt("NutzerID"));
 				p.setAbonnementID(rs.getInt ("AbonnementID"));
 				return p;

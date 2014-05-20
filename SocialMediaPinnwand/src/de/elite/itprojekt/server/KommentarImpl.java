@@ -1,17 +1,24 @@
+package de.elite.itprojekt.server;
 
-package de.elite.itprojekt.shared.bo;
-import java.io.Serializable;
 import java.sql.Date;
 
-public class Textbeitrag implements Serializable {
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.elite.itprojekt.client.Kommentar;
+
+public class KommentarImpl extends RemoteServiceServlet implements Kommentar{
+	
 	private int ID;
 	private int NutzerID;
-	private int LikeID;
+	private int BeitragID;
 	private String Text;
 	private Date Erstellzeitpunkt;
 	
-	private static final long serialVersionUID = 1L;
+	public KommentarImpl() {
+		super();
+	}
+	
+private static final long serialVersionUID = 1L;
 	
 	public int getID() {
 		return this.ID;
@@ -21,8 +28,8 @@ public class Textbeitrag implements Serializable {
 		return this.NutzerID;
 	}
 	
-	public int getLikeID() {
-		return this.LikeID;
+	public int getBeitragID() {
+		return this.BeitragID;
 	}
 	
 	public String getText() {
@@ -32,9 +39,8 @@ public class Textbeitrag implements Serializable {
 	public Date getErstellzeitpunkt() {
 		return this.Erstellzeitpunkt;
 	}
-	
-	
-	public void setID(int ID) {
+		
+	public void setID( int ID) {
 		this.ID = ID;
 	}
 	
@@ -42,16 +48,18 @@ public class Textbeitrag implements Serializable {
 		this.NutzerID = NutzerID;
 	}
 	
-	public void setLikeID(int LikeID) {
-		this.LikeID = LikeID;
+	public void setBeitragID(int BeitragID) {
+		this.BeitragID = BeitragID;
 	}
 	
 	public void setText(String Text) {
 		this.Text = Text;
 	}
 	
-	public void setErstellzeitpunkt (Date Erstellzeitpunkt) {
+	public void setErstellzeitpunkt(Date Erstellzeitpunkt){
 		this.Erstellzeitpunkt = Erstellzeitpunkt;
 	}
 	
+
+
 }

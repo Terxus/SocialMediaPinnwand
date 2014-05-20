@@ -6,6 +6,7 @@ import com.google.cloud.sql.jdbc.Connection;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
+import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Textbeitrag;
 
 /**
@@ -94,9 +95,9 @@ public class NutzerMapper {
 			stmt = con.createStatement();
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO nutzer (ID, Nickname, Passwort, Email, Vorname, Nachname, Datum, Uhrzeit" + "VALUES ("
-			+ n.getID() + "," + n.getNickname() + "," + n.getPasswort() + "," + n.getEmail() + "," + n.getVorname() + "," 
-			+ n.getVorname() + "," + n.getDatum() + "," + n.getUhrzeit()+ "')");
+			stmt.executeUpdate("INSERT INTO nutzer (ID, Nickname, Passwort, Email, Vorname, Nachname, Erstellzeitpunkt" + "VALUES ("
+			+ n.getID() + "," + n.getNickname() + "," + n.getPasswort() + "," + n.getEMail() + "," + n.getVorname() + "," 
+			+ n.getVorname() + "," + n.getErstellzeitpunkt() + "," + "')");
 				
 				}
 			}
@@ -164,13 +165,12 @@ public class NutzerMapper {
 				//Ergebnis-Tupel in Objekt umwandeln
 				Nutzer n = new Nutzer();
 				n.setID(rs.getInt("ID"));
-				n.setText(rs.getString ("Nickname"));
-				n.setText(rs.getString ("Passwort"));
-				n.setText(rs.getString ("Email"));
-				n.setDatum(rs.getDate("Datum"));
-				n.setUhrzeit(rs.getTime("Uhrzeit"));
-				n.setText(rs.getString ("Vorname"));
-				n.setText(rs.getString ("Nachname"));
+				n.setNickname(rs.getString ("Nickname"));
+				n.setPasswort(rs.getString ("Passwort"));
+				n.setEMail(rs.getString ("EMail"));
+				n.setErstellzeitpunkt(rs.getDate("Erstellzeitpunkt"));
+				n.setVorname(rs.getString ("Vorname"));
+				n.setNachname(rs.getString ("Nachname"));
 				return n;
 			}
 		}

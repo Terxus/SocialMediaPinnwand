@@ -6,6 +6,7 @@ import com.google.cloud.sql.jdbc.Connection;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
+import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Textbeitrag;
 
 /**
@@ -93,9 +94,9 @@ public class KommentarMapper {
 			stmt = con.createStatement();
 			
 			//Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO kommentar (ID, Text, Datum, Uhrzeit, NutzerID, BeitragsID, LikeID" + "VALUES ("
-			+ k.getID() + "," + k.getText() + "," + k.getDatum() + "," + k.getUhrzeit() + "," + k.getNutzerID()+ "," + k.getBeitragsID()
-			+ "," + k.getLikeID() + "')");
+			stmt.executeUpdate("INSERT INTO kommentar (ID, Text, Erstellzeitpunkt, NutzerID, BeitragsID, LikeID" + "VALUES ("
+			+ k.getID() + "," + k.getText() + "," + k.getErstellzeitpunkt() + "," + "," + k.getNutzerID()+ "," + k.getBeitragID()
+			+ "," + "')");
 				
 				}
 			}
@@ -186,11 +187,9 @@ public class KommentarMapper {
 				Kommentar k = new Kommentar();
 				k.setID(rs.getInt("ID"));
 				k.setText(rs.getString ("Text"));
-				k.setDatum(rs.getDate("Datum"));
-				k.setUhrzeit(rs.getTime("Uhrzeit"));
+				k.setErstellzeitpunkt(rs.getDate("Erstellzeitpunkt"));
 				k.setNutzerID(rs.getInt("NutzerID"));
-				k.setBeitragsID(rs.getInt("BeitragsID"));
-				k.setLikeID(rs.getInt("LikeID"));
+				k.setBeitragID(rs.getInt("BeitragID"));
 				return k;
 			}
 		}
