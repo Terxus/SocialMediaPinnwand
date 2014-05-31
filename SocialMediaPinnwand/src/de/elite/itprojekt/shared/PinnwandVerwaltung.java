@@ -26,6 +26,8 @@ public interface PinnwandVerwaltung extends RemoteService {
 	//Beitrag
 	void textBeitragErstellen(Beitrag beitrag);
 	Nutzer loginCheck(String nutzerName, String passWort);
+	Nutzer sucheNutzerID(int id);
+	Nutzer updateNutzer(Nutzer nutzer);
 	
 
 }

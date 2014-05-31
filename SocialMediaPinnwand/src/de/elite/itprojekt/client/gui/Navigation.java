@@ -1,15 +1,20 @@
 package de.elite.itprojekt.client.gui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.shared.PinnwandVerwaltung;
+import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -17,24 +22,50 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class Navigation {
 	
-	private Nutzer nutzer = new Nutzer();
+	private Nutzer nutzer = null;
 	
-	public void setNutzer(Nutzer nutzer) {
-		this.nutzer = nutzer;
+	//Hole Aktuellen eingeloggten Nutzer per Cookie anhand der ID
+	
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
+	
+
+	//Methode die den Nutzer holt
+	
+	public void holeNutzer() {
+		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("Fehler");
+			}
+			@Override
+			public void onSuccess(Nutzer result) {
+				setNutzer(result);
+			}
+		});
 	}
+
+	//Ende Nutzer holen
+	
 	
 private VerticalPanel vPanel = new VerticalPanel();
-private Label name = new Label(nutzer.toString());
-private TextBox aendereNameTextBox = new TextBox();
-private TextBox pinnwandSucheTextBox = new TextBox();
+private Label name = new Label("");
 private PushButton pinnwandSucheButton = new PushButton("Suchen");
-private PushButton pinnwandAbonnierenButton = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/hinzufuegen.png"));
-private PushButton pinnwandDeabonnierenButton = new PushButton(new Image("socialmediapinnwand/gwt/clean/images/loeschen.png"));
+private PushButton pinnwandAbonnierenButton = new PushButton(new Image("images/hinzufuegen.png"));
+private PushButton pinnwandDeabonnierenButton = new PushButton(new Image("images/loeschen.png"));
 private FlexTable nutzerTabelle = new FlexTable();
 private FlexTable suchTabelle = new FlexTable();
 private FlexTable abonnierteUserAnzeigen = new FlexTable();
 private FlexTable sucheResultatTabelle = new FlexTable();
 
+//
+private OrakelBox orakel = new OrakelBox();
+private SuggestBox vBox = new SuggestBox(orakel.schlageNutzerVor());
+
+
+public void setNutzer(Nutzer eingeloggterNutzer) {
+	this.nutzer = eingeloggterNutzer;
+	this.name.setText(this.nutzer.getVorname() + " " + this.nutzer.getNachname());
+}
 
 
 //Dummy Namen zum Test
@@ -48,14 +79,16 @@ private Label dummyName2 = new Label("Dagobert Duck");
 
 
 public void addNavigation() {
-		
+	
+	holeNutzer();
+
 		abonnierteUserAnzeigen.getFlexCellFormatter().setWidth(0, 0, "120");
 		sucheResultatTabelle.getFlexCellFormatter().setWidth(0, 0, "120");
 		
 		
 		nutzerTabelle.setWidget(0, 0, name);
 		
-		suchTabelle.setWidget(1, 0, pinnwandSucheTextBox);
+		suchTabelle.setWidget(1, 0, vBox);
 		suchTabelle.setWidget(1, 1, pinnwandSucheButton);
 		suchTabelle.setStylePrimaryName("suchTabelle");
 		
@@ -71,7 +104,6 @@ public void addNavigation() {
 		
 		//Clickhandler den Buttons adden
 
-		this.name.addClickHandler(new changeLabelToTextboxClickHandler());
 
 		this.pinnwandSucheButton.addClickHandler(new pinnwandSucheClickHandler());
 		this.pinnwandAbonnierenButton.addClickHandler(new pinnwandAbonnierenClickHandler());
@@ -98,47 +130,15 @@ public void addNavigation() {
 	}
 	
 	
-	//Methoden die das Label in TextBox umwandelt und den alten Namen in die TextBox reinschreiben
-	
-	public void changeLabel() {
-		aendereNameTextBox.setText(this.name.getText().toString()); //Hier wird der alte Name in die Textbox geschrieben
-		PushButton editNameButton = new PushButton("Speichern"); //Hier wird der Button zum Editieren erstellt
-		editNameButton.addClickHandler(new changeNameClickHandler()); //Hier wird dem Button einen Clickhandler zugeteilt
-		
-		
-		nutzerTabelle.setWidget(0, 1, editNameButton); //Der Button wird in die Tabelle auf Position 0, 1 eingefügt
-		nutzerTabelle.setWidget(0, 0, aendereNameTextBox); //Das Label an der Position 0, 0 wird mit der Textbox überschrieben
-	}
-	
-	public void changeName() { 
-		String geanderterName = aendereNameTextBox.getText(); //Der Neue Name wird in einem String gespeichert
-		this.name.setText(geanderterName); //Der neue Name wird in dem Label "name" gespeichert.
-		nutzerTabelle.setWidget(0, 0, name); //Die Textbox wird wieder mit dem Label überschrieben.
-		nutzerTabelle.clearCell(0, 1); //Der Button wird wieder versteckt.
-	}
-	
-	
 	
 	//Die ClickHandler
 	
-	private class changeLabelToTextboxClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			changeLabel();
-		}
-	}
-	
-	private class changeNameClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			changeName();
-		}
-	}
+
 	
 	private class pinnwandSucheClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			pinnwandSucheTextBox.setText("Suche wurde eingeleitet");
+			vBox.setText("Suche wurde eingeleitet");
 		}
 	}
 	private class pinnwandAbonnierenClickHandler implements ClickHandler {

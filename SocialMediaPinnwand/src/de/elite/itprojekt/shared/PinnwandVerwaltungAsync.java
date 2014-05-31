@@ -23,5 +23,9 @@ public interface PinnwandVerwaltungAsync {
 	void zeigeAlleNutzer(AsyncCallback<ArrayList<Nutzer>> callback);
 	
 	void loginCheck(String nutzerName, String passWort, AsyncCallback<Nutzer> callback);
+	
+	void sucheNutzerID(int id, AsyncCallback<Nutzer> callback);
+
+	void updateNutzer(Nutzer nutzer, AsyncCallback<Nutzer> callback);
 
 }

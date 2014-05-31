@@ -31,7 +31,6 @@ public class NutzerLogin {
 	  //Startpage <b>HOME</b>
 		private DecoratorPanel decPanel = new DecoratorPanel();
 		private TextBox nutzerNameBox = new TextBox();
-		private TextBox emailBox = new TextBox();
 		private PasswordTextBox passwortBox = new PasswordTextBox();
 		private Button loginButton = new Button("Login");
 		private Label errorLabel = new Label();
@@ -40,26 +39,21 @@ public class NutzerLogin {
 		private Button closeButton = new Button("Close");
 		private FlexTable loginFlex = new FlexTable();
 		private Label nutzerName = new Label("Nutzer:");
-		private Label email = new Label("Email:");
 		private Label passwort = new Label("Passwort:");
 		private Hyperlink registerLink = new Hyperlink("Neuen Nutzer registrieren", false,"Register");
 
+
 	  public void loadLoginView() {
 			
-		  //Erstmal alles aufräumen da! :D <- Dafür eine Methode schreiben, da sonst etwas hässlich im Code
-
-
 		//FlexTable für Login
 		
-		loginFlex.setWidget(1, 1, nutzerNameBox);
-		loginFlex.setWidget(2, 1, emailBox);
-		loginFlex.setWidget(3, 1, passwortBox);
-		loginFlex.setWidget(1, 0, nutzerName);
-		loginFlex.setWidget(2, 0, email);
-		loginFlex.setWidget(3, 0, passwort);
-		loginFlex.setWidget(4, 0, loginButton);
-		loginFlex.setWidget(4, 1, registerLink);
-		loginFlex.setWidget(5, 0, errorLabel);
+		loginFlex.setWidget(0, 1, nutzerNameBox);
+		loginFlex.setWidget(1, 1, passwortBox);
+		loginFlex.setWidget(0, 0, nutzerName);
+		loginFlex.setWidget(1, 0, passwort);
+		loginFlex.setWidget(2, 0, loginButton);
+		loginFlex.setWidget(2, 1, registerLink);
+		loginFlex.setWidget(3, 0, errorLabel);
 		
 		decPanel.add(loginFlex);
 		
@@ -174,28 +168,24 @@ public class NutzerLogin {
 	  
 	  private void checkValues() {
 				if ((nutzerNameBox.getValue() == "") || (passwortBox.getValue() == "")) {
-					System.out.println("Bitte Benutzername und Passwort eingeben!");
+					Window.alert("Bitte Benutzername und Passwort eingeben!");
 				}
 				else {
 					checkUser();
 				}
 	  }
-	  public void checkUser() {
-		  
-			System.out.println("Jetzt sollte eigentlich das Async geladen werden");
-		  
+	  
+	  public void checkUser() {		  
 			service.loginCheck(nutzerNameBox.getText(), passwortBox.getText(), new AsyncCallback<Nutzer>() {
 				
 				@Override
 				public void onSuccess(Nutzer result) {
 					if (result.getID() != 0) {
+						Cookies.setCookie("gp5cookie", String.valueOf(result.getID()));
 						RootPanel.get("Navigator").clear(true);
-						Navigation navi = new Navigation();
-						navi.setNutzer(result);
 						RootPanel.get().clear();
 						login();
-						Cookies.setCookie("gp5cookie", result.getVorname() + " " + result.getNachname());
-						System.out.println("User loggad in undso!");
+						Window.alert("Willkommen zurueck" + " " + result.getVorname() + "!");
 					} 
 					else {
 						Window.alert("Benutzer oder Passwort inkorrekt");
@@ -208,10 +198,7 @@ public class NutzerLogin {
 			});
 
 		}
-			
-	
 
-	  
 	  private void login() {
 		  loadPinnwand();
 	  }

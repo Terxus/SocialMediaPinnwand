@@ -34,7 +34,7 @@ public class SocialMediaPinnwand implements EntryPoint {
 		  
 		  NutzerLogin startSeite = new NutzerLogin();
 		  startSeite.loadPinnwand();
-		  System.out.println("Cookie ist da");
+		  System.out.println("Cookie ist da" + " " + Cookies.getCookie("gp5cookie"));
 	  }
   }
 }

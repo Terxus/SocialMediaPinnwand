@@ -1,10 +1,15 @@
 package de.elite.itprojekt.client.gui;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import de.elite.itprojekt.server.db.DBConnection;
 
 
 
@@ -23,11 +28,10 @@ public class TopLevelNavigation {
 		Command home = new Command() {
 		     public void execute() {
 		    	 
-			      RootPanel.get("Navigator").clear();
+			      RootPanel.get("Navigator").clear(); // Clear Methodik in eigene Methode
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
-			      /*RootPanel.get("Header").clear();*/
 			      
 		    	 NutzerLogin login = new NutzerLogin();
 		    	 login.refreshPinnwand();
@@ -40,12 +44,10 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
-			      /*RootPanel.get("Header").clear();*/
 		      
-		      System.out.println("bla");
 		      
-		      //NutzerEditieren editNutzer = new NutzerEditieren();
-		      //editNutzer.nutzerEditieren();
+		      AccountEdit editNutzer = new AccountEdit();
+		      editNutzer.editNutzer();
 		     }
 		};
 		//Report Listener
@@ -57,7 +59,6 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
-			      /*RootPanel.get("Header").clear();*/
 			      
 			      
 			      Report rep = new Report();
@@ -67,6 +68,7 @@ public class TopLevelNavigation {
 		//Logout Listener
 		Command logout = new Command() {
 		     public void execute() {
+		    	 
 		    	 Cookies.removeCookie("gp5cookie");
 		    	 
 			      RootPanel.get("Navigator").clear();

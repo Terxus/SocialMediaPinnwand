@@ -6,7 +6,7 @@ public class Nutzer extends BusinessObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String vorName, nachName, nickName, passWort;
+	private String vorName, nachName, nickName, passWort,eMail;
 	
 	
 	
@@ -35,6 +35,12 @@ public class Nutzer extends BusinessObject {
 		this.nickName = nickname;
 	}
 	public String toString() {
-		    return super.toString() + " " + this.nickName + " " + this.vorName + " " + this.nachName;
+		    return super.toString() + " " + this.getID() + " " + this.nickName + " " + this.vorName + " " + this.nachName + " " + this.eMail;
+	}
+	public String geteMail() {
+		return eMail;
+	}
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
 	}
 }

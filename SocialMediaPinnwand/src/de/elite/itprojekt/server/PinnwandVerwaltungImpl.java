@@ -28,7 +28,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	@Override
 	public ArrayList<Nutzer> zeigeAlleNutzer() {
 		// TODO Auto-generated method stub
-		return null;
+		return NutzerMapper.nutzerMapper().sucheAlleNutzer();
 	}
 
 	@Override
@@ -45,8 +45,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 
 	@Override
 	public void nutzerLoeschen(Nutzer nutzer) {
-		// TODO Auto-generated method stub
-		
+		NutzerMapper.nutzerMapper().nutzerLoeschen(nutzer);
 	}
 
 	@Override
@@ -63,14 +62,17 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 
 	@Override
 	public Nutzer loginCheck(String nutzerName, String passWort) {
-		init(); //Wieso ein init hier?!
-		Nutzer n = NutzerMapper.loginCheckerNutzer(nutzerName, passWort);
+		return NutzerMapper.nutzerMapper().loginCheckerNutzer(nutzerName, passWort);
+	}
 
-		if (n != null) {
-			return n;
-		} else {
-			return null;
-		}
+
+	@Override
+	public Nutzer sucheNutzerID(int id) {
+		return NutzerMapper.nutzerMapper().sucheNutzerID(id);
+	}
+	@Override
+	public Nutzer updateNutzer(Nutzer nutzer) {
+		return NutzerMapper.nutzerMapper().updateNutzer(nutzer);
 	}
 
 }

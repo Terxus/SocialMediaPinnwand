@@ -162,7 +162,9 @@ div#Footer {
 .suchTabelle {
 	border: 1px solid #ddd;
 }
-
+.editUser {
+	font-size: 18px;
+}
 
 
 

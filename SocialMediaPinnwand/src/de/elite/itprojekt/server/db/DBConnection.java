@@ -8,7 +8,7 @@ import com.google.appengine.api.rdbms.AppEngineDriver;
 public class DBConnection {
 	private static Connection con = null;
 	private static String dbHost = ""; // Hostname
-	private static String dbPort = "";      // Port -- Standard: 3306
+	private static String dbPort = "3306";      // Port -- Standard: 3306
 	private static String dbName = "";   // Datenbankname
 	private static String dbUser = "";     // Datenbankuser
 	private static String dbPass = "";      // Datenbankpasswort
