@@ -11,42 +11,39 @@ import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class OrakelBox {
-	
-	private Nutzer nutzer;
-	private ArrayList<Nutzer> alleNutzer;
+
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+
+	// Durchsucht die Datenbank nach allen Nutzern
 	
 	
-	
+	public void findeAlleNutzer(ArrayList<Nutzer> nutzer) {
+		for (Nutzer n : nutzer) {
+			oracle.add(n.getVorname() + " " + n.getNachname());
+		}
+	}
+
 	public MultiWordSuggestOracle schlageNutzerVor() {
-		
+
 		service.zeigeAlleNutzer(new AsyncCallback<ArrayList<Nutzer>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
 				System.out.println("lohl es geht nicht");
-				
+
 			}
 
 			@Override
 			public void onSuccess(ArrayList<Nutzer> result) {
-				// TODO Auto-generated method stub
-				MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-				alleNutzer = result;
-				
-				for (int i=0; i<alleNutzer.size();i++) {
-					System.out.println(alleNutzer.get(i).getVorname() + " " + alleNutzer.get(i).getNachname());
-					
-					oracle.add(alleNutzer.get(i).getVorname() + " " + alleNutzer.get(i).getNachname());
-				}
-			}
-	});
-		
-		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+				System.out.println("OrakelBox.java -> Success Methode");
+				findeAlleNutzer(result);
 
-	
+			}
+
+		});
 		return oracle;
-		
+
 	}
+
 }

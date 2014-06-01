@@ -1,7 +1,13 @@
 package de.elite.itprojekt.client.gui;
 
+import java.util.Date;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -11,8 +17,14 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import de.elite.itprojekt.shared.PinnwandVerwaltung;
+import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
+import de.elite.itprojekt.shared.bo.Nutzer;
+
 
 public class NutzerRegistrieren {
+	
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 
 	private FlexTable tableFlex = new FlexTable();
 	private DecoratorPanel decPanelRegister = new DecoratorPanel();
@@ -30,6 +42,17 @@ public class NutzerRegistrieren {
 	private TextBox vntextBox = new TextBox();
 	private TextBox nntextBox = new TextBox();
 	private Hyperlink loginLink = new Hyperlink("Zurueck zum Login", false, "Login");
+	
+	//Datumsfunktion
+	
+	Date zeit = new Date();
+	Date datum = new Date();
+
+	//Formatieren von Datum und Erstellzeitpunkt
+	DateTimeFormat zeitf = DateTimeFormat.getFormat("HH:mm:ss");
+	DateTimeFormat datumf = DateTimeFormat.getFormat("yyyy-MM-dd");
+	String datums = datumf.format(datum);
+	String zeits = zeitf.format(zeit);
 
   
   
@@ -53,6 +76,7 @@ public class NutzerRegistrieren {
 	//So ist die zu zuweisung komischerweise nich mehr deprecated
 	
 	loginLink.addDomHandler(new LoginLinkClickHandler(), ClickEvent.getType());
+	button.addClickHandler(new registerClickHandler());
 	
 	
 	decPanelRegister.add(tableFlex);
@@ -61,9 +85,6 @@ public class NutzerRegistrieren {
 	RootPanel.get("Beitrag").clear();
 	RootPanel.get("Navigator").clear();
 	RootPanel.get("Beitrag").add(decPanelRegister);
-	  
-	  
-	  
 	  
   }
   
@@ -77,8 +98,61 @@ public class NutzerRegistrieren {
 		login.loadLoginView();
 	}
   }
-	
-	
-	
-	
+  
+  private class registerClickHandler implements ClickHandler {
+
+	@Override
+	public void onClick(ClickEvent event) {
+		neuenNutzerRegistrieren();
+	}
+  }
+  
+  
+  
+  //Die Registration
+  public void neuenNutzerRegistrieren() {
+
+//Von Domi
+	  final String s1 = usertextBox.getText();
+		String s2 = passwordTextBox.getText();
+		String s3 = passwordTextBox_1.getText();
+		String s4 = emailtextBox.getText();
+		String s5 = vntextBox.getText();
+		String s6 = nntextBox.getText();
+		if (s2.equals(s3)) {
+
+
+			Nutzer n = new Nutzer();
+			n.setNickname(usertextBox.getText());
+			n.setPassWort(passwordTextBox.getText());
+			n.setVorname(vntextBox.getText());
+			n.seteMail(emailtextBox.getText());
+	        n.setNachname(nntextBox.getText());
+	        n.setDatum(datums);
+	        n.setStringerstellZeitpunkt(zeits);
+
+
+			service.nutzerAnlegen(n, new AsyncCallback<Void>() {
+
+				@Override
+				public void onSuccess(Void result) {
+					RootPanel.get("Beitrag").clear();
+					System.out.println("User angelegt: " +s1);
+					NutzerLogin login = new NutzerLogin();
+
+					login.loadLoginView();
+
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					System.out.println("upps");
+				}
+			});
+		}
+	  //Ende von Domi
+	  
+	  
+	  
+  }
 }

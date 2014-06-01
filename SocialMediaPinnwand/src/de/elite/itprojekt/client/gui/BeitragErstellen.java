@@ -28,6 +28,7 @@ public class BeitragErstellen {
 	
 	public void setNutzer(Nutzer nutzer) {
 		this.nutzer = nutzer;
+		System.out.println("Nutzerobjekt zu Nutzer mit der ID:" + " " + this.nutzer.getID() + " " + "gesetzt.");
 	}
 	
 	public void holeNutzer() {
@@ -41,6 +42,10 @@ public class BeitragErstellen {
 				setNutzer(result);
 			}
 		});
+	}
+	
+	public Nutzer getNutzer() {
+		return this.nutzer;
 	}
 	
 	
@@ -126,14 +131,39 @@ public class BeitragErstellen {
 	private class addBeitragClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			addBeitragAsync(nutzer, tArea.getText());
+			holeNutzer();
+			addBeitragAsync(getNutzer(), tArea.getText());
 		}
 	}
 	
 	public void addBeitragAsync(Nutzer nutzer, String textBeitrag) {
 		
 		Beitrag beitrag = new Beitrag();
-		//
+		beitrag.setNutzerId(nutzer.getID());
+		beitrag.setText(textBeitrag);
+		beitrag.setDatum("23-3-2333");
+		System.out.println(beitrag.getNutzerId() + " " + beitrag.getText());
+		
+		
+		service.textBeitragErstellen(beitrag, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				System.out.println("War wohl n fehler");
+				
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+				System.out.println("Success!");
+				
+			}
+			
+		});
+		
+				
 		
 	}
 	

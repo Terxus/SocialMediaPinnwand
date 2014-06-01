@@ -33,7 +33,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 
 	@Override
 	public void nutzerAnlegen(Nutzer nutzer) {
-		// TODO Auto-generated method stub
+		NutzerMapper.nutzerMapper().nutzerAnlegen(nutzer);
 		
 	}
 

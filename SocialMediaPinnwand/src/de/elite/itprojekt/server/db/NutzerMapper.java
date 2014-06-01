@@ -175,7 +175,39 @@ public class NutzerMapper {
 	    } 
 	}
 	
+	//Nutzer registrieren
 	
+	 public Nutzer nutzerAnlegen(Nutzer n) {
+		 System.out.println("user müsste jetzt angelegt werden");
+		    Connection con = DBConnection.connection();
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(Nutzer_ID) AS maxid "
+		          + "FROM Nutzer ");
+		      if (rs.next()) {
+		        
+		        n.setID(rs.getInt("maxid") + 1);
+
+		        stmt = con.createStatement();
+
+		      stmt.executeUpdate ("INSERT INTO Nutzer " + "VALUES (" + n.getID() + ", '"
+						+ n.getVorname() + "', '" + n.getNachname() + "', '" + n.getNickname() + "','" + n.getPassWort()
+						+ "','" + n.geteMail() + "','" + "2014-06-02" + "','" + "22:23:23" + "')");
+		           }
+		      
+		      //Dem registrierten Nutzer eine Pinnwand zuordnen
+
+		      stmt.executeUpdate ("INSERT INTO Pinnwand " + "VALUES (" + n.getID() + ", '"
+						+ "2014-06-02" + "', '" + "22:23:23" + "', '" + n.getID() + "','" + "1" + "')");
+		      
+		      
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+		    return sucheNutzerID(n.getID());
+		    }
 	
 	
 	

@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
@@ -41,6 +42,9 @@ public class NutzerLogin {
 		private Label nutzerName = new Label("Nutzer:");
 		private Label passwort = new Label("Passwort:");
 		private Hyperlink registerLink = new Hyperlink("Neuen Nutzer registrieren", false,"Register");
+		
+		
+		private Label willKommenLabel = new Label();
 
 
 	  public void loadLoginView() {
@@ -185,7 +189,12 @@ public class NutzerLogin {
 						RootPanel.get("Navigator").clear(true);
 						RootPanel.get().clear();
 						login();
-						Window.alert("Willkommen zurueck" + " " + result.getVorname() + "!");
+
+						
+						
+						//Willkommensnachricht
+						willKommenLabel.setText("Willkommen" + " " + result.getVorname() + "!");
+						RootPanel.get("Footer").add(willKommenLabel);
 					} 
 					else {
 						Window.alert("Benutzer oder Passwort inkorrekt");

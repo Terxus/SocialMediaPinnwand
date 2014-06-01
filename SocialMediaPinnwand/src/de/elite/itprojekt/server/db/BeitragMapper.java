@@ -84,18 +84,12 @@ public class BeitragMapper {
 
 	      if (rs.next()) {
 
-	    	  	System.out.println(rs.getInt("maxid"));
 	    	  	maxid=rs.getInt("maxid");
 	    	  	textBeitrag.setID(rs.getInt("maxid") + 1);
-		        System.out.print(rs.getInt("maxid") +1);
 		        stmt = con.createStatement();
-		        System.out.println("after con create");
 
-		        System.out.println(textBeitrag.getID() + textBeitrag.getText());
-		        System.out.println(textBeitrag.getNutzerId());
-		        stmt.executeUpdate("INSERT INTO Beitrag (Beitrag_ID, Text, Nutzer_ID) "
-		            + "VALUES (" + textBeitrag.getID() + ",'"  + textBeitrag.getText() + "','" + textBeitrag.getNutzerId() +"')");
-		        System.out.println("after exe");
+		        stmt.executeUpdate("INSERT INTO Beitrag (Nutzer_ID, Like_ID, Text, Datum, Uhrzeit) "
+		            + "VALUES (" + textBeitrag.getNutzerId() + ",'"  + textBeitrag.getNutzerId() + "','" + textBeitrag.getText() + ",'" + "2014-05-31" + ",'" + "23:15:39" +"')");
 	      }
 	    }
 
