@@ -139,7 +139,7 @@ public class Report {
 	}
 	
 	public void getData() {
-		Beitrag brt = new Beitrag();
+		BeitragErstellen brt = new BeitragErstellen();
 		
 		brt.beitragHinzufuegen();
 	}

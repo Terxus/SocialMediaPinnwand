@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 
-public class Kommentar {
+public class KommentarErstellen {
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label eingeloggterUser;

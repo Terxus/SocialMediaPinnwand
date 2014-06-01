@@ -13,6 +13,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class OrakelBox {
 	
 	private Nutzer nutzer;
+	private ArrayList<Nutzer> alleNutzer;
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 	
 	
@@ -31,22 +32,21 @@ public class OrakelBox {
 			@Override
 			public void onSuccess(ArrayList<Nutzer> result) {
 				// TODO Auto-generated method stub
-				System.out.println("OrakelBox.java -> Success Methode");
+				MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+				alleNutzer = result;
 				
+				for (int i=0; i<alleNutzer.size();i++) {
+					System.out.println(alleNutzer.get(i).getVorname() + " " + alleNutzer.get(i).getNachname());
+					
+					oracle.add(alleNutzer.get(i).getVorname() + " " + alleNutzer.get(i).getNachname());
+				}
 			}
-			
 	});
 		
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-		
-		//Hier alle nutzer holen
-		
-		oracle.add("Gustav Gans");
-		oracle.add("Donald Duck");
-		oracle.add("Pep Gardiola");
-		
+
 	
 		return oracle;
+		
 	}
-
 }

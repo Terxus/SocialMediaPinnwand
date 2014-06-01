@@ -57,9 +57,13 @@ private FlexTable suchTabelle = new FlexTable();
 private FlexTable abonnierteUserAnzeigen = new FlexTable();
 private FlexTable sucheResultatTabelle = new FlexTable();
 
-//
+
 private OrakelBox orakel = new OrakelBox();
 private SuggestBox vBox = new SuggestBox(orakel.schlageNutzerVor());
+
+
+
+
 
 
 public void setNutzer(Nutzer eingeloggterNutzer) {

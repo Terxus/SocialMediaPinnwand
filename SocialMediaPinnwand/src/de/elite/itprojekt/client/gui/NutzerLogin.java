@@ -98,8 +98,8 @@ public class NutzerLogin {
 		  
 		TopLevelNavigation topLevelNavi = new TopLevelNavigation();
 		Navigation navi = new Navigation();
-		Beitrag beitrag = new Beitrag();
-		Kommentar kommentar = new Kommentar();
+		BeitragErstellen beitrag = new BeitragErstellen();
+		KommentarErstellen kommentar = new KommentarErstellen();
 		  
 		/*  
 	    final Label welcomeMsg = new Label("welcome");
@@ -121,8 +121,8 @@ public class NutzerLogin {
 		  
 		  //Contentobjekte erzeugen
 			Navigation navi = new Navigation();
-			Beitrag beitrag = new Beitrag();
-			Kommentar kommentar = new Kommentar();
+			BeitragErstellen beitrag = new BeitragErstellen();
+			KommentarErstellen kommentar = new KommentarErstellen();
 			
 			//Contentobjektmethode zum aufbauen aufrufen
 			

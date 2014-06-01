@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 
-public class Beitrag {
+public class BeitragErstellen {
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label eingeloggterUser;

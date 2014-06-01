@@ -86,6 +86,8 @@ public class AccountEdit {
 		this.Passwort = new Label("");
 		this.Email = new Label("");
 		this.bestaetigenButton = new Button("Bestaetigen");
+		
+		this.bestaetigenButton.setEnabled(false);
 
 		
 		editUser.setWidget(0, 0, VornamenLabel);
@@ -128,6 +130,7 @@ public class AccountEdit {
 		@Override
 		public void onClick(ClickEvent event) {
 			nutzerDatenAendern();
+			bestaetigenButton.setEnabled(true);
 		}
 	}
 	//Umwandlungen der Labels zu Textboxen
