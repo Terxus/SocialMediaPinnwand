@@ -99,7 +99,7 @@ public class NutzerLogin {
 		TopLevelNavigation topLevelNavi = new TopLevelNavigation();
 		Navigation navi = new Navigation();
 		BeitragErstellen beitrag = new BeitragErstellen();
-		KommentarErstellen kommentar = new KommentarErstellen();
+		//KommentarErstellen kommentar = new KommentarErstellen();
 		  
 		/*  
 	    final Label welcomeMsg = new Label("welcome");
@@ -108,9 +108,9 @@ public class NutzerLogin {
 	    
 	    topLevelNavi.addTopLevelNavi();
 	    navi.addNavigation();
-	    beitrag.beitragAnzeigen();
+	    //beitrag.beitragAnzeigen();
 	    beitrag.beitragHinzufuegen();
-	    kommentar.addKommentar();
+	    //kommentar.addKommentar();
 	    
 	    /*RootPanel.get("Header").add(welcomeMsg);
 		Window.alert("New page loaded");*/
@@ -122,14 +122,14 @@ public class NutzerLogin {
 		  //Contentobjekte erzeugen
 			Navigation navi = new Navigation();
 			BeitragErstellen beitrag = new BeitragErstellen();
-			KommentarErstellen kommentar = new KommentarErstellen();
+			//KommentarErstellen kommentar = new KommentarErstellen();
 			
 			//Contentobjektmethode zum aufbauen aufrufen
 			
 			navi.addNavigation();
-			beitrag.beitragAnzeigen();
+			//beitrag.beitragAnzeigen();
 			beitrag.beitragHinzufuegen();
-			kommentar.addKommentar();
+			//kommentar.addKommentar();
 		  
 	  }
 

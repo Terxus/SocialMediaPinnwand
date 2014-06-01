@@ -43,6 +43,11 @@ public class Navigation {
 			}
 		});
 	}
+	
+	public void setNutzer(Nutzer nutzer) {
+		this.nutzer = nutzer;
+		this.name.setText(this.nutzer.getVorname() + " " + this.nutzer.getNachname());
+	}
 
 	//Ende Nutzer holen
 	
@@ -62,14 +67,6 @@ private OrakelBox orakel = new OrakelBox();
 private SuggestBox vBox = new SuggestBox(orakel.schlageNutzerVor());
 
 
-
-
-
-
-public void setNutzer(Nutzer eingeloggterNutzer) {
-	this.nutzer = eingeloggterNutzer;
-	this.name.setText(this.nutzer.getVorname() + " " + this.nutzer.getNachname());
-}
 
 
 //Dummy Namen zum Test

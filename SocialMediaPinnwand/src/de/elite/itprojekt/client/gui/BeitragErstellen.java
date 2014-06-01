@@ -1,5 +1,10 @@
 package de.elite.itprojekt.client.gui;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -8,9 +13,36 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.shared.PinnwandVerwaltung;
+import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
+import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Nutzer;
+
 
 
 public class BeitragErstellen {
+	
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
+	//Nutzerobjekt per ID von Cookie holen
+	private Nutzer nutzer;
+	
+	public void setNutzer(Nutzer nutzer) {
+		this.nutzer = nutzer;
+	}
+	
+	public void holeNutzer() {
+		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("Fehler");
+			}
+			@Override
+			public void onSuccess(Nutzer result) {
+				setNutzer(result);
+			}
+		});
+	}
+	
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label eingeloggterUser;
@@ -81,14 +113,29 @@ public class BeitragErstellen {
 		tArea.setPixelSize(473, 15);
 		this.addBeitrag = new Button("Hinzufuegen");
 		
+		//ClickHandler für neuen Beitrag
+		
+		this.addBeitrag.addClickHandler(new addBeitragClickHandler());
+		
 		this.vPanelAddBeitrag.add(tArea);
 		this.vPanelAddBeitrag.add(addBeitrag);
 		
 		RootPanel.get("neuer_Beitrag").add(vPanelAddBeitrag);
 	}
 	
+	private class addBeitragClickHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			addBeitragAsync(nutzer, tArea.getText());
+		}
+	}
 	
-	
+	public void addBeitragAsync(Nutzer nutzer, String textBeitrag) {
+		
+		Beitrag beitrag = new Beitrag();
+		//
+		
+	}
 	
 	
 	

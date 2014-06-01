@@ -50,12 +50,7 @@ public class BeitragMapper {
 		        b.setID(rs.getInt("Beitrag_ID"));
 		        b.setErstellZeitpunkt(rs.getDate("Datum"));
 		        b.setText((rs.getString("Text")));
-
-		        //Aufruf des KommentarMappers um alle zum Beitrag gehörigen Kommentare als ArrayList zuzuweisen
-		        //b.setKommentarListe(KommentarMapper.kommentarMapper().getKommentarByBeitrag(rs.getInt("beitrag_ID")));
-
-		        //Aufruf des LikeMappers um alle zum Beitrag gehörigen Likes als ArrayList zuzuweisen
-		        //b.setLikeListe(LikeMapper.likeMapper().getLikesByBeitrag(rs.getInt("beitrag_ID")));			       
+		       
 
 		        //BeitragObjekte der ArrayList hinzufügen
 		        beitragListe.add(b);
@@ -70,7 +65,46 @@ public class BeitragMapper {
 	return beitragListe;
 	}
 	
-	
+	//Beitrag in DB einfügen
+	 
+	 public void textBeitragErstellen(Beitrag textBeitrag){
+		//Aufbau der DBVerbindung
+
+		Connection con = DBConnection.connection();
+		int maxid = 0;
+
+		//Versuch der Abfrage
+		try{
+			Statement stmt = con.createStatement();
+
+
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(Beitrag_ID) AS maxid "
+	          + "FROM Beitrag ");
+
+
+	      if (rs.next()) {
+
+	    	  	System.out.println(rs.getInt("maxid"));
+	    	  	maxid=rs.getInt("maxid");
+	    	  	textBeitrag.setID(rs.getInt("maxid") + 1);
+		        System.out.print(rs.getInt("maxid") +1);
+		        stmt = con.createStatement();
+		        System.out.println("after con create");
+
+		        System.out.println(textBeitrag.getID() + textBeitrag.getText());
+		        System.out.println(textBeitrag.getNutzerId());
+		        stmt.executeUpdate("INSERT INTO Beitrag (Beitrag_ID, Text, Nutzer_ID) "
+		            + "VALUES (" + textBeitrag.getID() + ",'"  + textBeitrag.getText() + "','" + textBeitrag.getNutzerId() +"')");
+		        System.out.println("after exe");
+	      }
+	    }
+
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	   // return getBeitragById(maxid+1);
+	}
 	
 	
 	
