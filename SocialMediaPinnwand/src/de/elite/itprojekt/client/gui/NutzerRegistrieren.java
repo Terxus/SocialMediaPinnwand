@@ -1,5 +1,6 @@
 package de.elite.itprojekt.client.gui;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
@@ -45,14 +46,7 @@ public class NutzerRegistrieren {
 	
 	//Datumsfunktion
 	
-	Date zeit = new Date();
-	Date datum = new Date();
-
-	//Formatieren von Datum und Erstellzeitpunkt
-	DateTimeFormat zeitf = DateTimeFormat.getFormat("HH:mm:ss");
-	DateTimeFormat datumf = DateTimeFormat.getFormat("yyyy-MM-dd");
-	String datums = datumf.format(datum);
-	String zeits = zeitf.format(zeit);
+	private Timestamp aktuellesDatum;
 
   
   
@@ -128,8 +122,7 @@ public class NutzerRegistrieren {
 			n.setVorname(vntextBox.getText());
 			n.seteMail(emailtextBox.getText());
 	        n.setNachname(nntextBox.getText());
-	        n.setDatum(datums);
-	        n.setStringerstellZeitpunkt(zeits);
+	        n.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
 
 
 			service.nutzerAnlegen(n, new AsyncCallback<Void>() {

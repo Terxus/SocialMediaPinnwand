@@ -1,8 +1,13 @@
 package de.elite.itprojekt.client.gui;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -21,6 +26,16 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 public class BeitragErstellen {
+	
+
+	
+	private Timestamp aktuellesDatum;
+	
+	
+	
+	
+	
+	
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
 	//Nutzerobjekt per ID von Cookie holen
@@ -141,8 +156,9 @@ public class BeitragErstellen {
 		Beitrag beitrag = new Beitrag();
 		beitrag.setNutzerId(nutzer.getID());
 		beitrag.setText(textBeitrag);
-		beitrag.setDatum("23-3-2333");
+		beitrag.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
 		System.out.println(beitrag.getNutzerId() + " " + beitrag.getText());
+		
 		
 		
 		service.textBeitragErstellen(beitrag, new AsyncCallback<Void>() {

@@ -48,7 +48,7 @@ public class BeitragMapper {
 		        // Ergebnis in Beitrag- Objekt umwandeln
 		        Beitrag b = new Beitrag();
 		        b.setID(rs.getInt("Beitrag_ID"));
-		        b.setErstellZeitpunkt(rs.getDate("Datum"));
+		        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        b.setText((rs.getString("Text")));
 		       
 
@@ -69,7 +69,7 @@ public class BeitragMapper {
 	 
 	 public void textBeitragErstellen(Beitrag textBeitrag){
 		//Aufbau der DBVerbindung
-
+	      System.out.println("neuer beitrag");
 		Connection con = DBConnection.connection();
 		int maxid = 0;
 
@@ -77,7 +77,7 @@ public class BeitragMapper {
 		try{
 			Statement stmt = con.createStatement();
 
-
+			//timestamp nutzen
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(Beitrag_ID) AS maxid "
 	          + "FROM Beitrag ");
 
@@ -88,8 +88,8 @@ public class BeitragMapper {
 	    	  	textBeitrag.setID(rs.getInt("maxid") + 1);
 		        stmt = con.createStatement();
 
-		        stmt.executeUpdate("INSERT INTO Beitrag (Nutzer_ID, Like_ID, Text, Datum, Uhrzeit) "
-		            + "VALUES (" + textBeitrag.getNutzerId() + ",'"  + textBeitrag.getNutzerId() + "','" + textBeitrag.getText() + ",'" + "2014-05-31" + ",'" + "23:15:39" +"')");
+		        stmt.executeUpdate("INSERT INTO Beitrag (Beitrag_ID, Nutzer_ID, Like_ID, Text, Datum) "
+		            + "VALUES (" + textBeitrag.getNutzerId() + ",'"  + textBeitrag.getNutzerId() + "','" + "2" + ",'" + textBeitrag.getText() + ",'" + textBeitrag.getErstellZeitpunkt() +"')");
 	      }
 	    }
 

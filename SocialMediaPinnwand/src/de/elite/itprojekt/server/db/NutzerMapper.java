@@ -75,7 +75,7 @@ public class NutzerMapper {
 				// Ergebnis in Nutzer- Objekt umwandeln
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
-		        n.setErstellZeitpunkt(rs.getDate("Datum"));
+		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        n.setVorname(rs.getString("Vorname"));
 		        n.setNachname(rs.getString("Nachname"));
 		        n.setPassWort(rs.getString("Passwort"));
@@ -120,7 +120,7 @@ public class NutzerMapper {
 		        // Ergebnis in Nutzer- Objekt umwandeln
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
-		        n.setErstellZeitpunkt(rs.getDate("Datum"));
+		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        n.setVorname(rs.getString("Vorname"));
 		        n.setNachname(rs.getString("Nachname"));
 		        n.setPassWort(rs.getString("Passwort"));
@@ -193,13 +193,13 @@ public class NutzerMapper {
 
 		      stmt.executeUpdate ("INSERT INTO Nutzer " + "VALUES (" + n.getID() + ", '"
 						+ n.getVorname() + "', '" + n.getNachname() + "', '" + n.getNickname() + "','" + n.getPassWort()
-						+ "','" + n.geteMail() + "','" + "2014-06-02" + "','" + "22:23:23" + "')");
+						+ "','" + n.geteMail() + "','" + n.getErstellZeitpunkt()  + "')");
 		           }
 		      
 		      //Dem registrierten Nutzer eine Pinnwand zuordnen
 
 		      stmt.executeUpdate ("INSERT INTO Pinnwand " + "VALUES (" + n.getID() + ", '"
-						+ "2014-06-02" + "', '" + "22:23:23" + "', '" + n.getID() + "','" + "1" + "')");
+						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + "12" + "')");
 		      
 		      
 		    }

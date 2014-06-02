@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.elite.itprojekt.server.db.BeitragMapper;
 import de.elite.itprojekt.server.db.NutzerMapper;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.bo.Beitrag;
@@ -56,7 +57,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 
 	@Override
 	public void textBeitragErstellen(Beitrag beitrag) {
-		// TODO Auto-generated method stub
+		BeitragMapper.beitragMapper().textBeitragErstellen(beitrag);
 		
 	}
 

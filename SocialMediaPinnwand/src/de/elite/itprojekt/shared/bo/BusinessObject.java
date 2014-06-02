@@ -1,7 +1,7 @@
 package de.elite.itprojekt.shared.bo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public abstract class BusinessObject implements Serializable {
 
@@ -10,9 +10,10 @@ public abstract class BusinessObject implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Date erstellZeitpunkt;
-	private String StringerstellZeitpunkt;
-	private String Datum;
+	private Timestamp erstellZeitpunkt;
+	
+	//private Date erstellZeitpunkt;
+	//private String StringerstellZeitpunkt;
 	
 	private int id = 0;
 
@@ -31,31 +32,20 @@ public abstract class BusinessObject implements Serializable {
 		
 	}
 
-	public Date getErstellZeitpunkt() {
+	public Timestamp getErstellZeitpunkt() {
 		return erstellZeitpunkt;
 	}
 
-	public void setErstellZeitpunkt(Date erstellZeitpunkt) {
+	public void setErstellZeitpunkt(Timestamp erstellZeitpunkt) {
 		this.erstellZeitpunkt = erstellZeitpunkt;
 	}
-
-	public void setDatum(String datums) {
-		this.Datum = datums;
-
-	}
-
-	public String getDatum(String datums) {
-		return Datum;
-
-	}
-
-	public String getStringerstellZeitpunkt() {
+	/*public String getStringerstellZeitpunkt() {
 		return StringerstellZeitpunkt;
 	}
 
 	public void setStringerstellZeitpunkt(String stringerstellZeitpunkt) {
 		StringerstellZeitpunkt = stringerstellZeitpunkt;
-	}
+	}*/
 
 
 }
