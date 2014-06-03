@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -30,17 +31,11 @@ public class BeitragErstellen {
 
 	
 	private Timestamp aktuellesDatum;
-	
-	
-	
-	
-	
-	
-	
-	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
-	//Nutzerobjekt per ID von Cookie holen
 	private Nutzer nutzer;
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
 	
+
+	//Nutzerobjekt per ID von Cookie holen
 	public void setNutzer(Nutzer nutzer) {
 		this.nutzer = nutzer;
 		System.out.println("Nutzerobjekt zu Nutzer mit der ID:" + " " + this.nutzer.getID() + " " + "gesetzt.");
@@ -58,7 +53,6 @@ public class BeitragErstellen {
 			}
 		});
 	}
-	
 	public Nutzer getNutzer() {
 		return this.nutzer;
 	}
@@ -136,20 +130,38 @@ public class BeitragErstellen {
 		//ClickHandler für neuen Beitrag
 		
 		this.addBeitrag.addClickHandler(new addBeitragClickHandler());
+		this.tArea.addClickHandler(new getNutzerClickHandler());
 		
 		this.vPanelAddBeitrag.add(tArea);
 		this.vPanelAddBeitrag.add(addBeitrag);
 		
 		RootPanel.get("neuer_Beitrag").add(vPanelAddBeitrag);
 	}
-	
+	//ClickHandler der den Beitrag hinzufügt
 	private class addBeitragClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			holeNutzer();
+			
+			if (tArea.getText().isEmpty()) {
+				Window.alert("Bitte Text eingeben!");
+			}
+			else {
 			addBeitragAsync(getNutzer(), tArea.getText());
+			tArea.setText(null);
+			}
 		}
 	}
+	//ClickHandler muss da sein, damit das Nutzer objekt geholt wird.
+	
+	private class getNutzerClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			holeNutzer();
+			System.out.println(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+		}
+	}
+	
 	
 	public void addBeitragAsync(Nutzer nutzer, String textBeitrag) {
 		
@@ -157,7 +169,8 @@ public class BeitragErstellen {
 		beitrag.setNutzerId(nutzer.getID());
 		beitrag.setText(textBeitrag);
 		beitrag.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
-		System.out.println(beitrag.getNutzerId() + " " + beitrag.getText());
+		
+		System.out.println(beitrag.getNutzerId() + " " + beitrag.getText() + " " + beitrag.getErstellZeitpunkt());
 		
 		
 		
@@ -173,8 +186,6 @@ public class BeitragErstellen {
 			@Override
 			public void onSuccess(Void result) {
 				// TODO Auto-generated method stub
-				System.out.println("Success!");
-				
 			}
 			
 		});

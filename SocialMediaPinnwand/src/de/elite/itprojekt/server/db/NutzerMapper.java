@@ -208,17 +208,6 @@ public class NutzerMapper {
 		    }
 		    return sucheNutzerID(n.getID());
 		    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
 	
 	
