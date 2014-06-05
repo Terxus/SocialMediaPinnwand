@@ -11,10 +11,7 @@ public abstract class BusinessObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Timestamp erstellZeitpunkt;
-	
-	//private Date erstellZeitpunkt;
-	//private String StringerstellZeitpunkt;
-	
+
 	private int id = 0;
 
 	public int getID() {
@@ -39,13 +36,4 @@ public abstract class BusinessObject implements Serializable {
 	public void setErstellZeitpunkt(Timestamp erstellZeitpunkt) {
 		this.erstellZeitpunkt = erstellZeitpunkt;
 	}
-	/*public String getStringerstellZeitpunkt() {
-		return StringerstellZeitpunkt;
-	}
-
-	public void setStringerstellZeitpunkt(String stringerstellZeitpunkt) {
-		StringerstellZeitpunkt = stringerstellZeitpunkt;
-	}*/
-
-
 }

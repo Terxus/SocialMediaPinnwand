@@ -1,7 +1,5 @@
 package de.elite.itprojekt.client.gui;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Cookies;
@@ -9,7 +7,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import de.elite.itprojekt.server.db.DBConnection;
 
 
 
@@ -32,6 +29,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
+			      RootPanel.get("Footer").clear();
 			      
 		    	 NutzerLogin login = new NutzerLogin();
 		    	 login.refreshPinnwand();
@@ -44,6 +42,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
+			      RootPanel.get("Footer").clear();
 		      
 		      
 		      AccountEdit editNutzer = new AccountEdit();
@@ -59,6 +58,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
+			      RootPanel.get("Footer").clear();
 			      
 			      
 			      Report rep = new Report();
@@ -76,6 +76,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Header").clear();
+			      RootPanel.get("Footer").clear();
 			      
 			      NutzerLogin nl = new NutzerLogin();
 			      nl.loadLoginView();

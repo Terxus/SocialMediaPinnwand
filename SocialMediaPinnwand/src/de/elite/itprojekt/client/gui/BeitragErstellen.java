@@ -1,13 +1,11 @@
 package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -17,6 +15,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
@@ -82,16 +81,16 @@ public class BeitragErstellen {
 	
 	
 
-	public void beitragAnzeigen() {
+	public void beitragAnzeigen(final Beitrag beitrag, final Nutzer nutzer) {
 		
 		//Widgets erzeugen für Beitrag
 
-		this.eingeloggterUser = new Label("Gustav Gans");
+		this.eingeloggterUser = new Label(nutzer.getVorname() + " " + nutzer.getNachname());
 		this.kommentieren = new PushButton("Kommentieren");
 		this.bearbeiten = new PushButton("Bearbeiten");
 		this.loeschen = new Button();
-		this.textBeitrag = new Label("Methode die dann die Textbeitraege holen soll! Methode die dann die Textbeitraege holen soll! Methode die dann die Textbeitraege holen soll!");
-		this.datumsAnzeige = new Label("24.06.2014 um 12:00 Uhr");
+		this.textBeitrag = new Label(beitrag.getText());
+		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString());
 		this.like = new PushButton("Like");
 		this.anzahlLikes = new Label("2");
 		
@@ -100,7 +99,7 @@ public class BeitragErstellen {
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
 		
-		
+		beitragsGrid.setStyleName("panel flexTable");
 		beitragsGrid.setWidget(0, 0, eingeloggterUser);
 		beitragsGrid.setWidget(0, 2, kommentieren);
 		beitragsGrid.setWidget(0, 3, bearbeiten);
@@ -115,10 +114,74 @@ public class BeitragErstellen {
 		
 		
 		this.vPanel.add(beitragsGrid);
-		
 		RootPanel.get("Beitrag").add(vPanel);
 		
+		//ClickHandler müssen für jedes Beitragobjekt gelten, darum müssen sie hier definiert werden
+		
+		//Beitrag löschen
+		
+		loeschen.addClickHandler(new ClickHandler() {
 
+			@Override
+			public void onClick(ClickEvent event) {
+				service.textBeitragLoeschen(beitrag, new AsyncCallback<Void>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Fehler beim loeschen!");
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Textbeitrag wurde geloescht!");
+								beitragsGrid.removeFromParent();
+							}
+						});
+			}
+
+		});
+		
+		//Beitrag bearbeiten
+		
+		bearbeiten.addClickHandler(new ClickHandler () {
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				final Button speichern = new Button("Fertig");
+				final TextBox newBeitrag = new TextBox();
+				newBeitrag.setText(textBeitrag.getText());
+				beitragsGrid.setWidget(1, 0, newBeitrag);
+				beitragsGrid.setWidget(1, 1, speichern);
+				
+					//Bearbeiteter Text Speichern und in Label zurückverwandeln (*Magic*)
+						speichern.addClickHandler(new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO Auto-generated method stub
+								beitrag.setText(newBeitrag.getText());
+								beitrag.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+
+								service.textBeitragBearbeiten(beitrag, new AsyncCallback<Beitrag>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onSuccess(Beitrag result) {
+										// TODO Auto-generated method stub
+										Label beitrag = new Label(newBeitrag.getText());
+										
+										beitragsGrid.setWidget(1, 0, beitrag);
+										speichern.setVisible(false);
+									}
+									
+								});
+							}
+						});
+			}
+		});
 	}
 	
 	public void beitragHinzufuegen() {
@@ -132,11 +195,17 @@ public class BeitragErstellen {
 		this.addBeitrag.addClickHandler(new addBeitragClickHandler());
 		this.tArea.addClickHandler(new getNutzerClickHandler());
 		
+		
 		this.vPanelAddBeitrag.add(tArea);
 		this.vPanelAddBeitrag.add(addBeitrag);
 		
 		RootPanel.get("neuer_Beitrag").add(vPanelAddBeitrag);
 	}
+	
+	
+	
+	
+	
 	//ClickHandler der den Beitrag hinzufügt
 	private class addBeitragClickHandler implements ClickHandler {
 		@Override
@@ -158,7 +227,6 @@ public class BeitragErstellen {
 		@Override
 		public void onClick(ClickEvent event) {
 			holeNutzer();
-			System.out.println(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
 		}
 	}
 	
@@ -170,10 +238,7 @@ public class BeitragErstellen {
 		beitrag.setText(textBeitrag);
 		beitrag.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
 		
-		System.out.println(beitrag.getNutzerId() + " " + beitrag.getText() + " " + beitrag.getErstellZeitpunkt());
-		
-		
-		
+
 		service.textBeitragErstellen(beitrag, new AsyncCallback<Void>() {
 
 			@Override
@@ -185,7 +250,7 @@ public class BeitragErstellen {
 
 			@Override
 			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
+				neuerBeitragAnzeigen(getNutzer());
 			}
 			
 		});
@@ -194,8 +259,34 @@ public class BeitragErstellen {
 		
 	}
 	
+	public void neuerBeitragAnzeigen(Nutzer nutzer) {
+		zeigeAlleBeitraege(nutzer);
+	}
 	
-	
-	
-	
+	public void zeigeAlleBeitraege(Nutzer nutzer) {
+		
+		int id = nutzer.getID();
+		final Nutzer n = nutzer;
+		
+		service.findeAlleUserBeitraege(id, new AsyncCallback<ArrayList<Beitrag>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("hmm2");
+				
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Beitrag> result) {
+				
+				for (Beitrag b : result) {
+					BeitragErstellen erstelle = new BeitragErstellen();
+					erstelle.beitragAnzeigen(b,n);
+				}
+				
+			}
+			
+		});
+		
+	}
 }

@@ -32,27 +32,24 @@ public class BeitragMapper {
 		return beitragMapper;
 	}
 	
-	 public ArrayList<Beitrag> getBeitragByPinnwand(int id){
+	 public ArrayList<Beitrag> getBeitragByPinnwand(int id) {
 
-		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
 		ArrayList <Beitrag> beitragListe= new ArrayList<Beitrag>();
 
-		//Versuch der Abfrage
-		try{
+		try {
 			Statement stmt = con.createStatement();
-			//Suche alle Beitrag
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Pinnwand_ID="+id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id);
+			
+			
+		//hier eventl. mit Pinnwand verknüpfen?!
 
 			while (rs.next()) {
-		        // Ergebnis in Beitrag- Objekt umwandeln
 		        Beitrag b = new Beitrag();
 		        b.setID(rs.getInt("Beitrag_ID"));
 		        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        b.setText((rs.getString("Text")));
 		       
-
-		        //BeitragObjekte der ArrayList hinzufügen
 		        beitragListe.add(b);
 		      }
 			return beitragListe;
@@ -61,7 +58,6 @@ public class BeitragMapper {
 	    catch (SQLException e) {
 	    		e.printStackTrace();
 	    }
-	//Falls keines gefunden leere Liste
 	return beitragListe;
 	}
 	
@@ -95,48 +91,98 @@ public class BeitragMapper {
 	    }
 
 	}
-	 /*
-	 //Beitrag per ID um Beitrag eines Nutzers anzuzeigen
-	 public Beitrag getBeitragById(int id){
+	 //Alle Beiträge zu nutzer anzeigen
+	 public ArrayList<Beitrag> findeAlleUserBeitraege(int id) {
+		 Connection con = DBConnection.connection();
+			Statement stmt = null;
+			ResultSet rs = null;
 
-		//Aufbau der DBVerbindung
-		Connection con = DBConnection.connection();
+			ArrayList<Beitrag> result = new ArrayList<Beitrag>();
 
-		//Versuch der Abfrage
-		try{
-			Statement stmt = con.createStatement();
-			//Suche alle Felder der Beitragtabelle anhand von ID
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Beitrag_ID=" + id );
+			try {
+				stmt = con.createStatement();
 
-			//Maximal ein Rï¿½ckgabewert da Id Primï¿½rschlï¿½ssel
-			if (rs.next()) {
-		        // Ergebnis in Beitrag- Objekt umwandeln
-		        Beitrag b = new Beitrag();
-		        b.setID(rs.getInt("beitrag_ID"));
-		        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
-		        b.setText(rs.getString("Text"));
-		        b.setPinnwand(PinnwandMapper.pinnwandMapper().getPinnwandById(rs.getInt("Pinnwand_ID")));
+				rs = stmt.executeQuery("SELECT * FROM Beitrag " + "WHERE Nutzer_ID =" + id + " ORDER BY Datum DESC");
 
-		        //Aufruf des KommentarMappers um alle zum Beitrag gehï¿½rigen Kommentare als ArrayList zuzuweisen
-		        b.setKommentarListe(KommentarMapper.kommentarMapper().getKommentarByBeitrag(rs.getInt("beitrag_ID")));
+				while (rs.next()) {
+					Beitrag beitrag = new Beitrag();
+					beitrag.setID(rs.getInt("Beitrag_ID"));
+					beitrag.setText(rs.getString("Text"));
+					beitrag.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 
-		        //Aufruf des LikeMappers um alle zum Beitrag gehï¿½rigen Likes als ArrayList zuzuweisen
-		        b.setLikeList(LikeMapper.likeMapper().getLikeByBeitrag(rs.getInt("beitrag_ID")));			       
-
-		        //BeitragObjekt zurï¿½ckgeben
-		        return b;
+					result.add(beitrag);
+				}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
-		}
 
-	    catch (SQLException e) {
-    		e.printStackTrace();
-    		return null;
-	    }
-	//Falls keines gefunden leere Liste
-	return null;
-	}
+			return result;
+		}
+	 	
+	 	public void textBeitragLoeschen(Beitrag beitrag) {
+	 		
+	 		Connection con = DBConnection.connection();
+	 			Statement stmt = null;
+
+	 			try {
+	 				stmt = con.createStatement();
+
+	 				stmt.executeUpdate("DELETE FROM Beitrag "
+	 						+ "WHERE Beitrag_ID=" + beitrag.getID());
+
+	 			} catch (SQLException e2) {
+	 				e2.printStackTrace();
+	 			}
+	 			
+	 			return;
+	 		}
 	 
-	*/
+		public Beitrag updateBeitrag(Beitrag beitrag){
+			
+			Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+		      
+		      stmt.executeUpdate("UPDATE Beitrag SET Text=\"" + beitrag.getText() + "\" WHERE beitrag_ID= " + beitrag.getID());
+		      
+		      System.out.println("Neuer Beitrag bei" + " " + beitrag.getText() + " " + beitrag.getID());
+
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+
+		    return sucheBeitragID(beitrag.getID());
+		}
 	
+		
+		//Beitrag per ID aus der DB holen
+		public Beitrag sucheBeitragID(int id){
+
+			Connection con = DBConnection.connection();
+
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Beitrag_ID=" + id );
+
+				if (rs.next()) {
+			        Beitrag b = new Beitrag();
+			        b.setID(rs.getInt("Beitrag_ID"));
+			        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+			        b.setText(rs.getString("Text"));
+	
+			        return b;
+				}
+			}
+
+		    catch (SQLException e) {
+	    		e.printStackTrace();
+	    		return null;
+		    }
+		return null;
+		}
+		
+		
 	
 }

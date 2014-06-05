@@ -61,18 +61,16 @@ public class NutzerMapper {
 	
 	public ArrayList<Nutzer> sucheAlleNutzer(){
 
-		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
 		ArrayList <Nutzer> alleNutzer = new ArrayList<Nutzer>();
 
-		//Versuch der Abfrage
-		try{
+		try {
 			Statement stmt = con.createStatement();
 			//Suche alle Nutzer
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer");
 
 			while (rs.next()) {
-				// Ergebnis in Nutzer- Objekt umwandeln
+				
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
 		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -81,12 +79,9 @@ public class NutzerMapper {
 		        n.setPassWort(rs.getString("Passwort"));
 		        n.seteMail(rs.getString("Email"));
 		        n.setNickname(rs.getString("Nickname"));
-		        /*
-		        //Verweis auf PinnwandMapper um zugehörige Pinnwand herauszufinden
-		        n.setPinnwand(PinnwandMapper.pinnwandMapper().getPinnwandByNutzer(rs.getInt("nutzer_ID")));
-		        //Verweis auf AbonnementMapper um zugehörige Abos herauszufinden
-		        n.setAbonnementListe(AboMapper.aboMapper().getAboByNutzer(rs.getInt("nutzer_ID")));	
-		        */
+
+		        
+		        //Pinnwand und Abonnement?! :D
 
 		        //NutzerObjekte der ArrayList hinzufügen
 		        alleNutzer.add(n);
@@ -106,18 +101,15 @@ public class NutzerMapper {
 	
 	public Nutzer sucheNutzerID(int id){
 
-		//Aufbau der DBVerbindung
+
 		Connection con = DBConnection.connection();
 
-		//Versuch der Abfrage
 		try {
 			Statement stmt = con.createStatement();
-			//Suche alle Felder der Nutzertabelle anhand von ID
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer WHERE Nutzer_ID=" + id );
 
-		    //Maximal ein Rückgabewert da Id Primärschlüssel
 			if (rs.next()) {
-		        // Ergebnis in Nutzer- Objekt umwandeln
+				
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
 		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -135,7 +127,6 @@ public class NutzerMapper {
     		e.printStackTrace();
     		return null;
 	    }
-	//Falls keines gefunden leere Liste
 	return null;
 	}
 	
@@ -143,10 +134,9 @@ public class NutzerMapper {
 	//Nutzer updaten
 	
 	public Nutzer updateNutzer(Nutzer n){
-		//Aufbau der DBVerbindung
+
 		Connection con = DBConnection.connection();
 
-		//Versuch der Abfrage
 	    try {
 	      Statement stmt = con.createStatement();
 	      
@@ -157,7 +147,6 @@ public class NutzerMapper {
 	      e.printStackTrace();
 	    }
 
-	    // Zurückgeben des aktuellen Nutzerobjektes
 	    return sucheNutzerID(n.getID());
 	}
 	

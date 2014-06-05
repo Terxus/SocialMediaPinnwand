@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
@@ -27,8 +26,20 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class NutzerLogin {
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+
+	//Get the Nutzer
 	
-	  
+	private Nutzer nutzer;
+	
+	public Nutzer getNutzer() {
+		return this.nutzer;
+	}
+	public void setNutzer(Nutzer nutzer) {
+		this.nutzer = nutzer;
+	}
+	
+
+	
 	  //Startpage <b>HOME</b>
 		private DecoratorPanel decPanel = new DecoratorPanel();
 		private TextBox nutzerNameBox = new TextBox();
@@ -100,9 +111,28 @@ public class NutzerLogin {
 
 	  public void loadPinnwand() {
 		  
-		TopLevelNavigation topLevelNavi = new TopLevelNavigation();
-		Navigation navi = new Navigation();
-		BeitragErstellen beitrag = new BeitragErstellen();
+		  
+			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					System.out.println("Fehler");
+				}
+				@Override
+				public void onSuccess(Nutzer result) {
+					setNutzer(result);
+					
+					TopLevelNavigation topLevelNavi = new TopLevelNavigation();
+					BeitragErstellen beitrag = new BeitragErstellen();
+					Navigation navi = new Navigation();
+					
+					topLevelNavi.addTopLevelNavi();
+					navi.addNavigation();
+					beitrag.zeigeAlleBeitraege(result);
+					beitrag.beitragHinzufuegen();
+				}
+			});
+		  
+
 		//KommentarErstellen kommentar = new KommentarErstellen();
 		  
 		/*  
@@ -110,10 +140,10 @@ public class NutzerLogin {
 	    welcomeMsg.addStyleName("welcomeMsg");*/
 		
 	    
-	    topLevelNavi.addTopLevelNavi();
-	    navi.addNavigation();
+	 
 	    //beitrag.beitragAnzeigen();
-	    beitrag.beitragHinzufuegen();
+	    
+	    
 	    //kommentar.addKommentar();
 	    
 	    /*RootPanel.get("Header").add(welcomeMsg);
@@ -121,11 +151,39 @@ public class NutzerLogin {
 	  }
 	  
 	  public void refreshPinnwand() {
-
 		  
+			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					System.out.println("Fehler");
+				}
+				@Override
+				public void onSuccess(Nutzer result) {
+					setNutzer(result);
+					
+					//Contentobjekte Erzeugen
+					Navigation navi = new Navigation();
+					BeitragErstellen beitrag = new BeitragErstellen();
+					
+					//Beiträge Anzeigen lassen per User
+					beitrag.zeigeAlleBeitraege(result);
+					navi.addNavigation();
+					beitrag.beitragHinzufuegen();
+					
+				}
+			});
+
+		  /*
 		  //Contentobjekte erzeugen
 			Navigation navi = new Navigation();
 			BeitragErstellen beitrag = new BeitragErstellen();
+			
+			
+			//Beiträge wieder anzeigen
+			
+			beitrag.zeigeAlleBeitraege(holeNutzer());
+			
+			
 			//KommentarErstellen kommentar = new KommentarErstellen();
 			
 			//Contentobjektmethode zum aufbauen aufrufen
@@ -134,6 +192,8 @@ public class NutzerLogin {
 			//beitrag.beitragAnzeigen();
 			beitrag.beitragHinzufuegen();
 			//kommentar.addKommentar();
+			 * 
+			 */
 		  
 	  }
 

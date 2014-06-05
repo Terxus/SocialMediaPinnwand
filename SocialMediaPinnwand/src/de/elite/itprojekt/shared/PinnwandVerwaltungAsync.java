@@ -28,4 +28,10 @@ public interface PinnwandVerwaltungAsync {
 
 	void updateNutzer(Nutzer nutzer, AsyncCallback<Nutzer> callback);
 
+	void findeAlleUserBeitraege(int id, AsyncCallback<ArrayList<Beitrag>> callback);
+
+	void textBeitragLoeschen(Beitrag beitrag, AsyncCallback<Void> asyncCallback);
+	
+	void textBeitragBearbeiten(Beitrag beitrag, AsyncCallback<Beitrag> asyncCallback);
+
 }

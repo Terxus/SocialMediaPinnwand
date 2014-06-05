@@ -19,7 +19,4 @@ public class Pinnwand extends BusinessObject {
 	public void setAbonnementId(int abonnementId) {
 		this.abonnementId = abonnementId;
 	}
-
-
-	
 }

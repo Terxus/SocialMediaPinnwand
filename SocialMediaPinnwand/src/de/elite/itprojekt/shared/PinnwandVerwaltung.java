@@ -10,24 +10,26 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
 
-@RemoteServiceRelativePath("pinnwandVerwaltung") //Shortcut name
+@RemoteServiceRelativePath("pinnwandVerwaltung") //Shortcut Name
 public interface PinnwandVerwaltung extends RemoteService {
 	
 	//Nutzer Methoden
-	
-	ArrayList<Nutzer> zeigeAlleNutzer();
-	void nutzerAnlegen(Nutzer nutzer);
-	void nutzerEditieren(Nutzer nutzer);
-	void nutzerLoeschen(Nutzer nutzer);
+	public ArrayList<Nutzer> zeigeAlleNutzer();
+	public void nutzerAnlegen(Nutzer nutzer);
+	public void nutzerEditieren(Nutzer nutzer);
+	public void nutzerLoeschen(Nutzer nutzer);
+	public Nutzer loginCheck(String nutzerName, String passWort);
+	public Nutzer sucheNutzerID(int id);
+	public Nutzer updateNutzer(Nutzer nutzer);
 	
 	//Pinnwand
-	ArrayList<Pinnwand> zeigeAllePinnwaende();
+	public ArrayList<Pinnwand> zeigeAllePinnwaende();
 	
 	//Beitrag
-	void textBeitragErstellen(Beitrag beitrag);
-	Nutzer loginCheck(String nutzerName, String passWort);
-	Nutzer sucheNutzerID(int id);
-	Nutzer updateNutzer(Nutzer nutzer);
+	public void textBeitragErstellen(Beitrag beitrag);
+	public ArrayList<Beitrag> findeAlleUserBeitraege(int id);
+	public void textBeitragLoeschen(Beitrag beitrag);
+	public Beitrag textBeitragBearbeiten(Beitrag beitrag);
 	
 
 }

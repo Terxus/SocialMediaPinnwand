@@ -76,7 +76,6 @@ div#Navigator {
 	min-height: 30px;
 	padding: 1em 1em;
 	/*border-top: 1px dashed silver;*/
-	overflow: scroll;
 	max-height: 400px;
 }
 div#neuer_Beitrag {
@@ -164,6 +163,22 @@ div#Footer {
 }
 .editUser {
 	font-size: 18px;
+}
+
+
+
+
+
+.flexTable {
+  
+  height: 100px;
+}
+
+.panel {
+  background-color: #C3D9FF;
+  border: 1px solid #000000;
+  padding: 3px;
+  margin: 3px;
 }
 
 
