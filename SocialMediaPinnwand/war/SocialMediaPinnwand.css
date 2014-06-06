@@ -89,16 +89,16 @@ div#Beitrag {
 	/*border:1px solid #ddd;*/
 	height: auto;
 	margin-top: 4px;
+	width: 500px;
 }
 
 div#Kommentar {
 	margin-left: 30px;
 	/*border:1px solid #ddd;*/
-	margin-top: 12px;
 }
 .Loeschen {
 		float: right;
-		background: url(socialmediapinnwand/gwt/clean/images/loeschen.png);
+		background: url(images/loeschen.png);
 		width: 18px;
 		height: 18px;
 }
@@ -170,15 +170,26 @@ div#Footer {
 
 
 .flexTable {
-  
   height: 100px;
 }
-
 .panel {
   background-color: #C3D9FF;
   border: 1px solid #000000;
   padding: 3px;
   margin: 3px;
+}
+.flexTablek {
+  height: 100px;
+}
+.panelk {
+  background-color: #afc3e5;
+  border: 1px solid #000000;
+  padding: 3px;
+  margin: 3px;
+}
+.umBruch {
+	width: 250px;
+	word-wrap: break-word;
 }
 
 

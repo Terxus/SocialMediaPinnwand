@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -66,13 +67,17 @@ public class BeitragErstellen {
 	private Label datumsAnzeige;
 	private PushButton like;
 	private Label anzahlLikes;
-	FlexTable beitragsGrid = new FlexTable();
+	private FlexTable beitragsGrid = new FlexTable();
 	
 	//Neuer Beitrag
 	
 	private VerticalPanel vPanelAddBeitrag = new VerticalPanel();
 	private TextArea tArea = new TextArea();
 	private Button addBeitrag;
+	
+	//Kommentare
+	private TextArea tAreak;
+	private Button addKommentar;
 	
 
 	
@@ -98,8 +103,10 @@ public class BeitragErstellen {
 		this.loeschen.setStylePrimaryName("Loeschen");
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
+		this.textBeitrag.setStylePrimaryName("umBruch");
 		
 		beitragsGrid.setStyleName("panel flexTable");
+		
 		beitragsGrid.setWidget(0, 0, eingeloggterUser);
 		beitragsGrid.setWidget(0, 2, kommentieren);
 		beitragsGrid.setWidget(0, 3, bearbeiten);
@@ -182,7 +189,78 @@ public class BeitragErstellen {
 						});
 			}
 		});
+		
+		//Kommentar hinzufügen
+		
+		kommentieren.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+				addKommentar = new Button("Hinzufuegen");
+				
+				tAreak = new TextArea();
+				tAreak.setVisibleLines(2);
+				tAreak.setPixelSize(200, 100);
+				
+				beitragsGrid.setWidget(4, 0, tAreak);
+				beitragsGrid.setWidget(5, 0, addKommentar);
+					
+					//Beitrag speichern
+					addKommentar.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							if (tAreak.getValue().isEmpty()) {
+								Window.alert("Bitte Text eingeben!");
+							}
+							else {
+								Kommentar kommentar = new Kommentar();
+								kommentar.setText(tAreak.getText());
+								kommentar.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+								kommentar.setNutzer(nutzer);
+								kommentar.setBeitrag(beitrag);
+								
+								System.out.println(kommentar.getBeitrag().getText());
+		
+								
+							}
+							
+						}
+						
+					});
+				
+				
+
+				//KommentarErstellen kommentar = new KommentarErstellen();
+				
+				//int id = beitrag.getID();
+				
+				//kommentar.addKommentar(nutzer, beitrag);
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+	
+
+	
+	
+	
 	
 	public void beitragHinzufuegen() {
 		
@@ -254,13 +332,11 @@ public class BeitragErstellen {
 			}
 			
 		});
-		
-				
-		
 	}
 	
 	public void neuerBeitragAnzeigen(Nutzer nutzer) {
 		zeigeAlleBeitraege(nutzer);
+		RootPanel.get("Beitrag").clear();
 	}
 	
 	public void zeigeAlleBeitraege(Nutzer nutzer) {

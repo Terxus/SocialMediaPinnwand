@@ -87,4 +87,48 @@ public class KommentarMapper {
 	    }
 		return kommentarListe;
 	 }
+	 //Kommentar anlegen
+	 
+	 
+	 public void kommentarErstellen(Kommentar kommentar){
+		 
+		Connection con = DBConnection.connection();
+	
+		try{
+			Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(Kommentar_ID) AS maxid " 
+	      + "FROM Kommentar ");
+	      if (rs.next()) {
+	    	  
+	    	  kommentar.setID(rs.getInt("maxid") + 1);
+	    	  
+	    	  stmt = con.createStatement();
+
+		        stmt.executeUpdate("INSERT INTO Kommentar (Kommentar_ID, Nutzer_ID, Beitrag_ID, Text, Datum) "
+		            + "VALUES (" + kommentar.getID() + ",'" + kommentar.getNutzer().getID() + "','"  + kommentar.getBeitrag().getID() + "','" + kommentar.getText() + "','" + kommentar.getErstellZeitpunkt() +"')");
+
+		        System.out.println(kommentar.getErstellZeitpunkt());
+		        
+	      }
+	    }
+
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 }

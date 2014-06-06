@@ -7,6 +7,9 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Nutzer;
+
 
 
 
@@ -26,7 +29,7 @@ public class KommentarErstellen {
 	
 
 
-	public void addKommentar() {
+	public void addKommentar(Nutzer nutzer, Beitrag beitrag) {
 		
 		//Widgets erzeugen für Beitrag
 
@@ -40,7 +43,9 @@ public class KommentarErstellen {
 		this.loeschen.setStylePrimaryName("Loeschen");
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
+		this.textBeitrag.setStylePrimaryName("umBruch");
 		
+		kommentarFlexTable.setStyleName("panelk flexTablek");
 		
 		kommentarFlexTable.setWidget(0, 0, eingeloggterUser);
 		kommentarFlexTable.setWidget(0, 1, bearbeiten);

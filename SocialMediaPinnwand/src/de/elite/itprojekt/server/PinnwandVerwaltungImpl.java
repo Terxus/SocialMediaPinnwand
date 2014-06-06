@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.elite.itprojekt.server.db.AbonnementMapper;
 import de.elite.itprojekt.server.db.BeitragMapper;
+import de.elite.itprojekt.server.db.KommentarMapper;
 import de.elite.itprojekt.server.db.NutzerMapper;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
+import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
@@ -68,5 +72,15 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	public Beitrag textBeitragBearbeiten(Beitrag beitrag) {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().updateBeitrag(beitrag);
+	}
+	@Override
+	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id) {
+		// TODO Auto-generated method stub
+		return AbonnementMapper.abonnementMapper().getAboByNutzer(id);
+	}
+	@Override
+	public void kommentarErstellen(Kommentar kommentar) {
+		KommentarMapper.kommentarMapper().kommentarErstellen(kommentar);
+		
 	}
 }

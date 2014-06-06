@@ -35,29 +35,35 @@ public class PinnwandMapper {
 	
 	
 	
-	
-	
+	public Pinnwand suchePinnwandID(int id){
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Pinnwand WHERE Pinnwand_ID=" + id );
+
+			if (rs.next()) {
+				
+				Pinnwand pn = new Pinnwand();
+				pn.setAbonnementId(rs.getInt("Abonnement_ID"));
+				pn.setID(rs.getInt("Pinnwand_ID"));
+				pn.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+				pn.setNutzerId(rs.getInt("Nutzer_ID"));
+				
+				pn.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
+
+		        return pn;
+		      }
+		}
+
+	    catch (SQLException e) {
+    		e.printStackTrace();
+    		return null;
+	    }
+	return null;
+	}
+
 	
 }

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
@@ -30,6 +32,12 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public ArrayList<Beitrag> findeAlleUserBeitraege(int id);
 	public void textBeitragLoeschen(Beitrag beitrag);
 	public Beitrag textBeitragBearbeiten(Beitrag beitrag);
+	
+	//Abo
+	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id);
+	
+	//Kommentar
+	public void kommentarErstellen(Kommentar kommentar);
 	
 
 }

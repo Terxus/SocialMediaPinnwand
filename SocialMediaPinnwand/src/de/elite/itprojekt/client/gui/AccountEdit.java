@@ -177,7 +177,21 @@ public class AccountEdit {
 			}
 			@Override
 			public void onSuccess(Nutzer result) {
-				System.out.println("LOL");
+				
+				//Textboxen wieder in Labels verwandeln mit dem aktuellen Text
+				
+				Vorname.setText(vorNameTextBox.getText().toString());
+				Nachname.setText(nachNameTextBox.getText().toString());
+				Nickname.setText(nickNameTextBox.getText().toString());
+				Passwort.setText(passWortTextBox.getText().toString());
+				Email.setText(eMailTextBox.getText().toString());
+				editUser.setWidget(0, 1, Vorname);
+				editUser.setWidget(1, 1, Nachname);
+				editUser.setWidget(2, 1, Nickname);
+				editUser.setWidget(3, 1, Passwort);
+				editUser.setWidget(4, 1, Email);
+				bestaetigenButton.setEnabled(false);
+				Window.alert("Nutzerdaten geaendert!");
 			}
 		});
 	}

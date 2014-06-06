@@ -36,7 +36,6 @@ public class OrakelBox {
 
 			@Override
 			public void onSuccess(ArrayList<Nutzer> result) {
-				System.out.println("OrakelBox.java -> Success Methode");
 				findeAlleNutzer(result);
 
 			}

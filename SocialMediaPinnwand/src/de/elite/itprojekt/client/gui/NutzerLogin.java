@@ -126,7 +126,8 @@ public class NutzerLogin {
 					Navigation navi = new Navigation();
 					
 					topLevelNavi.addTopLevelNavi();
-					navi.addNavigation();
+					navi.addNavigation(result);
+					navi.getAbonnierteNutzerListe(result);
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
 				}
@@ -167,7 +168,8 @@ public class NutzerLogin {
 					
 					//Beiträge Anzeigen lassen per User
 					beitrag.zeigeAlleBeitraege(result);
-					navi.addNavigation();
+					navi.addNavigation(result);
+					navi.getAbonnierteNutzerListe(result);
 					beitrag.beitragHinzufuegen();
 					
 				}

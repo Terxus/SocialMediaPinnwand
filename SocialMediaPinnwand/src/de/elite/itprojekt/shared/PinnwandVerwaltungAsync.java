@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
+import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
 public interface PinnwandVerwaltungAsync {
 
 	void textBeitragErstellen(Beitrag beitrag, AsyncCallback<Void> callback);
+	
+	void kommentarErstellen(Kommentar kommentar, AsyncCallback<Void> callback);
 
 	void zeigeAllePinnwaende(AsyncCallback<ArrayList<Pinnwand>> callback);
 
@@ -33,5 +37,7 @@ public interface PinnwandVerwaltungAsync {
 	void textBeitragLoeschen(Beitrag beitrag, AsyncCallback<Void> asyncCallback);
 	
 	void textBeitragBearbeiten(Beitrag beitrag, AsyncCallback<Beitrag> asyncCallback);
+
+	void zeigeAlleAbosPerNutzer(int id, AsyncCallback<ArrayList<Abonnement>> callback);
 
 }

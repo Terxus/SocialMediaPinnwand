@@ -130,6 +130,48 @@ public class NutzerMapper {
 	return null;
 	}
 	
+	//Die ID des Nutzer zurückgeben
+	
+	public int sucheNutzerReturnID(int id){
+
+
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer WHERE Nutzer_ID=" + id );
+
+			if (rs.next()) {
+				
+		        Nutzer n = new Nutzer();
+		        n.setID(rs.getInt("Nutzer_ID"));
+		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+		        n.setVorname(rs.getString("Vorname"));
+		        n.setNachname(rs.getString("Nachname"));
+		        n.setPassWort(rs.getString("Passwort"));
+		        n.seteMail(rs.getString("Email"));
+		        n.setNickname(rs.getString("Nickname"));
+
+		        return n.getID();
+		      }
+		}
+
+	    catch (SQLException e) {
+    		e.printStackTrace();
+    		return 0;
+	    }
+	return 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//Nutzer updaten
 	
