@@ -9,7 +9,7 @@ import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
-
+import de.elite.itprojekt.shared.bo.Like;
 
 public interface PinnwandVerwaltungAsync {
 
@@ -44,8 +44,22 @@ public interface PinnwandVerwaltungAsync {
 	void getNutzerAnhandNickname(String nickname, AsyncCallback<Nutzer> callback);
 	
 	void abonnementAnlegen(int AbonnentID, int PinnwandID,AsyncCallback<Abonnement> callback);
-
-	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
 	
 	void abonnementLoeschen(Abonnement a, AsyncCallback<Void> callback);
+	
+	void saveLike(Like like, AsyncCallback<Void> callback);
+	
+	void insertLike(Like like, AsyncCallback<Like> callback);
+	
+	void deleteLike(Like like, AsyncCallback<Void> callback);
+	
+	void findeAlleKommentare(int id, AsyncCallback<ArrayList<Kommentar>> callback);
+	
+	void sucheBeitragPerPinnwand(int id, AsyncCallback<ArrayList<Beitrag>> callback);
+	
+	public void checkIfLiked (Nutzer n, Beitrag b, AsyncCallback<Boolean> callbackBoolean);
+
+	
+	
+	
 }

@@ -9,12 +9,14 @@ import de.elite.itprojekt.server.db.AbonnementMapper;
 import de.elite.itprojekt.server.db.BeitragMapper;
 import de.elite.itprojekt.server.db.KommentarMapper;
 import de.elite.itprojekt.server.db.NutzerMapper;
+import de.elite.itprojekt.server.db.LikeMapper;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
+import de.elite.itprojekt.shared.bo.Like;
 
 public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements PinnwandVerwaltung {
 	/**
@@ -87,12 +89,20 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	}
 	
 	@Override
+	 public ArrayList<Kommentar> findeAlleKommentare(int id) {
+	 // TODO Auto-generated method stub
+	 return KommentarMapper.kommentarMapper().findeDurchId(id);
+	 	}
+	 	@Override
+	 	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id) {
+	 	// TODO Auto-generated method stub
+	 	return BeitragMapper.beitragMapper().getBeitragByPinnwand(id);
+	 	}
+	 	
+	
+	@Override
 	public Nutzer getNutzerAnhandNickname(String nickname) throws IllegalArgumentException{
 		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
-	}
-	@Override
-	public Nutzer getUserByNickname(String nickname) throws IllegalArgumentException{
-		return NutzerMapper.nutzerMapper().findByNickname(nickname);
 	}
 	
 	@Override
@@ -108,4 +118,34 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		
 		AbonnementMapper.abonnementMapper().abonnementLoeschen(a);
 	}
+	
+	@Override
+	public Like insertLike(Like like) throws IllegalArgumentException {
+		return LikeMapper.likeMapper().insertLike(like);
+	}
+
+	@Override
+	public void saveLike(Like like) throws IllegalArgumentException {
+	// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteLike(Like like) throws IllegalArgumentException {
+	// TODO Auto-generated method stub
+
+	}
+	
+	 public int zaehleLikesZuTextbeitrag(Beitrag beitrag)
+		      throws Exception {
+		    return BeitragMapper.beitragMapper().zaehleLikesZuBeitrag(beitrag);
+		  }
+	
+	@Override
+	public Boolean checkIfLiked(Nutzer n, Beitrag b)
+			throws IllegalArgumentException {
+
+		return LikeMapper.likeMapper().checkIfLiked(n, b);
+	}
+	
 }

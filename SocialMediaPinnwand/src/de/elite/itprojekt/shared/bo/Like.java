@@ -8,6 +8,7 @@ public class Like extends BusinessObject {
 	private static final long serialVersionUID = 1L;
 	private int pinnwandId, nutzerId;
 	private Nutzer nutzer;
+	private Beitrag beitrag;
 	
 	public int getPinnwandId() {
 		return pinnwandId;
@@ -27,4 +28,12 @@ public class Like extends BusinessObject {
 	public void setNutzer(Nutzer nutzer) {
 		this.nutzer = nutzer;
 	}
+	
+	public Beitrag getBeitrag() {
+		return beitrag;
+	}
+	public void setBeitrag(Beitrag beitrag) {
+		this.beitrag = beitrag;
+	}
+
 }

@@ -10,6 +10,7 @@ import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
+import de.elite.itprojekt.shared.bo.Like;
 
 
 
@@ -29,6 +30,7 @@ public interface PinnwandVerwaltung extends RemoteService {
 	
 	//Pinnwand
 	public ArrayList<Pinnwand> zeigeAllePinnwaende();
+	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id);
 	
 	//Beitrag
 	public void textBeitragErstellen(Beitrag beitrag);
@@ -43,8 +45,17 @@ public interface PinnwandVerwaltung extends RemoteService {
 	
 	//Kommentar
 	public void kommentarErstellen(Kommentar kommentar);
-	public Nutzer getUserByNickname(String nickname) throws IllegalArgumentException;
+	public ArrayList<Kommentar> findeAlleKommentare(int id);
 
+	//Likes
+	
+	public Like insertLike(Like like);
+	public void saveLike(Like like) throws IllegalArgumentException;
+	public void deleteLike(Like like) throws IllegalArgumentException;
+	public Boolean checkIfLiked (Nutzer n, Beitrag b);
+	
+	
+	
 	
 	
 

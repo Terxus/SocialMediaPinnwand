@@ -39,7 +39,7 @@ public class KommentarMapper {
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar WHERE Kommentar_ID=" + id );
 
-				
+
 				if (rs.next()) {
 			        Kommentar k = new Kommentar();
 			        k.setID(rs.getInt("Kommentar_ID"));
@@ -58,7 +58,7 @@ public class KommentarMapper {
 			return null;
 
 		 }
-	 
+
 	 public ArrayList<Kommentar> findeDurchId(int id){
 		Connection con = DBConnection.connection();
 		ArrayList <Kommentar> kommentarListe= new ArrayList<Kommentar>();
@@ -66,7 +66,7 @@ public class KommentarMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar WHERE Beitrag_ID="+id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar " + "WHERE Beitrag_ID =" + id + " ORDER BY Datum DESC");
 
 			while (rs.next()) {
 				Kommentar k = new Kommentar();
@@ -74,8 +74,9 @@ public class KommentarMapper {
 		        k.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        k.setText(rs.getString("Text"));
 		        k.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
-		        
-		        //Mit Beitrag verknüpfen?! :D
+		        k.setBeitrag(BeitragMapper.beitragMapper().sucheBeitragID(rs.getInt("Beitrag_ID")));
+
+
 
 		        kommentarListe.add(k);
 		      }
@@ -87,6 +88,7 @@ public class KommentarMapper {
 	    }
 		return kommentarListe;
 	 }
+	 
 	 //Kommentar anlegen
 	 
 	 

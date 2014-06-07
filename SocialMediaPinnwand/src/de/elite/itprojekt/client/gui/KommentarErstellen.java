@@ -7,14 +7,13 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.elite.itprojekt.shared.bo.Beitrag;
-import de.elite.itprojekt.shared.bo.Nutzer;
+import de.elite.itprojekt.shared.bo.Kommentar;
 
 
 
 
 public class KommentarErstellen {
-	
+
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label eingeloggterUser;
 	private PushButton bearbeiten;
@@ -22,47 +21,46 @@ public class KommentarErstellen {
 	private Label textBeitrag;
 	private Label datumsAnzeige;
 	FlexTable kommentarFlexTable = new FlexTable();
-	
-	
-	
-	
-	
 
 
-	public void addKommentar(Nutzer nutzer, Beitrag beitrag) {
-		
+
+
+
+
+
+	public void addKommentar(Kommentar kommentar) {
+
 		//Widgets erzeugen für Beitrag
 
-		this.eingeloggterUser = new Label("Donald Duck");
+		this.eingeloggterUser = new Label(kommentar.getNutzer().getVorname() + " " + kommentar.getNutzer().getNachname());
 		this.bearbeiten = new PushButton("Bearbeiten");
 		this.loeschen = new Button();
-		this.textBeitrag = new Label("Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! ");
-		this.datumsAnzeige = new Label("24.06.2014 um 12:00 Uhr");
-		
+		this.textBeitrag = new Label(kommentar.getText());
+		this.datumsAnzeige = new Label(kommentar.getErstellZeitpunkt().toString());
+
 		//CSS Bezeichner
 		this.loeschen.setStylePrimaryName("Loeschen");
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
 		this.textBeitrag.setStylePrimaryName("umBruch");
-		
+
 		kommentarFlexTable.setStyleName("panelk flexTablek");
-		
+
 		kommentarFlexTable.setWidget(0, 0, eingeloggterUser);
 		kommentarFlexTable.setWidget(0, 1, bearbeiten);
 		kommentarFlexTable.setWidget(0, 2, loeschen);
 		kommentarFlexTable.setWidget(1, 0, textBeitrag);
 		kommentarFlexTable.setWidget(2, 0, datumsAnzeige);
-		
-		
-		
-		
-		
+
+
+
+
+		kommentarFlexTable.addStyleName("Kommentar");
 		this.vPanel.add(kommentarFlexTable);
-		
+
 		RootPanel.get("Kommentar").add(vPanel);
-		
-		
-		
+
+
 
 	}
 }

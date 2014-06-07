@@ -261,7 +261,7 @@ public class Navigation {
 					System.out.println("Substring: " + s);
 					vBox.setText("");
 
-					service.getUserByNickname(s, new AsyncCallback<Nutzer>() {
+					service.getNutzerAnhandNickname(s, new AsyncCallback<Nutzer>() {
 
 						@Override
 						public void onFailure(Throwable caught) {
@@ -273,6 +273,9 @@ public class Navigation {
 						public void onSuccess(Nutzer result) {
 								// komischerweise geht nutzer.getID() hier nicht
 								// ziehe aktuellen User aus dem Cookiewert
+							
+							
+							
 							if (nutzerID == result.getID()) {
 								Window.alert("Man kann sich nicht selbst abbonieren!");
 								vBox.setText("");
@@ -312,4 +315,16 @@ public class Navigation {
 
 
 
-
+/*
+			aboLoeschen.addClickHandler(new ClickHandler(){
+				@Override
+			public void onClick(ClickEvent event) {
+					
+			
+					DialogBox dlg = new Abopop("Pinnwand Deabonnieren?", "Pinnwand von"
+							+ abo.getPinnwand().getNutzer().getNickname() + " wirklich deabonnieren?");
+					dlg.center();
+					
+				
+				}});}
+		*/

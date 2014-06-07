@@ -182,7 +182,47 @@ public class BeitragMapper {
 		    }
 		return null;
 		}
-		
+		//Alle Beitraege die zu einer Pinnwand gehören (Abobeziehung)
+
+		 public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id){
+
+
+				Connection con = DBConnection.connection();
+				ArrayList <Beitrag> beitragListe= new ArrayList<Beitrag>();
+
+
+				try{
+					Statement stmt = con.createStatement();
+
+					ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id);
+
+					while (rs.next()) {
+
+				        Beitrag b = new Beitrag();
+				        b.setID(rs.getInt("Beitrag_ID"));
+				        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+				        b.setText((rs.getString("Text")));
+				        b.setLikeId((rs.getInt("Like_ID")));
+				        b.setPinnwand(PinnwandMapper.pinnwandMapper().suchePinnwandID(rs.getInt("Pinnwand_ID")));
+				        //Likes in Array
+				        b.setLikeList(LikeMapper.likeMapper().findeDurchId(rs.getInt("Beitrag_ID")));
+
+				        //Kommentare zu jeweiligen Beitrag im Array
+				        b.setKommentarListe(KommentarMapper.kommentarMapper().findeDurchId(rs.getInt("Beitrag_ID")));
+
+
+
+				        beitragListe.add(b);
+				      }
+					return beitragListe;
+				}
+
+			    catch (SQLException e) {
+			    		e.printStackTrace();
+			    }
+			return beitragListe;
+			}
+
+}
 		
 	
-}
