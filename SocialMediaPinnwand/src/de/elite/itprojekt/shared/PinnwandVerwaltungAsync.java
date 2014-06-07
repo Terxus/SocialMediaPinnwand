@@ -10,6 +10,7 @@ import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
+
 public interface PinnwandVerwaltungAsync {
 
 	void textBeitragErstellen(Beitrag beitrag, AsyncCallback<Void> callback);
@@ -39,5 +40,12 @@ public interface PinnwandVerwaltungAsync {
 	void textBeitragBearbeiten(Beitrag beitrag, AsyncCallback<Beitrag> asyncCallback);
 
 	void zeigeAlleAbosPerNutzer(int id, AsyncCallback<ArrayList<Abonnement>> callback);
+	
+	void getNutzerAnhandNickname(String nickname, AsyncCallback<Nutzer> callback);
+	
+	void abonnementAnlegen(int AbonnentID, int PinnwandID,AsyncCallback<Abonnement> callback);
 
+	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
+	
+	void abonnementLoeschen(Abonnement a, AsyncCallback<Void> callback);
 }

@@ -1,5 +1,6 @@
 package de.elite.itprojekt.server;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -20,6 +21,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	Timestamp aktuellesDatum; 
 
 	@Override
 	public ArrayList<Nutzer> zeigeAlleNutzer() {
@@ -82,5 +84,28 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	public void kommentarErstellen(Kommentar kommentar) {
 		KommentarMapper.kommentarMapper().kommentarErstellen(kommentar);
 		
+	}
+	
+	@Override
+	public Nutzer getNutzerAnhandNickname(String nickname) throws IllegalArgumentException{
+		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
+	}
+	@Override
+	public Nutzer getUserByNickname(String nickname) throws IllegalArgumentException{
+		return NutzerMapper.nutzerMapper().findByNickname(nickname);
+	}
+	
+	@Override
+	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID) throws IllegalArgumentException {
+		Abonnement a = new Abonnement();
+		a.setNutzerId(AbonnentID);
+		a.setPinnwandId(PinnwandID);
+		a.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+		return AbonnementMapper.abonnementMapper().abonnementAnlegen(a);
+	}
+	
+	public void abonnementLoeschen(Abonnement a) throws IllegalArgumentException{
+		
+		AbonnementMapper.abonnementMapper().abonnementLoeschen(a);
 	}
 }

@@ -12,6 +12,8 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
 
+
+
 @RemoteServiceRelativePath("pinnwandVerwaltung") //Shortcut Name
 public interface PinnwandVerwaltung extends RemoteService {
 	
@@ -23,6 +25,7 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public Nutzer loginCheck(String nutzerName, String passWort);
 	public Nutzer sucheNutzerID(int id);
 	public Nutzer updateNutzer(Nutzer nutzer);
+	public Nutzer getNutzerAnhandNickname(String nickname);
 	
 	//Pinnwand
 	public ArrayList<Pinnwand> zeigeAllePinnwaende();
@@ -35,9 +38,14 @@ public interface PinnwandVerwaltung extends RemoteService {
 	
 	//Abo
 	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id);
+	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID);
+	public void abonnementLoeschen(Abonnement a);
 	
 	//Kommentar
 	public void kommentarErstellen(Kommentar kommentar);
+	public Nutzer getUserByNickname(String nickname) throws IllegalArgumentException;
+
+	
 	
 
 }

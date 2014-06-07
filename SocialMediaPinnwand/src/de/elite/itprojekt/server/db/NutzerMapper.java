@@ -230,7 +230,7 @@ public class NutzerMapper {
 		      //Dem registrierten Nutzer eine Pinnwand zuordnen
 
 		      stmt.executeUpdate ("INSERT INTO Pinnwand " + "VALUES (" + n.getID() + ", '"
-						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + "12" + "')");
+						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + "0" + "')");
 		      
 		      
 		    }
@@ -239,6 +239,77 @@ public class NutzerMapper {
 		    }
 		    return sucheNutzerID(n.getID());
 		    }
+	 
+	 
+	 
+	 public Nutzer getNutzerAnhandNickname(String nickname) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		    
+		      Statement stmt = con.createStatement();
+
+		 
+		      ResultSet rs = stmt
+
+		          .executeQuery("SELECT * FROM `Nutzer` WHERE `Nickname` = '"+nickname+"'");
+	
+		     
+		      if (rs.next()) {
+		     
+		        Nutzer n = new Nutzer();
+		        n.setID(rs.getInt("Nutzer_ID"));
+		        n.setVorname(rs.getString("Vorname"));
+		        n.setNachname(rs.getString("Nachname"));
+		        n.setNickname(rs.getString("Nickname"));
+		        n.seteMail(rs.getString("Email"));
+
+		        return n;
+		      }
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		      return null;
+		    }
+
+		    return null;
+		  }
+	 
+	 
+	 
+	 public Nutzer findByNickname(String nickname) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		    
+		      Statement stmt = con.createStatement();
+
+		 
+		      ResultSet rs = stmt
+
+		          .executeQuery("SELECT * FROM `Nutzer` WHERE `Nickname` = '"+nickname+"'");
+
+		     
+		      if (rs.next()) {
+		     
+		        Nutzer n = new Nutzer();
+		        n.setID(rs.getInt("Nutzer_ID"));
+		        n.setVorname(rs.getString("Vorname"));
+		        n.setNachname(rs.getString("Nachname"));
+		        n.setNickname(rs.getString("Nickname"));
+		        n.seteMail(rs.getString("Email"));
+
+		        return n;
+		      }
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		      return null;
+		    }
+
+		    return null;
+		  }
+	 
 }
 	
 	

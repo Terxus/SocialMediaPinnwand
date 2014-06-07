@@ -97,32 +97,38 @@ public class AbonnementMapper {
 
 	}
 
-/*
-	public Abonnement insertAbo(Abonnement a){
+	public Abonnement abonnementAnlegen(Abonnement a){
 		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
 		int maxid = 0;
-
+		
 		//Versuch der Abfrage
 		try{
 			Statement stmt = con.createStatement();
-
-	
+			
+	      /*
+	       * Zunächst schauen wir nach, welches der momentan höchste
+	       * Primärschlüsselwert ist.
+	       */
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(Abonnement_ID) AS maxid "
 	          + "FROM Abonnement ");
 
-	      
+	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 	      if (rs.next()) {
-		 
+		        /*
+		         * c erhält den bisher maximalen, nun um 1 inkrementierten
+		         * Primärschlüssel.
+		         */
 	    	  	maxid=rs.getInt("maxid");
 		        a.setID(rs.getInt("maxid") + 1);
 
 		        stmt = con.createStatement();
-
 		      
-		        stmt.executeUpdate("INSERT INTO Abonnement (Abonnement_ID, Nutzer_ID, Pinnwand_ID) "
-		            + "VALUES (" + a.getID() + ",'" + a.getAbonnent().getId() + "','"
-		            + a.getLieferant().getId() +"')");
+		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+		        stmt.executeUpdate("INSERT INTO Abonnement (Abonnement_ID, Datum, Nutzer_ID, Pinnwand_ID) "
+		            + "VALUES (" + a.getID() + ", CURRENT_TIMESTAMP ,  '" + a.getNutzerId() + "'  ,'"
+		            + a.getPinnwandId() +"')");
+		        
 	      	}
 	    }
 
@@ -135,7 +141,7 @@ public class AbonnementMapper {
 
 
 
-	public void deleteAbo(Abonnement a){
+	public void abonnementLoeschen(Abonnement a){
 		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
 
@@ -149,6 +155,6 @@ public class AbonnementMapper {
 	      e.printStackTrace();
 	    } 
 	}
-	*/
+	
 
 }
