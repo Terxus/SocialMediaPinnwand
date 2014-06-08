@@ -37,4 +37,7 @@ public class Abonnement extends BusinessObject {
 	public void setPinnwand(Pinnwand pinnwand) {
 		this.pinnwand = pinnwand;
 	}
+	public String pinnwanduserstring() {
+		return nutzer.getNickname();
+	}
 }

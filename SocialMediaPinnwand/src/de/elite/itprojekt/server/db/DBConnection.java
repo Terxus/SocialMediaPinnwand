@@ -3,7 +3,10 @@ package de.elite.itprojekt.server.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.google.cloud.sql.jdbc.ResultSet;
+import com.google.cloud.sql.jdbc.Statement;
 
 public class DBConnection {
 	private static Connection con = null;
@@ -68,5 +71,25 @@ public class DBConnection {
 	    }
 	  }
 		return con;
+	}
+	
+	//Wird wegen Google benötigt
+	
+	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			} 
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("Connection close Fehler!" + e.toString());
+		}
 	}
 }

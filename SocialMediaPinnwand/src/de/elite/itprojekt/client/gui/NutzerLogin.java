@@ -128,8 +128,14 @@ public class NutzerLogin {
 					topLevelNavi.addTopLevelNavi();
 					navi.addNavigation(result);
 					navi.getAbonnierteNutzerListe(result);
+					
+					//Zeigt nur eigene an
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
+					
+					
+					//Zeigt abobeiträge an
+					beitrag.abonnementBeitraegeAnzeigen(result);
 				}
 			});
 		  

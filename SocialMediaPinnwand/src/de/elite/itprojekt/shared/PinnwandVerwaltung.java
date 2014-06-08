@@ -24,6 +24,10 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public Nutzer sucheNutzerID(int id);
 	public Nutzer updateNutzer(Nutzer nutzer);
 	
+	//Von Domi
+	public Nutzer getNutzerAnhandNickname(String nickname);
+	public Nutzer getUserByNickname(String nickname);
+	
 	//Pinnwand
 	public ArrayList<Pinnwand> zeigeAllePinnwaende();
 	
@@ -32,12 +36,18 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public ArrayList<Beitrag> findeAlleUserBeitraege(int id);
 	public void textBeitragLoeschen(Beitrag beitrag);
 	public Beitrag textBeitragBearbeiten(Beitrag beitrag);
+	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id);
 	
 	//Abo
 	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id);
 	
+	//Abo von Domi
+	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID);
+	public void abonnementLoeschen(Abonnement a);
+	
 	//Kommentar
 	public void kommentarErstellen(Kommentar kommentar);
+	public ArrayList<Kommentar> findeAlleKommentare(int id);
 	
 
 }

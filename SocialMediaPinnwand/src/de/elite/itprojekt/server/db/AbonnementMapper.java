@@ -29,7 +29,7 @@ public class AbonnementMapper {
 		return abonnementMapper;
 	}
 
-
+	//Einzelnes Abo anzeigen
 	public Abonnement getAboById(int id){
 
 		Connection con = DBConnection.connection();
@@ -63,7 +63,7 @@ public class AbonnementMapper {
 	}
 
 
-
+	//Abonnements in einer Liste zurückgeben
 	public ArrayList<Abonnement> getAboByNutzer(int id){
 
 		Connection con = DBConnection.connection();
@@ -96,9 +96,10 @@ public class AbonnementMapper {
 		return aboListe;
 
 	}
-
-/*
-	public Abonnement insertAbo(Abonnement a){
+	
+	//Abo anlegen (Übernommen von Domi)
+	
+	public Abonnement abonnementAnlegen(Abonnement a){
 		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
 		int maxid = 0;
@@ -107,22 +108,22 @@ public class AbonnementMapper {
 		try{
 			Statement stmt = con.createStatement();
 
-	
+	     
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(Abonnement_ID) AS maxid "
 	          + "FROM Abonnement ");
 
 	      
 	      if (rs.next()) {
-		 
+		      
 	    	  	maxid=rs.getInt("maxid");
 		        a.setID(rs.getInt("maxid") + 1);
 
 		        stmt = con.createStatement();
 
-		      
-		        stmt.executeUpdate("INSERT INTO Abonnement (Abonnement_ID, Nutzer_ID, Pinnwand_ID) "
-		            + "VALUES (" + a.getID() + ",'" + a.getAbonnent().getId() + "','"
-		            + a.getLieferant().getId() +"')");
+		        stmt.executeUpdate("INSERT INTO Abonnement (Abonnement_ID, Datum, Nutzer_ID, Pinnwand_ID) "
+		            + "VALUES (" + a.getID() + ", CURRENT_TIMESTAMP ,  '" + a.getNutzerId() + "'  ,'"
+		            + a.getPinnwandId() +"')");
+
 	      	}
 	    }
 
@@ -135,11 +136,11 @@ public class AbonnementMapper {
 
 
 
-	public void deleteAbo(Abonnement a){
-		//Aufbau der DBVerbindung
+	public void abonnementLoeschen(Abonnement a){
+
 		Connection con = DBConnection.connection();
 
-		//Versuch der Abfrage
+
 	    try {
 	      Statement stmt = con.createStatement();
 
@@ -149,6 +150,6 @@ public class AbonnementMapper {
 	      e.printStackTrace();
 	    } 
 	}
-	*/
+	
 
 }

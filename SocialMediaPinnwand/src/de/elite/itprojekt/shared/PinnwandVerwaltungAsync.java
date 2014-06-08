@@ -40,4 +40,18 @@ public interface PinnwandVerwaltungAsync {
 
 	void zeigeAlleAbosPerNutzer(int id, AsyncCallback<ArrayList<Abonnement>> callback);
 
+	void findeAlleKommentare(int id, AsyncCallback<ArrayList<Kommentar>> callback);
+	
+	void sucheBeitragPerPinnwand(int id, AsyncCallback<ArrayList<Beitrag>> callback);
+	
+	//Von Domi
+	
+	void getNutzerAnhandNickname(String nickname, AsyncCallback<Nutzer> callback);
+
+	void abonnementAnlegen(int AbonnentID, int PinnwandID,AsyncCallback<Abonnement> callback);
+
+	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
+
+	void abonnementLoeschen(Abonnement a, AsyncCallback<Void> callback);
+
 }

@@ -7,8 +7,7 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.elite.itprojekt.shared.bo.Beitrag;
-import de.elite.itprojekt.shared.bo.Nutzer;
+import de.elite.itprojekt.shared.bo.Kommentar;
 
 
 
@@ -29,15 +28,15 @@ public class KommentarErstellen {
 	
 
 
-	public void addKommentar(Nutzer nutzer, Beitrag beitrag) {
+	public void addKommentar(Kommentar kommentar) {
 		
 		//Widgets erzeugen für Beitrag
 
-		this.eingeloggterUser = new Label("Donald Duck");
+		this.eingeloggterUser = new Label(kommentar.getNutzer().getVorname() + " " + kommentar.getNutzer().getNachname());
 		this.bearbeiten = new PushButton("Bearbeiten");
 		this.loeschen = new Button();
-		this.textBeitrag = new Label("Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! Methode die dann die Kommentare holen soll! ");
-		this.datumsAnzeige = new Label("24.06.2014 um 12:00 Uhr");
+		this.textBeitrag = new Label(kommentar.getText());
+		this.datumsAnzeige = new Label(kommentar.getErstellZeitpunkt().toString());
 		
 		//CSS Bezeichner
 		this.loeschen.setStylePrimaryName("Loeschen");
@@ -56,11 +55,10 @@ public class KommentarErstellen {
 		
 		
 		
-		
+		kommentarFlexTable.addStyleName("Kommentar");
 		this.vPanel.add(kommentarFlexTable);
 		
 		RootPanel.get("Kommentar").add(vPanel);
-		
 		
 		
 

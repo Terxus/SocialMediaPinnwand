@@ -9,52 +9,8 @@ h1 {
   margin: 40px 0px 20px;
   text-align: center;
 }
-
-.bankproject-headline {
-	font-size: 12pt;
-	font-weight: bold;
-	color: #777777;
-	margin: 0px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	text-align: left;
-}
-
-.bankproject-simpletext {
-	font-size: 100%;
-	font-weight: normal;
-	padding: 3px;
-}
-
-.bankproject-label {
-	font-size: 120%;
-	font-weight: bold;
-	font-style: italic;
-	color: gray;
-	padding-bottom: 0.5em;
-}
-
-.bankproject-textfield {
-	font-size: 100%;
-	font-weight: normal;
-	padding: 3px;
-	width: 15em;
-}
-
-.bankproject-menubutton {
-	font-size: 100%;
-	font-weight: bold;
-	width: 15em;
-	margin-bottom: 1em;
-}
-
-.bankproject-button {
-	font-size: 100%;
-	font-weight: bold;
-}
-
 div#TopLevelFrame {
-	width: 800px;
+	width: 805px;
 	min-width: 300px;
 	border: 1px solid silver;
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
@@ -65,7 +21,6 @@ div#Details {
 	min-height: 500px; /*Früher 400px*/
 	max-height: 600px; /*Früher 500px*/
 	padding: 1em 1em;
-	/*border-top: 1px dashed silver;*/
 	border-left: 1px dashed silver;
 	overflow:scroll;
 }
@@ -75,18 +30,15 @@ div#Navigator {
 	width: 19em;
 	min-height: 30px;
 	padding: 1em 1em;
-	/*border-top: 1px dashed silver;*/
 	max-height: 400px;
 }
 div#neuer_Beitrag {
 	text-align: left;
-	/*border:1px solid #ddd;*/
 	margin-top:4px;
 }
 
 div#Beitrag {
 	text-align: left;
-	/*border:1px solid #ddd;*/
 	height: auto;
 	margin-top: 4px;
 	width: 500px;
@@ -94,7 +46,6 @@ div#Beitrag {
 
 div#Kommentar {
 	margin-left: 30px;
-	/*border:1px solid #ddd;*/
 }
 .Loeschen {
 		float: right;
@@ -112,7 +63,6 @@ div#Kommentar {
 }
 div#Header {
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
-	/* border: 1px dashed silver; */
 }
 
 div#Footer {
@@ -123,34 +73,6 @@ div#Footer {
 	font-size: 80%;
 	text-align: center;
 }
-
-
-/**
-	Ab hier: Alte Deklarationen. Können ggf. gelöscht werden.
-*/
-.sendButton {
-  display: block;
-  font-size: 16pt;
-}
-
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
-}
-
-.dialogVPanel {
-  margin: 5px;
-}
-
-.serverResponseLabelError {
-  color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
-}
-
 /*Tabellendesign*/
 .abonnierteUserAnzeigenTabelle {
 	border: 1px solid #ddd;
@@ -164,11 +86,6 @@ div#Footer {
 .editUser {
 	font-size: 18px;
 }
-
-
-
-
-
 .flexTable {
   height: 100px;
 }
@@ -178,20 +95,14 @@ div#Footer {
   padding: 3px;
   margin: 3px;
 }
-.flexTablek {
-  height: 100px;
-}
-.panelk {
-  background-color: #afc3e5;
-  border: 1px solid #000000;
-  padding: 3px;
-  margin: 3px;
-}
 .umBruch {
 	width: 250px;
 	word-wrap: break-word;
 }
-
-
-
-
+.Kommentar {
+	margin-left: 51px;
+	background-color: #afc3e5;
+  	border: 1px solid #000000;
+  	padding: 3px;
+  	width: 420px;
+}

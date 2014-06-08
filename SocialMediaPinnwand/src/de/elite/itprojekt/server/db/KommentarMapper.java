@@ -66,7 +66,7 @@ public class KommentarMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar WHERE Beitrag_ID="+id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar " + "WHERE Beitrag_ID =" + id + " ORDER BY Datum DESC");
 
 			while (rs.next()) {
 				Kommentar k = new Kommentar();
@@ -74,8 +74,9 @@ public class KommentarMapper {
 		        k.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        k.setText(rs.getString("Text"));
 		        k.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
+		        k.setBeitrag(BeitragMapper.beitragMapper().sucheBeitragID(rs.getInt("Beitrag_ID")));
 		        
-		        //Mit Beitrag verknüpfen?! :D
+
 
 		        kommentarListe.add(k);
 		      }
