@@ -167,7 +167,7 @@ public class NutzerLogin {
 				@Override
 				public void onSuccess(Nutzer result) {
 					setNutzer(result);
-					
+					/*
 					//Contentobjekte Erzeugen
 					Navigation navi = new Navigation();
 					BeitragErstellen beitrag = new BeitragErstellen();
@@ -177,6 +177,22 @@ public class NutzerLogin {
 					navi.addNavigation(result);
 					navi.getAbonnierteNutzerListe(result);
 					beitrag.beitragHinzufuegen();
+					*/
+					
+					BeitragErstellen beitrag = new BeitragErstellen();
+					Navigation navi = new Navigation();
+					
+
+					navi.addNavigation(result);
+					navi.getAbonnierteNutzerListe(result);
+					
+					//Zeigt nur eigene an
+					beitrag.zeigeAlleBeitraege(result);
+					beitrag.beitragHinzufuegen();
+					
+					
+					//Zeigt abobeiträge an
+					beitrag.abonnementBeitraegeAnzeigen(result);
 					
 				}
 			});

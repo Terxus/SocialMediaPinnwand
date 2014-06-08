@@ -176,7 +176,7 @@ public class Navigation {
 								@Override
 								public void onSuccess(Void result) {
 									Window.alert("Du hast den Nutzer: " +abo.getPinnwand().getNutzer().getNickname() +" deabonniert!");
-									
+									abonnierteNutzerAnzeigen.removeFromParent();
 								}
 						    });	
 		

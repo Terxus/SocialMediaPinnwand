@@ -387,39 +387,6 @@ public class BeitragErstellen {
 		});
 		
 	}
-	
-	
-	//TEST
-	
-	public void doSomething(Abonnement abo) {
-		
-		int id = abo.getID();
-		
-		service.sucheBeitragPerPinnwand(id, new AsyncCallback<ArrayList<Beitrag>>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onSuccess(ArrayList<Beitrag> result) {
-				for (Beitrag b : result) {
-					System.out.println(b.getKommentare());
-				}
-				
-			}
-			
-		});
-		
-		
-	}
-	
-	
-	
-	
-	//TESTING
 
 	public void kommentareAuslesen(Beitrag beitrag) {
 
@@ -437,10 +404,12 @@ public class BeitragErstellen {
 			public void onSuccess(ArrayList<Kommentar> result) {
 				for (final Kommentar k : result) {
 					
-					//BeitragErstellen kommiAdden = new BeitragErstellen();
-					//kommiAdden.kommentareAnzeigen(k);
+					/*
 					
-
+					KommentarErstellen kommentarErstellen = new KommentarErstellen();
+					kommentarErstellen.add(k);
+					*/
+					
 					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
 					bearbeitenk = new PushButton("Bearbeiten");
 					textBeitragk = new Label(k.getText());
@@ -467,6 +436,8 @@ public class BeitragErstellen {
 					vPanelk.add(kommentarFlexTable);
 
 					vPanel.add(vPanelk);
+					
+					System.out.println("Es gibt zu Beitrag ID:" + " " + k.getBeitrag().getID() + " " + "Beiträge");
 					
 					
 					
