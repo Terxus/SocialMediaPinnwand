@@ -73,4 +73,6 @@ public interface PinnwandVerwaltungAsync {
 
 	void likeZaehlen(Beitrag beitrag, AsyncCallback<Integer> callback);
 
+	void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer, AsyncCallback<Void> callback);
+
 }

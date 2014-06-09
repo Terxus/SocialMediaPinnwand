@@ -205,5 +205,19 @@ public class LikeMapper {
 
 			return count;
 		}
+		
+		 
+		public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) {
+			Connection con = DBConnection.connection();
+			try {
+				Statement state = con.createStatement();
+
+				state.executeUpdate("DELETE FROM `Like` WHERE Beitrag_ID=" + beitrag.getID() + " AND Nutzer_ID=" + nutzer.getID());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
 
 }

@@ -57,9 +57,10 @@ public interface PinnwandVerwaltung extends RemoteService {
 	//Like
 	public void likeAnlegen(Like like, Beitrag beitrag);
 	public boolean likeCheck(Nutzer nutzer, Beitrag beitrag);
-	void likeLoeschen(Beitrag beitrag);
+	public void likeLoeschen(Beitrag beitrag);
 	public Like likeSuchen(int id);
 	public int likeZaehlen(Beitrag beitrag);
+	public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer);
 	
 
 }

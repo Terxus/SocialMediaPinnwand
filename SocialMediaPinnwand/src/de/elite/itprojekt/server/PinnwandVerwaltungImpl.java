@@ -158,4 +158,9 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		// TODO Auto-generated method stub
 		return LikeMapper.likeMapper().zaehleAlleLikesProBeitrag(beitrag);
 	}
+	@Override
+	public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) {
+		// TODO Auto-generated method stub
+		LikeMapper.likeMapper().einzelnesLikeLoeschen(beitrag, nutzer);
+	}
 }

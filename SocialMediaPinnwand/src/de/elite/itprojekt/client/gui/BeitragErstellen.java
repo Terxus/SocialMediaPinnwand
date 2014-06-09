@@ -152,19 +152,7 @@ public BeitragErstellen() {
 			}
 			
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		// Fremden Beitrag kommentieren
 		
 		kommentieren.addClickHandler(new ClickHandler() {
@@ -239,6 +227,10 @@ public BeitragErstellen() {
 		});
 		
 		
+		//DAVOR ERST ÜBERPRÜFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN NUTZER!
+		
+		
+		
 		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
 
 			@Override
@@ -249,106 +241,128 @@ public BeitragErstellen() {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				System.out.println("Beitrag:" + " " + beitrag.getText() + " " + "wurde von" + " " + getNutzer().getVorname() + " " + "schon geliked:" + " " + result);
+
+				
+				if (result == true) {
+					
+					System.out.println("Der Nutzer" + " " + getNutzer().getVorname() + " " + "will den Beitrag" + " " + beitrag.getText() + " " + "Liken");
+					System.out.println("Hat es das schon? :" + " " + result);
+					
+					beitragsGrid.setWidget(2, 2, delike);
+					
+					delike.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+
+							service.einzelnesLikeLoeschen(beitrag, getNutzer(), new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Integer result) {
+											anzahlLikes.setText(result.toString());
+											
+											NutzerLogin nl = new NutzerLogin();
+											nl.refreshBeitraege();
+											
+										}
+										
+									});
+									
+								}
+								
+							});
+							
+						}
+						
+					});
+					
+					
+				} 
+				else {
+
+
+					//Liken
+					like.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							
+							Like lke = new Like();
+							lke.setNutzerId(getNutzer().getID());		
+							lke.setNutzer(getNutzer());
+							lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+							lke.setPinnwandId(getNutzer().getID());
+							
+							
+							service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									beitragsGrid.setWidget(2, 2, delike);
+									
+									
+									service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Integer result) {
+											anzahlLikes.setText(result.toString());
+											
+											NutzerLogin nl = new NutzerLogin();
+											nl.refreshBeitraege();
+											
+										}
+										
+									});
+									
+									
+									
+
+									
+								}
+								
+							});
+							
+						}
+						
+					});
+					
+
+					
+				}
+				
+				
 				
 			}
 			
 		});
-
-				//Liken
-				like.addClickHandler(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						
-						Like lke = new Like();
-						lke.setNutzerId(getNutzer().getID());		
-						lke.setNutzer(getNutzer());
-						lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
-						lke.setPinnwandId(getNutzer().getID());
-						
-						service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Void result) {
-								beitragsGrid.setWidget(2, 2, delike);
-								
-								
-								service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
-
-									@Override
-									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
-										
-									}
-
-									@Override
-									public void onSuccess(Integer result) {
-										anzahlLikes.setText(result.toString());
-										
-									}
-									
-								});
-								
-								
-								
-
-								
-							}
-							
-						});
-						
-					}
-					
-				});
-				
-				/*
-				
-				delike.addClickHandler(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-
-						service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Void result) {
-								service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
-
-									@Override
-									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
-										
-									}
-
-									@Override
-									public void onSuccess(Integer result) {
-										anzahlLikes.setText(result.toString());
-										
-									}
-									
-								});
-								
-							}
-							
-						});
-						
-					}
-					
-				});
-			*/
 			
 	
 		
@@ -462,9 +476,7 @@ public BeitragErstellen() {
 			
 		});
 		
-		
-		
-		
+	
 		this.vPanel.add(beitragsGrid);
 		RootPanel.get("Beitrag").add(vPanel);
 		
@@ -624,8 +636,8 @@ public BeitragErstellen() {
 						@Override
 						public void onClick(ClickEvent event) {
 
-							service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
-
+							service.einzelnesLikeLoeschen(beitrag, getNutzer(), new AsyncCallback<Void>() {
+								
 								@Override
 								public void onFailure(Throwable caught) {
 									// TODO Auto-generated method stub
@@ -645,6 +657,8 @@ public BeitragErstellen() {
 										@Override
 										public void onSuccess(Integer result) {
 											anzahlLikes.setText(result.toString());
+											NutzerLogin nl = new NutzerLogin();
+											nl.refreshBeitraege();
 											
 										}
 										
@@ -700,6 +714,8 @@ public BeitragErstellen() {
 										@Override
 										public void onSuccess(Integer result) {
 											anzahlLikes.setText(result.toString());
+											NutzerLogin nl = new NutzerLogin();
+											nl.refreshBeitraege();
 											
 										}
 										
@@ -717,17 +733,7 @@ public BeitragErstellen() {
 						
 					});
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
 					
 				}
 				
