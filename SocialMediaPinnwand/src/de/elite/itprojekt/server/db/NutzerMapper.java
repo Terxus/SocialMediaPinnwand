@@ -222,10 +222,10 @@ public class NutzerMapper {
 
 		        stmt = con.createStatement();
 
-		      stmt.executeUpdate ("INSERT INTO Nutzer " + "VALUES (" + n.getID() + ", '"
-						+ n.getVorname() + "', '" + n.getNachname() + "', '" + n.getNickname() + "','" + n.getPassWort()
-						+ "','" + n.geteMail() + "','" + n.getErstellZeitpunkt()  + "')");
-		           }
+			      stmt.executeUpdate ("INSERT INTO Nutzer " + "VALUES (" + n.getID() + ", '"
+							+ n.getVorname() + "', '" + n.getNachname() + "', '" + n.getNickname() + "','" + n.getPassWort()
+							+ "','" + n.geteMail() + "','" + n.getErstellZeitpunkt()  + "')");
+			           }
 		      
 		      //Dem registrierten Nutzer eine Pinnwand zuordnen
 

@@ -59,10 +59,18 @@ public interface PinnwandVerwaltungAsync {
 
 	void alleBeitraegePerPinnwand(int id, AsyncCallback<ArrayList<Beitrag>> callback);
 
-	void likeAnlegen(Like like, Beitrag beitrag, AsyncCallback<Like> callback);
+	void likeAnlegen(Like like, Beitrag beitrag, AsyncCallback<Void> callback);
 
 	void kommentarLoeschen(Kommentar kommentar, AsyncCallback<Void> callback);
 
 	void kommentarBearbeiten(Kommentar kommentar, AsyncCallback<Kommentar> callback);
+
+	void likeCheck(Nutzer nutzer, Beitrag beitrag, AsyncCallback<Boolean> callback);
+
+	void likeLoeschen(Beitrag beitrag, AsyncCallback<Void> callback);
+
+	void likeSuchen(int id, AsyncCallback<Like> callback);
+
+	void likeZaehlen(Beitrag beitrag, AsyncCallback<Integer> callback);
 
 }

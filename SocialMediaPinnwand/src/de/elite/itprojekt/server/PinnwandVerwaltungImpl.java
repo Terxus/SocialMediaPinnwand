@@ -127,9 +127,9 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		return BeitragMapper.beitragMapper().sucheBeitragPerPinnwand(id);
 	}
 	@Override
-	public Like likeAnlegen(Like like, Beitrag beitrag) {
+	public void likeAnlegen(Like like, Beitrag beitrag) {
 		// TODO Auto-generated method stub
-		return LikeMapper.likeMapper().anlegen(like, beitrag);
+		LikeMapper.likeMapper().anlegen(like, beitrag);
 	}
 	@Override
 	public void kommentarLoeschen(Kommentar kommentar) {
@@ -139,5 +139,23 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	public Kommentar kommentarBearbeiten(Kommentar kommentar) {
 		// TODO Auto-generated method stub
 		return KommentarMapper.kommentarMapper().kommentarBearbeiten(kommentar);
+	}
+	@Override
+	public boolean likeCheck(Nutzer nutzer, Beitrag beitrag) {
+		// TODO Auto-generated method stub
+		return LikeMapper.likeMapper().likeUeberpruefung(nutzer, beitrag);
+	}
+	@Override
+	public void likeLoeschen(Beitrag beitrag) {
+		LikeMapper.likeMapper().loeschen(beitrag);
+	}
+	@Override
+	public Like likeSuchen(int id) {
+		return LikeMapper.likeMapper().findeEinzelneDurchID(id);
+	}
+	@Override
+	public int likeZaehlen(Beitrag beitrag) {
+		// TODO Auto-generated method stub
+		return LikeMapper.likeMapper().zaehleAlleLikesProBeitrag(beitrag);
 	}
 }

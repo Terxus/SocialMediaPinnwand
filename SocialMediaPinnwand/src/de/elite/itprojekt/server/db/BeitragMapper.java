@@ -79,7 +79,7 @@ public class BeitragMapper {
 	    	  stmt = con.createStatement();
 
 		        stmt.executeUpdate("INSERT INTO Beitrag (Beitrag_ID, Nutzer_ID, Like_ID, Text, Datum) "
-		            + "VALUES (" + textBeitrag.getID() + ",'" + textBeitrag.getNutzerId() + "','"  + textBeitrag.getID() + "','" + textBeitrag.getText() + "','" + textBeitrag.getErstellZeitpunkt() +"')");
+		        		+ "VALUES (" + textBeitrag.getID() + ",'" + textBeitrag.getNutzerId() + "','"  + textBeitrag.getID() + "','" + textBeitrag.getText() + "','" + textBeitrag.getErstellZeitpunkt() +"')");
   
 	      }
 	    }

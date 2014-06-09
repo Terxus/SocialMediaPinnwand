@@ -71,6 +71,7 @@ public BeitragErstellen() {
 	private Label textBeitrag;
 	private Label datumsAnzeige;
 	private PushButton like;
+	private PushButton delike = new PushButton("Delike");
 	private Label anzahlLikes;
 	private FlexTable beitragsGrid = new FlexTable();
 	
@@ -110,7 +111,7 @@ public BeitragErstellen() {
 		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString());
 		this.kommentieren = new PushButton("Kommentieren");
 		this.like = new PushButton("Like");
-		this.anzahlLikes = new Label("4");
+		this.anzahlLikes = new Label();
 		
 		//CSS Bezeichner
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
@@ -127,6 +128,41 @@ public BeitragErstellen() {
 		beitragsGrid.setWidget(2, 0, datumsAnzeige);
 		beitragsGrid.setWidget(2, 2, like);
 		beitragsGrid.setWidget(2, 3, anzahlLikes);
+		
+		
+		
+		
+		
+		
+		//Likes des jeweiligen Beitrags anzeigen
+		
+		
+		service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				anzahlLikes.setText(result.toString());
+				
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		// Fremden Beitrag kommentieren
@@ -193,7 +229,6 @@ public BeitragErstellen() {
 									
 								});
 		
-								
 							}
 							
 						}
@@ -202,7 +237,104 @@ public BeitragErstellen() {
 			}
 			
 		});
-		
+
+
+				//Liken
+				like.addClickHandler(new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						Like lke = new Like();
+						lke.setNutzerId(getNutzer().getID());		
+						lke.setNutzer(getNutzer());
+						lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+						lke.setPinnwandId(getNutzer().getID());
+						
+						service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								beitragsGrid.setWidget(2, 2, delike);
+								
+								
+								service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onSuccess(Integer result) {
+										anzahlLikes.setText(result.toString());
+										
+									}
+									
+								});
+								
+								
+								
+
+								
+							}
+							
+						});
+						
+					}
+					
+				});
+				
+				/*
+				
+				delike.addClickHandler(new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+
+						service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onSuccess(Integer result) {
+										anzahlLikes.setText(result.toString());
+										
+									}
+									
+								});
+								
+							}
+							
+						});
+						
+					}
+					
+				});
+			*/
+			
+	
 		
 		this.vPanel.add(beitragsGrid);
 		RootPanel.get("Beitrag").add(vPanel);
@@ -277,7 +409,7 @@ public BeitragErstellen() {
 		this.textBeitrag = new Label(beitrag.getText());
 		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString());
 		this.like = new PushButton("Like");
-		this.anzahlLikes = new Label("2");
+		this.anzahlLikes = new Label();
 		
 		//CSS Bezeichner
 		this.loeschen.setStylePrimaryName("Loeschen");
@@ -296,6 +428,23 @@ public BeitragErstellen() {
 		beitragsGrid.setWidget(2, 3, like);
 		beitragsGrid.setWidget(2, 4, anzahlLikes);
 		
+		//Likes des Beitrags anzeigen
+		
+		service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				anzahlLikes.setText(result.toString());
+				
+			}
+			
+		});
 		
 		
 		
@@ -434,6 +583,13 @@ public BeitragErstellen() {
 			
 		});
 		
+		//DAVOR ERST ÜBERPRÜFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN NUTZER!
+		
+		
+	
+		
+	
+		
 		//Liken
 		like.addClickHandler(new ClickHandler() {
 
@@ -447,7 +603,7 @@ public BeitragErstellen() {
 				lke.setPinnwandId(nutzer.getID());
 				
 				
-				service.likeAnlegen(lke, beitrag, new AsyncCallback<Like>() {
+				service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -456,9 +612,29 @@ public BeitragErstellen() {
 					}
 
 					@Override
-					public void onSuccess(Like result) {
-						System.out.println("Like angelegt");
+					public void onSuccess(Void result) {
+						beitragsGrid.setWidget(2, 3, delike);
 						
+						
+						service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Integer result) {
+								anzahlLikes.setText(result.toString());
+								
+							}
+							
+						});
+						
+						
+						
+
 						
 					}
 					
@@ -468,7 +644,85 @@ public BeitragErstellen() {
 			
 		});
 		
+		
+		/*
+		delike.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+
+				service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						
+						service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Integer result) {
+								anzahlLikes.setText(result.toString());
+								
+							}
+							
+						});
+						
+					}
+					
+				});
+				
+			}
+			
+		});
+		
+		*/
+		
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers angezeigt.
 	//Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann ändert sich die darstellung.
 	//Denn dann kann man die Kommentare nicht bearbeiten und löschen.
