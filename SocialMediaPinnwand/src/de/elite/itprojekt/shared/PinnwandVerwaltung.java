@@ -29,5 +29,6 @@ public interface PinnwandVerwaltung extends RemoteService {
 	Nutzer sucheNutzerID(int id);
 	Nutzer updateNutzer(Nutzer nutzer);
 	
+	public ArrayList<Beitrag> findeAlleBeitraege() throws IllegalArgumentException;	
 
 }

@@ -2,21 +2,17 @@ package de.elite.itprojekt.shared;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.elite.itprojekt.shared.bo.Nutzer;
+import de.elite.itprojekt.shared.bo.Pinnwand;
+import de.elite.itprojekt.shared.report.ReportVonAllenNutzern;
+
 
 public interface ReportGeneratorAsync {
 
 	void init(AsyncCallback<Void> callback);
 
-	void setNutzer(AsyncCallback<Void> callback);
-
-	void nutzerReport(AsyncCallback<Void> callback);
-
-	void likeReport(AsyncCallback<Void> callback);
-
-	void kommentarReport(AsyncCallback<Void> callback);
-
-	void likeReportSortiert(AsyncCallback<Void> callback);
-
-	void kommentarReportSortiert(AsyncCallback<Void> callback);
-
+	void erstelleReportVonAllenNutzern(AsyncCallback<ReportVonAllenNutzern> Callback);
+	void erstelleReportVonAllenNutzern(Nutzer n, AsyncCallback<ReportVonAllenNutzern> Callback);
+	
+	void setPinnwand (Pinnwand p, AsyncCallback<Void> Callback);
 }

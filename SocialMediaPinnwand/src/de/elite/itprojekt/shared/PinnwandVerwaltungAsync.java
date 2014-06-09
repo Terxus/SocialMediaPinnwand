@@ -27,5 +27,7 @@ public interface PinnwandVerwaltungAsync {
 	void sucheNutzerID(int id, AsyncCallback<Nutzer> callback);
 
 	void updateNutzer(Nutzer nutzer, AsyncCallback<Nutzer> callback);
+	
+	void findeAlleBeitraege(AsyncCallback<ArrayList<Beitrag>> callback);
 
 }

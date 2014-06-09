@@ -7,11 +7,11 @@ import com.google.appengine.api.rdbms.AppEngineDriver;
 
 public class DBConnection {
 	private static Connection con = null;
-	private static String dbHost = ""; // Hostname
+	private static String dbHost = "80.237.132.81"; // Hostname
 	private static String dbPort = "3306";      // Port -- Standard: 3306
-	private static String dbName = "";   // Datenbankname
-	private static String dbUser = "";     // Datenbankuser
-	private static String dbPass = "";      // Datenbankpasswort
+	private static String dbName = "db10455335-itprojekt";   // Datenbankname
+	private static String dbUser = "db10455335-itp";     // Datenbankuser
+	private static String dbPass = "1tpr0jekT";      // Datenbankpasswort
 	
 	//Getter und Setter
 	public static String getDbHost() {

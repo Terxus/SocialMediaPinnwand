@@ -76,4 +76,11 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		return NutzerMapper.nutzerMapper().updateNutzer(nutzer);
 	}
 
+	@Override
+	public ArrayList<Beitrag> findeAlleBeitraege()
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
