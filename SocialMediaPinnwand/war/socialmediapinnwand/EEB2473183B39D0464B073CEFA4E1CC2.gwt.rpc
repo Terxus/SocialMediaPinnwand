@@ -1,0 +1,16 @@
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+de.elite.itprojekt.shared.PinnwandVerwaltung, false, false, false, false, _, 1623622136
+de.elite.itprojekt.shared.bo.Beitrag, false, false, true, true, de.elite.itprojekt.shared.bo.Beitrag/2977885, 2977885
+de.elite.itprojekt.shared.bo.BusinessObject, true, false, true, false, de.elite.itprojekt.shared.bo.BusinessObject/634186963, 634186963
+de.elite.itprojekt.shared.bo.Nutzer, true, true, true, true, de.elite.itprojekt.shared.bo.Nutzer/2589282520, 2589282520
+de.elite.itprojekt.shared.bo.Pinnwand, true, true, false, false, de.elite.itprojekt.shared.bo.Pinnwand/283756998, 283756998
+de.elite.itprojekt.shared.bo.Textbeitrag, false, false, true, false, de.elite.itprojekt.shared.bo.Textbeitrag/374382304, 374382304
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, false, false, java.util.ArrayList/4159755760, 4159755760
+java.util.Date, true, false, true, false, java.util.Date/3385151746, 3385151746
