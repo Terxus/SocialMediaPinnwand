@@ -8,11 +8,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.elite.itprojekt.server.db.AbonnementMapper;
 import de.elite.itprojekt.server.db.BeitragMapper;
 import de.elite.itprojekt.server.db.KommentarMapper;
+import de.elite.itprojekt.server.db.LikeMapper;
 import de.elite.itprojekt.server.db.NutzerMapper;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
+import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
@@ -117,7 +119,25 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	}
 
 	public void abonnementLoeschen(Abonnement a) throws IllegalArgumentException{
-
 		AbonnementMapper.abonnementMapper().abonnementLoeschen(a);
+	}
+	@Override
+	public ArrayList<Beitrag> alleBeitraegePerPinnwand(int id) {
+		// TODO Auto-generated method stub
+		return BeitragMapper.beitragMapper().sucheBeitragPerPinnwand(id);
+	}
+	@Override
+	public Like likeAnlegen(Like like, Beitrag beitrag) {
+		// TODO Auto-generated method stub
+		return LikeMapper.likeMapper().anlegen(like, beitrag);
+	}
+	@Override
+	public void kommentarLoeschen(Kommentar kommentar) {
+		KommentarMapper.kommentarMapper().kommentarLoeschen(kommentar);
+	}
+	@Override
+	public Kommentar kommentarBearbeiten(Kommentar kommentar) {
+		// TODO Auto-generated method stub
+		return KommentarMapper.kommentarMapper().kommentarBearbeiten(kommentar);
 	}
 }

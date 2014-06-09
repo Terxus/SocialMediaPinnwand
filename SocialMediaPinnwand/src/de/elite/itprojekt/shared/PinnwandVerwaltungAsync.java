@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
+import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
@@ -53,5 +54,15 @@ public interface PinnwandVerwaltungAsync {
 	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
 
 	void abonnementLoeschen(Abonnement a, AsyncCallback<Void> callback);
+	
+	//
+
+	void alleBeitraegePerPinnwand(int id, AsyncCallback<ArrayList<Beitrag>> callback);
+
+	void likeAnlegen(Like like, Beitrag beitrag, AsyncCallback<Like> callback);
+
+	void kommentarLoeschen(Kommentar kommentar, AsyncCallback<Void> callback);
+
+	void kommentarBearbeiten(Kommentar kommentar, AsyncCallback<Kommentar> callback);
 
 }

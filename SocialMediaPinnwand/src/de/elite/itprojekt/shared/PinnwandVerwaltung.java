@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
+import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
@@ -38,6 +39,8 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public Beitrag textBeitragBearbeiten(Beitrag beitrag);
 	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id);
 	
+	public ArrayList<Beitrag> alleBeitraegePerPinnwand(int id);
+	
 	//Abo
 	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id);
 	
@@ -48,6 +51,11 @@ public interface PinnwandVerwaltung extends RemoteService {
 	//Kommentar
 	public void kommentarErstellen(Kommentar kommentar);
 	public ArrayList<Kommentar> findeAlleKommentare(int id);
+	public void kommentarLoeschen(Kommentar kommentar);
+	public Kommentar kommentarBearbeiten(Kommentar kommentar);
+	
+	//Like
+	public Like likeAnlegen(Like like, Beitrag beitrag);
 	
 
 }

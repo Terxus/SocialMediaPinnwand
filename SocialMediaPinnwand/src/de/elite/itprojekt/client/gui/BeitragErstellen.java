@@ -2,6 +2,7 @@ package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,6 +24,7 @@ import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Kommentar;
+import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -105,6 +107,8 @@ public class BeitragErstellen {
 		this.textBeitrag = new Label(beitrag.getText());
 		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString());
 		this.kommentieren = new PushButton("Kommentieren");
+		this.like = new PushButton("Like");
+		this.anzahlLikes = new Label("4");
 		
 		//CSS Bezeichner
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
@@ -119,6 +123,8 @@ public class BeitragErstellen {
 		beitragsGrid.setWidget(0, 2, kommentieren);
 		beitragsGrid.setWidget(1, 0, textBeitrag);
 		beitragsGrid.setWidget(2, 0, datumsAnzeige);
+		beitragsGrid.setWidget(2, 2, like);
+		beitragsGrid.setWidget(2, 3, anzahlLikes);
 		
 		
 		// Fremden Beitrag kommentieren
@@ -179,7 +185,7 @@ public class BeitragErstellen {
 										tAreak.setVisible(false);
 										addKommentar.setVisible(false);
 										
-										kommentareAuslesen(beitrag);
+										fremdeKommentareAuslesen(beitrag);
 										
 									}
 									
@@ -203,7 +209,61 @@ public class BeitragErstellen {
 		
 	}
 	
+	//Fremde Kommentare kann man nicht bearbeiten oder löschen
 	
+	public void fremdeKommentareAuslesen(Beitrag beitrag) {
+
+		int id = beitrag.getID();
+
+		service.findeAlleKommentare(id, new AsyncCallback<ArrayList<Kommentar>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Kommentar> result) {
+				for (final Kommentar k : result) {
+					
+					/*
+					
+					KommentarErstellen kommentarErstellen = new KommentarErstellen();
+					kommentarErstellen.add(k);
+					*/
+					
+					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
+					textBeitragk = new Label(k.getText());
+					datumsAnzeigek = new Label(k.getErstellZeitpunkt().toString());
+
+					kommentarNutzer.setStylePrimaryName("NutzerName");
+					datumsAnzeigek.setStylePrimaryName("Date");
+					textBeitragk.setStylePrimaryName("umBruch");
+					
+					kommentarFlexTable.setStylePrimaryName("Kommentar");
+					
+					//Dem FlexTable zuordnen
+					
+					kommentarFlexTable.setWidget(0, 0, kommentarNutzer);
+					kommentarFlexTable.setWidget(1, 0, textBeitragk);
+					kommentarFlexTable.setWidget(2, 0, datumsAnzeigek);
+
+					
+					vPanelk.add(kommentarFlexTable);
+
+					vPanel.add(vPanelk);
+	
+				}
+				
+			}
+			
+		});
+
+	}
+	
+	
+	//Ende Fremde kommentare Anzeigen
 	
 	
 	
@@ -359,7 +419,7 @@ public class BeitragErstellen {
 										tAreak.setVisible(false);
 										addKommentar.setVisible(false);
 										
-										kommentareAuslesen(beitrag);
+										eigeneKommentareAuslesen(beitrag);
 										
 									}
 									
@@ -380,15 +440,38 @@ public class BeitragErstellen {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				anzahlLikes.setText("100");
+				
+				Like lke = new Like();
+				lke.setNutzerId(nutzer.getID());		
+				lke.setNutzer(nutzer);
+				lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+				lke.setPinnwandId(nutzer.getID());
+				
+				
+				service.likeAnlegen(lke, beitrag, new AsyncCallback<Like>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Like result) {
+						System.out.println("Like angelegt");
+						
+						
+					}
+					
+				});
 				
 			}
 			
 		});
 		
 	}
-
-	public void kommentareAuslesen(Beitrag beitrag) {
+	//Nur eigene Kommentare anzeigen
+	public void eigeneKommentareAuslesen(Beitrag beitrag) {
 
 		int id = beitrag.getID();
 
@@ -432,6 +515,7 @@ public class BeitragErstellen {
 					kommentarFlexTable.setWidget(0, 2, loeschenk);
 					kommentarFlexTable.setWidget(1, 0, textBeitragk);
 					kommentarFlexTable.setWidget(2, 0, datumsAnzeigek);
+
 					
 					vPanelk.add(kommentarFlexTable);
 
@@ -447,7 +531,19 @@ public class BeitragErstellen {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							System.out.println("Dieses Kommentar hat den Inhalt:" + " " + k.getText());
+							
+							service.kommentarLoeschen(k, new AsyncCallback<Void>() {
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert("Fehler beim loeschen!");
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									Window.alert("Kommentar wurde geloescht!");
+									kommentarFlexTable.removeFromParent();
+								}
+							});
 							
 						}
 						
@@ -458,28 +554,47 @@ public class BeitragErstellen {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							System.out.println(k.getText() + " " + "soll nun bearbeitet werden.");
+
+
 							
+							final Button speichern = new Button("Fertig");
+							final TextBox newKommentar = new TextBox();
+							newKommentar.setText(k.getText());
+							kommentarFlexTable.setWidget(1, 0, newKommentar);
+							kommentarFlexTable.setWidget(1, 1, speichern);
+							
+								//Bearbeiteter Text Speichern und in Label zurückverwandeln (*Magic*)
+									speichern.addClickHandler(new ClickHandler() {
+										@Override
+										public void onClick(ClickEvent event) {
+											// TODO Auto-generated method stub
+											k.setText(newKommentar.getText());
+											k.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+
+											service.kommentarBearbeiten(k, new AsyncCallback<Kommentar>() {
+
+												@Override
+												public void onFailure(Throwable caught) {
+													// TODO Auto-generated method stub
+													
+												}
+
+												@Override
+												public void onSuccess(Kommentar result) {
+													// TODO Auto-generated method stub
+													Label kommentar = new Label(newKommentar.getText());
+													
+													kommentarFlexTable.setWidget(1, 0, kommentar);
+													speichern.setVisible(false);
+												}
+												
+											});
+										}
+									});
 						}
 						
 					});
-					
-					
-					
-					
-					
-					
-					
-					/*
-					
-					
-					System.out.println("");
-					System.out.println("---Kommentar von Textbeitrag ID:" + " " + k.getID());
-					System.out.println(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
-					System.out.println(k.getText());
-					System.out.println(k.getErstellZeitpunkt().toString());
-					System.out.println("---Ende Kommentar-------------------------------");
-					*/
+
 
 				}
 				
@@ -489,6 +604,7 @@ public class BeitragErstellen {
 
 	}
 	
+	/*
 	
 	public void kommentareAnzeigen(Kommentar k) {
 		
@@ -529,6 +645,7 @@ public class BeitragErstellen {
 		
 		
 	}
+	*/
 
 	//ABOBEITRÄGE
 	
@@ -583,6 +700,8 @@ public class BeitragErstellen {
 					
 					BeitragErstellen erstelle = new BeitragErstellen();
 					erstelle.beitragAnzeigenVonAbo(b,abo.getPinnwand().getNutzer());
+					
+					erstelle.eigeneKommentareAuslesen(b);
 				}
 				
 			}
@@ -668,19 +787,22 @@ public class BeitragErstellen {
 
 			@Override
 			public void onSuccess(Void result) {
-				neuerBeitragAnzeigen(getNutzer());
+				zeigeAlleBeitraege(getNutzer());
 			}
 			
 		});
 	}
-	
+	/*
 	public void neuerBeitragAnzeigen(Nutzer nutzer) {
 		zeigeAlleBeitraege(nutzer);
 		RootPanel.get("Beitrag").clear();
 	}
+	*/
+	
 	
 	public void zeigeAlleBeitraege(Nutzer nutzer) {
 		
+		RootPanel.get("Beitrag").clear();
 		int id = nutzer.getID();
 		final Nutzer n = nutzer;
 		
@@ -698,7 +820,7 @@ public class BeitragErstellen {
 				for (Beitrag b : result) {
 					BeitragErstellen erstelle = new BeitragErstellen();
 					erstelle.beitragAnzeigen(b,n);
-					erstelle.kommentareAuslesen(b);
+					erstelle.eigeneKommentareAuslesen(b);
 				}
 				
 			}
@@ -706,4 +828,5 @@ public class BeitragErstellen {
 		});
 		
 	}
+	
 }

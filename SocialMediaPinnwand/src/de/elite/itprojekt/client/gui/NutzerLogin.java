@@ -136,6 +136,11 @@ public class NutzerLogin {
 					
 					//Zeigt abobeiträge an
 					beitrag.abonnementBeitraegeAnzeigen(result);
+					
+
+		//			PinnwandDarstellung pnd = new PinnwandDarstellung();
+		//			pnd.zeigeAlleBeitraege(result);
+					
 				}
 			});
 		  

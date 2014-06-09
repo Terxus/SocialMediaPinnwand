@@ -120,8 +120,45 @@ public class KommentarMapper {
 
 	}
 	 
+	//Kommentar löschen
 	 
+	 	public void kommentarLoeschen(Kommentar kommentar) {
+	 		
+	 		Connection con = DBConnection.connection();
+	 			Statement stmt = null;
+
+	 			try {
+	 				stmt = con.createStatement();
+
+	 				stmt.executeUpdate("DELETE FROM Kommentar "
+	 						+ "WHERE Kommentar_ID=" + kommentar.getID());
+
+	 			} catch (SQLException e2) {
+	 				e2.printStackTrace();
+	 			}
+	 			
+	 			return;
+	 		}
 	 
+	 	//Kommentar bearbeiten
+	 	
+	public Kommentar kommentarBearbeiten(Kommentar kommentar){
+			
+			Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+		      
+		      stmt.executeUpdate("UPDATE Kommentar SET Text=\"" + kommentar.getText() + "\" WHERE Kommentar_ID= " + kommentar.getID());
+	
+
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+
+		    return findeEinzelneDurchId(kommentar.getID());
+		}
 	 
 	 
 	 

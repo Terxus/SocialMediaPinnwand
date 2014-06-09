@@ -79,10 +79,8 @@ public class BeitragMapper {
 	    	  stmt = con.createStatement();
 
 		        stmt.executeUpdate("INSERT INTO Beitrag (Beitrag_ID, Nutzer_ID, Like_ID, Text, Datum) "
-		            + "VALUES (" + textBeitrag.getID() + ",'" + textBeitrag.getNutzerId() + "','"  + "12" + "','" + textBeitrag.getText() + "','" + textBeitrag.getErstellZeitpunkt() +"')");
-
-		        System.out.println(textBeitrag.getErstellZeitpunkt());
-		        
+		            + "VALUES (" + textBeitrag.getID() + ",'" + textBeitrag.getNutzerId() + "','"  + textBeitrag.getID() + "','" + textBeitrag.getText() + "','" + textBeitrag.getErstellZeitpunkt() +"')");
+  
 	      }
 	    }
 
@@ -144,9 +142,8 @@ public class BeitragMapper {
 		    try {
 		      Statement stmt = con.createStatement();
 		      
-		      stmt.executeUpdate("UPDATE Beitrag SET Text=\"" + beitrag.getText() + "\" WHERE beitrag_ID= " + beitrag.getID());
-		      
-		      System.out.println("Neuer Beitrag bei" + " " + beitrag.getText() + " " + beitrag.getID());
+		      stmt.executeUpdate("UPDATE Beitrag SET Text=\"" + beitrag.getText() + "\" WHERE Beitrag_ID= " + beitrag.getID());
+	
 
 		    }
 		    catch (SQLException e) {
@@ -204,9 +201,9 @@ public class BeitragMapper {
 				        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 				        b.setText((rs.getString("Text")));
 				        b.setLikeId((rs.getInt("Like_ID")));
-				        b.setPinnwand(PinnwandMapper.pinnwandMapper().suchePinnwandID(rs.getInt("Pinnwand_ID")));
+				        b.setPinnwand(PinnwandMapper.pinnwandMapper().suchePinnwandID(rs.getInt("Nutzer_ID")));
 				        //Likes in Array
-				        b.setLikeList(LikeMapper.likeMapper().findeDurchId(rs.getInt("Beitrag_ID")));
+				        //b.setLikeList(LikeMapper.likeMapper().findeDurchId(rs.getInt("Beitrag_ID")));
 
 				        //Kommentare zu jeweiligen Beitrag im Array
 				        b.setKommentarListe(KommentarMapper.kommentarMapper().findeDurchId(rs.getInt("Beitrag_ID")));

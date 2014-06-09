@@ -2,6 +2,7 @@ package de.elite.itprojekt.shared.bo;
 
 import java.util.ArrayList;
 
+
 public class Beitrag extends Textbeitrag {
 
 	public Beitrag() {}

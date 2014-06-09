@@ -63,4 +63,34 @@ public class LikeMapper {
 		    }
 			return likeListe;
 		 }
+	 
+	 //Like anlegen
+	 
+	 public Like anlegen(Like like, Beitrag beitrag) {
+			
+		 Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(Like_ID) AS maxid " 
+		      + "FROM Like ");
+		      if (rs.next()) {
+		    	  
+		    	  like.setID(rs.getInt("maxid") + 1);
+		    	  
+		    	  stmt = con.createStatement();
+
+			        stmt.executeUpdate("INSERT INTO Like (Like_ID, Nutzer_ID, Beitrag_ID, Datum) "
+			            + "VALUES (" + like.getID() + ",'" + like.getPinnwandId() + "','"  + beitrag.getID() + "','" + like.getErstellZeitpunkt() +"')");
+	  
+		      }
+		    }
+
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+			return like;
+	 }
+	 
 }
