@@ -230,7 +230,7 @@ public class NutzerMapper {
 		      //Dem registrierten Nutzer eine Pinnwand zuordnen
 
 		      stmt.executeUpdate ("INSERT INTO Pinnwand " + "VALUES (" + n.getID() + ", '"
-						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + "12" + "')");
+						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + n.getID() + "')");
 		      
 		      
 		    }

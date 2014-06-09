@@ -84,7 +84,7 @@ public class TopLevelNavigation {
 		};
 	   
 	    headerMenu.addItem("Home", home);
-	    headerMenu.addItem("Account Editieren", editNutzer);
+	    headerMenu.addItem("Account", editNutzer);
 	    headerMenu.addItem("ReportGenerator", report);
 	    headerMenu.addItem("Logout", logout);
 		

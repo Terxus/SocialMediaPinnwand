@@ -130,12 +130,13 @@ public class NutzerLogin {
 					navi.getAbonnierteNutzerListe(result);
 					
 					//Zeigt nur eigene an
+					beitrag.setNutzer(result);
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
 					
 					
 					//Zeigt abobeiträge an
-					beitrag.abonnementBeitraegeAnzeigen(result);
+			//		beitrag.abonnementBeitraegeAnzeigen(result);
 					
 
 		//			PinnwandDarstellung pnd = new PinnwandDarstellung();

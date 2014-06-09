@@ -82,7 +82,9 @@ public class Navigation {
 	 	final SuggestBox vBox = new SuggestBox(orakel);
 
 
-	
+	/*
+	 * Code
+	 */
 	
 	
 	
@@ -279,6 +281,8 @@ public class Navigation {
 													Abonnement result) {
 												Window.alert("Du hast den User: " +s2 +" abonniert!");
 												vBox.setText("");
+												abonnierteNutzerAnzeigen.setWidget(0, 0, aboNutzer);
+												abonnierteNutzerAnzeigen.setWidget(0, 1, aboLoeschen);
 											//	RootPanel.get("Navigator").clear();
 											//	RootPanel.get("Navigator").add(vPanel);
 											}

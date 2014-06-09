@@ -25,7 +25,7 @@ public class KommentarErstellen {
 	FlexTable kommentarFlexTable = new FlexTable();
 	
 	
-	
+	/*
 	
 	
 
@@ -144,7 +144,7 @@ public class KommentarErstellen {
 		
 		
 		
-		/*
+		
 		
 		
 		System.out.println("");
@@ -154,7 +154,5 @@ public class KommentarErstellen {
 		System.out.println(k.getErstellZeitpunkt().toString());
 		System.out.println("---Ende Kommentar-------------------------------");
 		*/
-	}
-	
 	
 }

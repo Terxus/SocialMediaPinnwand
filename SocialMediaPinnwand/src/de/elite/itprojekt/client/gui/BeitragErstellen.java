@@ -2,7 +2,6 @@ package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -31,17 +30,20 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class BeitragErstellen {
 	
-
+public BeitragErstellen() {
+	//Konstruktor des Todes
+	
+}
 	
 	private Timestamp aktuellesDatum;
-	private Nutzer nutzer;
+	private static Nutzer nutzer;
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
 	
 
 	//Nutzerobjekt per ID von Cookie holen
 	public void setNutzer(Nutzer nutzer) {
-		this.nutzer = nutzer;
-		System.out.println("Nutzerobjekt zu Nutzer mit der ID:" + " " + this.nutzer.getID() + " " + "gesetzt.");
+		BeitragErstellen.nutzer = nutzer;
+		System.out.println("Nutzerobjekt zu Nutzer mit der ID:" + " " + BeitragErstellen.nutzer.getID() + " " + "gesetzt.");
 	}
 	
 	public void holeNutzer() {
@@ -57,7 +59,7 @@ public class BeitragErstellen {
 		});
 	}
 	public Nutzer getNutzer() {
-		return this.nutzer;
+		return BeitragErstellen.nutzer;
 	}
 	
 	
@@ -471,7 +473,8 @@ public class BeitragErstellen {
 		
 	}
 	//Nur eigene Kommentare anzeigen
-	public void eigeneKommentareAuslesen(Beitrag beitrag) {
+	public void eigeneKommentareAuslesen(final Beitrag beitrag) {
+		
 
 		int id = beitrag.getID();
 
@@ -486,12 +489,9 @@ public class BeitragErstellen {
 			@Override
 			public void onSuccess(ArrayList<Kommentar> result) {
 				for (final Kommentar k : result) {
-					
-					/*
-					
-					KommentarErstellen kommentarErstellen = new KommentarErstellen();
-					kommentarErstellen.add(k);
-					*/
+
+					if (getNutzer().getID() == k.getNutzer().getID()) {
+
 					
 					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
 					bearbeitenk = new PushButton("Bearbeiten");
@@ -521,10 +521,7 @@ public class BeitragErstellen {
 
 					vPanel.add(vPanelk);
 					
-					System.out.println("Es gibt zu Beitrag ID:" + " " + k.getBeitrag().getID() + " " + "Beiträge");
-					
-					
-					
+
 					
 					//Kommentar loeschen
 					loeschenk.addClickHandler(new ClickHandler() {
@@ -594,7 +591,13 @@ public class BeitragErstellen {
 						}
 						
 					});
-
+					
+					
+					
+					}
+					else {
+						fremdeKommentareAuslesen(beitrag);
+					}
 
 				}
 				
@@ -603,52 +606,7 @@ public class BeitragErstellen {
 		});
 
 	}
-	
-	/*
-	
-	public void kommentareAnzeigen(Kommentar k) {
-		
-		kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
-		bearbeitenk = new PushButton("Bearbeiten");
-		textBeitragk = new Label(k.getText());
-		datumsAnzeigek = new Label(k.getErstellZeitpunkt().toString());
-		loeschenk = new Button();
-		
-		//Design
-		//kommentarFlexTable.addStyleName("Kommentar");
-		loeschenk.setStylePrimaryName("Loeschen");
-		kommentarNutzer.setStylePrimaryName("NutzerName");
-		datumsAnzeigek.setStylePrimaryName("Date");
-		textBeitragk.setStylePrimaryName("umBruch");
-		
-		kommentarFlexTable.setStylePrimaryName("Kommentar");
-		
-		//Dem FlexTable zuordnen
-		
-		kommentarFlexTable.setWidget(0, 0, kommentarNutzer);
-		kommentarFlexTable.setWidget(0, 1, bearbeitenk);
-		kommentarFlexTable.setWidget(0, 2, loeschenk);
-		kommentarFlexTable.setWidget(1, 0, textBeitragk);
-		kommentarFlexTable.setWidget(2, 0, datumsAnzeigek);
-		
-		vPanelk.add(kommentarFlexTable);
-
-		vPanel.add(vPanelk);
-		
-		
-		System.out.println("");
-		System.out.println("---Kommentar von Textbeitrag ID:" + " " + k.getID());
-		System.out.println(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
-		System.out.println(k.getText());
-		System.out.println(k.getErstellZeitpunkt().toString());
-		System.out.println("---Ende Kommentar-------------------------------");
-		
-		
-	}
-	*/
-
-	//ABOBEITRÄGE
-	
+	//Abobeiträge anzeigen
 	public void abonnementBeitraegeAnzeigen(Nutzer nutzer) {
 		
 		
@@ -715,10 +673,6 @@ public class BeitragErstellen {
 
 	
 	//END OF ABOBEITRÄGE
-	
-	
-	
-	//END OF TESTING
 	
 	
 	public void beitragHinzufuegen() {
@@ -792,19 +746,15 @@ public class BeitragErstellen {
 			
 		});
 	}
-	/*
-	public void neuerBeitragAnzeigen(Nutzer nutzer) {
-		zeigeAlleBeitraege(nutzer);
-		RootPanel.get("Beitrag").clear();
-	}
-	*/
-	
 	
 	public void zeigeAlleBeitraege(Nutzer nutzer) {
 		
 		RootPanel.get("Beitrag").clear();
 		int id = nutzer.getID();
 		final Nutzer n = nutzer;
+
+		//Ließt fremde Kommentare aus
+		abonnementBeitraegeAnzeigen(n);
 		
 		service.findeAlleUserBeitraege(id, new AsyncCallback<ArrayList<Beitrag>>() {
 
