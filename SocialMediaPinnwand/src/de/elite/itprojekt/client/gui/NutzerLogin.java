@@ -198,7 +198,7 @@ public class NutzerLogin {
 					
 					
 					//Zeigt abobeiträge an
-					beitrag.abonnementBeitraegeAnzeigen(result);
+				//	beitrag.abonnementBeitraegeAnzeigen(result);
 					
 				}
 			});
@@ -226,6 +226,55 @@ public class NutzerLogin {
 			 */
 		  
 	  }
+	  
+	  
+	  
+	  //Navigationsrefresh
+	  
+	  public void refreshNavi() {
+		  
+			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					System.out.println("Fehler");
+				}
+				@Override
+				public void onSuccess(Nutzer result) {
+					setNutzer(result);
+					RootPanel.get("Navigator").clear();
+					
+					
+					Navigation navi = new Navigation();
+					
+
+					navi.addNavigation(result);
+					navi.getAbonnierteNutzerListe(result);
+					
+					refreshBeitraege();
+					
+				}
+			});
+		  
+	  }
+	  public void refreshBeitraege() {
+		  
+			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					System.out.println("Fehler");
+				}
+				@Override
+				public void onSuccess(Nutzer result) {
+					setNutzer(result);
+					RootPanel.get("Beitrag").clear();
+					
+					BeitragErstellen beitrag = new BeitragErstellen();
+					beitrag.zeigeAlleBeitraege(result);
+				}
+			});
+		  
+	  }
+	  
 
 	  // ClickHandler #1
 	  private class CloseButtonClickHandler implements ClickHandler {

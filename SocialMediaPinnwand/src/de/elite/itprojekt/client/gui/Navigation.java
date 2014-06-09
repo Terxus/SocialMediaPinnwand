@@ -179,6 +179,8 @@ public class Navigation {
 								public void onSuccess(Void result) {
 									Window.alert("Du hast den Nutzer: " +abo.getPinnwand().getNutzer().getNickname() +" deabonniert!");
 									abonnierteNutzerAnzeigen.removeFromParent();
+									NutzerLogin nl = new NutzerLogin();
+									nl.refreshBeitraege();
 								}
 						    });	
 		
@@ -273,7 +275,6 @@ public class Navigation {
 												// TODO Auto-generated
 												// method stub
 												Window.alert("onFailure createAbo");
-
 											}
 
 											@Override
@@ -281,10 +282,9 @@ public class Navigation {
 													Abonnement result) {
 												Window.alert("Du hast den User: " +s2 +" abonniert!");
 												vBox.setText("");
-												abonnierteNutzerAnzeigen.setWidget(0, 0, aboNutzer);
-												abonnierteNutzerAnzeigen.setWidget(0, 1, aboLoeschen);
-											//	RootPanel.get("Navigator").clear();
-											//	RootPanel.get("Navigator").add(vPanel);
+												NutzerLogin nl = new NutzerLogin();
+												nl.refreshNavi();
+												
 											}
 
 										});

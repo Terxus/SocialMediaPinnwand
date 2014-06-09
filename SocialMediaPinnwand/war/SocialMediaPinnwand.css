@@ -99,6 +99,10 @@ div#Footer {
 	width: 250px;
 	word-wrap: break-word;
 }
+.umBruchFremdesKommentar {
+	width: 400px;
+	word-wrap: break-word;
+}
 .Kommentar {
 	margin-left: 51px;
 	background-color: #afc3e5;

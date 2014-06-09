@@ -39,7 +39,7 @@ public class BeitragMapper {
 
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id + " ORDER BY Datum DESC");
 			
 			
 		//hier eventl. mit Pinnwand verknüpfen?!
@@ -127,6 +127,9 @@ public class BeitragMapper {
 
 	 				stmt.executeUpdate("DELETE FROM Beitrag "
 	 						+ "WHERE Beitrag_ID=" + beitrag.getID());
+	 				
+	 				KommentarMapper.kommentarMapper().autoKommentarLoeschen(beitrag.getID());
+	 				
 
 	 			} catch (SQLException e2) {
 	 				e2.printStackTrace();
@@ -192,7 +195,7 @@ public class BeitragMapper {
 				try{
 					Statement stmt = con.createStatement();
 
-					ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id);
+					ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id + " ORDER BY Datum DESC");
 
 					while (rs.next()) {
 

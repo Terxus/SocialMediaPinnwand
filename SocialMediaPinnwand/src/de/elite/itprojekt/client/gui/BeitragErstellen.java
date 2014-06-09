@@ -187,7 +187,7 @@ public BeitragErstellen() {
 										tAreak.setVisible(false);
 										addKommentar.setVisible(false);
 										
-										fremdeKommentareAuslesen(beitrag);
+										KommentareAuslesen(beitrag);
 										
 									}
 									
@@ -228,12 +228,7 @@ public BeitragErstellen() {
 			@Override
 			public void onSuccess(ArrayList<Kommentar> result) {
 				for (final Kommentar k : result) {
-					
-					/*
-					
-					KommentarErstellen kommentarErstellen = new KommentarErstellen();
-					kommentarErstellen.add(k);
-					*/
+
 					
 					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
 					textBeitragk = new Label(k.getText());
@@ -326,6 +321,7 @@ public BeitragErstellen() {
 							public void onSuccess(Void result) {
 								Window.alert("Textbeitrag wurde geloescht!");
 								beitragsGrid.removeFromParent();
+								kommentarFlexTable.removeFromParent();
 							}
 						});
 			}
@@ -364,6 +360,7 @@ public BeitragErstellen() {
 									public void onSuccess(Beitrag result) {
 										// TODO Auto-generated method stub
 										Label beitrag = new Label(newBeitrag.getText());
+										beitrag.setStylePrimaryName("umBruch");
 										
 										beitragsGrid.setWidget(1, 0, beitrag);
 										speichern.setVisible(false);
@@ -421,7 +418,7 @@ public BeitragErstellen() {
 										tAreak.setVisible(false);
 										addKommentar.setVisible(false);
 										
-										eigeneKommentareAuslesen(beitrag);
+										KommentareAuslesen(beitrag);
 										
 									}
 									
@@ -472,8 +469,10 @@ public BeitragErstellen() {
 		});
 		
 	}
-	//Nur eigene Kommentare anzeigen
-	public void eigeneKommentareAuslesen(final Beitrag beitrag) {
+	//Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers angezeigt.
+	//Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann ändert sich die darstellung.
+	//Denn dann kann man die Kommentare nicht bearbeiten und löschen.
+	public void KommentareAuslesen(final Beitrag beitrag) {
 		
 
 		int id = beitrag.getID();
@@ -559,7 +558,6 @@ public BeitragErstellen() {
 							newKommentar.setText(k.getText());
 							kommentarFlexTable.setWidget(1, 0, newKommentar);
 							kommentarFlexTable.setWidget(1, 1, speichern);
-							
 								//Bearbeiteter Text Speichern und in Label zurückverwandeln (*Magic*)
 									speichern.addClickHandler(new ClickHandler() {
 										@Override
@@ -567,7 +565,6 @@ public BeitragErstellen() {
 											// TODO Auto-generated method stub
 											k.setText(newKommentar.getText());
 											k.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
-
 											service.kommentarBearbeiten(k, new AsyncCallback<Kommentar>() {
 
 												@Override
@@ -580,6 +577,7 @@ public BeitragErstellen() {
 												public void onSuccess(Kommentar result) {
 													// TODO Auto-generated method stub
 													Label kommentar = new Label(newKommentar.getText());
+													kommentar.setStylePrimaryName("umBruch");
 													
 													kommentarFlexTable.setWidget(1, 0, kommentar);
 													speichern.setVisible(false);
@@ -588,12 +586,9 @@ public BeitragErstellen() {
 											});
 										}
 									});
-						}
+								}
 						
-					});
-					
-					
-					
+							});
 					}
 					else {
 						fremdeKommentareAuslesen(beitrag);
@@ -659,7 +654,7 @@ public BeitragErstellen() {
 					BeitragErstellen erstelle = new BeitragErstellen();
 					erstelle.beitragAnzeigenVonAbo(b,abo.getPinnwand().getNutzer());
 					
-					erstelle.eigeneKommentareAuslesen(b);
+					erstelle.KommentareAuslesen(b);
 				}
 				
 			}
@@ -669,9 +664,7 @@ public BeitragErstellen() {
 		
 	}
 
-	
 
-	
 	//END OF ABOBEITRÄGE
 	
 	
@@ -770,7 +763,7 @@ public BeitragErstellen() {
 				for (Beitrag b : result) {
 					BeitragErstellen erstelle = new BeitragErstellen();
 					erstelle.beitragAnzeigen(b,n);
-					erstelle.eigeneKommentareAuslesen(b);
+					erstelle.KommentareAuslesen(b);
 				}
 				
 			}

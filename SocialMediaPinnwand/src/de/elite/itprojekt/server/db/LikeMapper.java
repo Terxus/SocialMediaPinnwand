@@ -65,32 +65,73 @@ public class LikeMapper {
 		 }
 	 
 	 //Like anlegen
+	 	 
 	 
-	 public Like anlegen(Like like, Beitrag beitrag) {
-			
-		 Connection con = DBConnection.connection();
+		public Like anlegen(Like like, Beitrag beitrag){
+			//Aufbau der DBVerbindung
+			Connection con = DBConnection.connection();
+			int maxid = 0;
 
-			try {
+			//Versuch der Abfrage
+			try{
 				Statement stmt = con.createStatement();
 
+		     
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(Like_ID) AS maxid " 
 		      + "FROM Like ");
-		      if (rs.next()) {
-		    	  
-		    	  like.setID(rs.getInt("maxid") + 1);
-		    	  
-		    	  stmt = con.createStatement();
 
+		      
+		      if (rs.next()) {
+			      
+		    	  	maxid=rs.getInt("maxid");
+			        like.setID(rs.getInt("maxid") + 1);
+
+			        stmt = con.createStatement();
+			        
 			        stmt.executeUpdate("INSERT INTO Like (Like_ID, Nutzer_ID, Beitrag_ID, Datum) "
-			            + "VALUES (" + like.getID() + ",'" + like.getPinnwandId() + "','"  + beitrag.getID() + "','" + like.getErstellZeitpunkt() +"')");
-	  
-		      }
+			            + "VALUES (" + like.getID() + ",'" + like.getPinnwandId() + "','" + beitrag.getID() + "','" + ", CURRENT_TIMESTAMP ,  '" +"')");
+					
+		      	}
 		    }
 
 		    catch (SQLException e) {
 		      e.printStackTrace();
 		    }
-			return like;
-	 }
+
+		    return findeEinzelneDurchID(maxid+1);
+		}
 	 
+	 //Einzelnes Like finden
+		
+		public Like findeEinzelneDurchID(int id){
+
+			Connection con = DBConnection.connection();
+
+
+			try{
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT * FROM Like WHERE Like_ID=" + id );
+
+
+				if (rs.next()) {
+			
+					Like l = new Like();
+			        l.setID(rs.getInt("Like_ID"));
+			        l.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+			        l.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
+
+			        return l;
+				}
+			}
+
+		    catch (SQLException e) {
+	    		e.printStackTrace();
+	    		return null;
+		    }
+
+			return null;
+
+		}
+
 }

@@ -161,7 +161,25 @@ public class KommentarMapper {
 		}
 	 
 	 
-	 
+	 //Kommentar löschen wenn beitrag gelöscht wird
+	
+ 	public void autoKommentarLoeschen(int id) {
+ 		
+ 		Connection con = DBConnection.connection();
+ 			Statement stmt = null;
+
+ 			try {
+ 				stmt = con.createStatement();
+
+ 				stmt.executeUpdate("DELETE FROM Kommentar "
+ 						+ "WHERE Beitrag_ID=" + id);
+
+ 			} catch (SQLException e2) {
+ 				e2.printStackTrace();
+ 			}
+ 			
+ 			return;
+ 		}
 	 
 	 
 	 
