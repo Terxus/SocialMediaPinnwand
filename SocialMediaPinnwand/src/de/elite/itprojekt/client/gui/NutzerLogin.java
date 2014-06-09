@@ -3,6 +3,9 @@ package de.elite.itprojekt.client.gui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -104,9 +107,18 @@ public class NutzerLogin {
 		closeButton.addClickHandler(new CloseButtonClickHandler());
 		registerLink.addDomHandler(new RegistrierClickHandler(), ClickEvent.getType());
 		loginButton.addClickHandler(new LoginClickHandler());
+
+		//Gleichzeitig noch ein ClickHandler der auf die Entertaste reagiert.
 		
-
-
+		
+		passwortBox.addKeyPressHandler(new KeyPressHandler() {
+ 			public void onKeyPress(KeyPressEvent event) {
+ 				if (event.getCharCode() == KeyCodes.KEY_ENTER) {
+ 					checkValues();
+ 				}
+ 			}
+ 		});
+		
 	  }
 
 	  public void loadPinnwand() {
@@ -305,8 +317,7 @@ public class NutzerLogin {
 		}
 	  }
 	  
-	  
-	  
+
 	  
 	  
 	  private void checkValues() {
