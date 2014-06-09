@@ -237,7 +237,23 @@ public BeitragErstellen() {
 			}
 			
 		});
+		
+		
+		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
 
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				System.out.println("Beitrag:" + " " + beitrag.getText() + " " + "wurde von" + " " + getNutzer().getVorname() + " " + "schon geliked:" + " " + result);
+				
+			}
+			
+		});
 
 				//Liken
 				like.addClickHandler(new ClickHandler() {
@@ -586,142 +602,151 @@ public BeitragErstellen() {
 		//DAVOR ERST ÜBERPRÜFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN NUTZER!
 		
 		
-	
 		
-	
-		
-		//Liken
-		like.addClickHandler(new ClickHandler() {
+		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
 
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
 				
-				Like lke = new Like();
-				lke.setNutzerId(nutzer.getID());		
-				lke.setNutzer(nutzer);
-				lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
-				lke.setPinnwandId(nutzer.getID());
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+
 				
-				
-				service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Void result) {
-						beitragsGrid.setWidget(2, 3, delike);
-						
-						
-						service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Integer result) {
-								anzahlLikes.setText(result.toString());
-								
-							}
-							
-						});
-						
-						
-						
-
-						
-					}
+				if (result == true) {
 					
-				});
+					beitragsGrid.setWidget(2, 3, delike);
+					
+					delike.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+
+							service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Integer result) {
+											anzahlLikes.setText(result.toString());
+											
+										}
+										
+									});
+									
+								}
+								
+							});
+							
+						}
+						
+					});
+					
+					
+				} 
+				else {
+
+
+					//Liken
+					like.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							
+							Like lke = new Like();
+							lke.setNutzerId(nutzer.getID());		
+							lke.setNutzer(nutzer);
+							lke.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
+							lke.setPinnwandId(nutzer.getID());
+							
+							
+							service.likeAnlegen(lke, beitrag, new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									beitragsGrid.setWidget(2, 3, delike);
+									
+									
+									service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Integer result) {
+											anzahlLikes.setText(result.toString());
+											
+										}
+										
+									});
+									
+									
+									
+
+									
+								}
+								
+							});
+							
+						}
+						
+					});
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+				
+				
 				
 			}
 			
 		});
+	
 		
+	
 		
-		/*
-		delike.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-
-				service.likeLoeschen(beitrag, new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Void result) {
-						
-						service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Integer result) {
-								anzahlLikes.setText(result.toString());
-								
-							}
-							
-						});
-						
-					}
-					
-				});
-				
-			}
-			
-		});
 		
-		*/
 		
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	//Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers angezeigt.
 	//Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann ändert sich die darstellung.

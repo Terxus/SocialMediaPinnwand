@@ -110,9 +110,9 @@ public class LikeMapper {
 				Statement stmt = con.createStatement();
 				 ResultSet rs = stmt.executeQuery("SELECT * FROM `like` WHERE Nutzer_ID="+ n.getID() +" AND Beitrag_ID=" + b.getID());
 				 if(rs.next() == true) {
-					 return false;
+					 return true;
 
-				 } else return true;
+				 } else return false;
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
