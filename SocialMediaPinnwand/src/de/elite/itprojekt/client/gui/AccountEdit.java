@@ -141,6 +141,7 @@ public class AccountEdit {
 		editUser.setWidget(1, 1, nachNameTextBox);
 		nickNameTextBox.setText(this.Nickname.getText().toString());
 		editUser.setWidget(2, 1, nickNameTextBox);
+		nickNameTextBox.setReadOnly(true);
 		passWortTextBox.setText(this.Passwort.getText().toString());
 		editUser.setWidget(3, 1, passWortTextBox);
 		eMailTextBox.setText(this.Email.getText().toString()); 
@@ -156,8 +157,12 @@ public class AccountEdit {
 		}
 	}
 	//Erstelle neues Nutzerobjekt
-	public Nutzer updateNutzer() {
-
+	public void updateNutzer() {
+		
+		if (passWortTextBox.getValue().isEmpty()) {
+			Window.alert("Passwort darf nicht leer sein!");
+		}
+		else {
 		Nutzer updatedNutzer = new Nutzer();
 		updatedNutzer.setID(nutzer.getID());
 		updatedNutzer.setVorname(vorNameTextBox.getText());
@@ -166,7 +171,9 @@ public class AccountEdit {
 		updatedNutzer.setPassWort(passWortTextBox.getText());
 		updatedNutzer.seteMail(eMailTextBox.getText());
 		updateNutzerinDB(updatedNutzer);
-		return updatedNutzer;
+		
+		}
+
 	}
 	public void updateNutzerinDB(Nutzer neuerNutzer) {
 

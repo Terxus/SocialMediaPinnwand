@@ -389,7 +389,12 @@ public BeitragErstellen() {
 
 			@Override
 			public void onSuccess(ArrayList<Kommentar> result) {
+				
+				int i = 0;
+				
 				for (final Kommentar k : result) {
+					
+				//	FlexTable tst = new FlexTable();
 
 					
 					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
@@ -404,12 +409,19 @@ public BeitragErstellen() {
 					
 					//Dem FlexTable zuordnen
 					
-					kommentarFlexTable.setWidget(0, 0, kommentarNutzer);
-					kommentarFlexTable.setWidget(1, 0, textBeitragk);
-					kommentarFlexTable.setWidget(2, 0, datumsAnzeigek);
-
+					kommentarFlexTable.setWidget(i, 0, kommentarNutzer);
+					kommentarFlexTable.setWidget(i=i+1, 0, textBeitragk);
+					kommentarFlexTable.setWidget(i=i+2, 0, datumsAnzeigek);
+					
+			//		tst.setStylePrimaryName("Kommentar");
+			//		tst.setWidget(0, 0, kommentarNutzer);
+			//		tst.setWidget(1, 0, textBeitragk);
+			//		tst.setWidget(2, 0, datumsAnzeigek);
+					
+					i++;
 					
 					vPanelk.add(kommentarFlexTable);
+			//		vPanelk.add(tst);
 
 					vPanel.add(vPanelk);
 	
@@ -772,9 +784,15 @@ public BeitragErstellen() {
 
 			@Override
 			public void onSuccess(ArrayList<Kommentar> result) {
+				
+				int i = 0;
+				
 				for (final Kommentar k : result) {
 
 					if (getNutzer().getID() == k.getNutzer().getID()) {
+						
+						
+				//		FlexTable kmt = new FlexTable();
 
 					
 					kommentarNutzer = new Label(k.getNutzer().getVorname() + " " + k.getNutzer().getNachname());
@@ -791,20 +809,32 @@ public BeitragErstellen() {
 					textBeitragk.setStylePrimaryName("umBruch");
 					
 					kommentarFlexTable.setStylePrimaryName("Kommentar");
+			//		kmt.setStylePrimaryName("Kommentar");
+					
 					
 					//Dem FlexTable zuordnen
+				
 					
-					kommentarFlexTable.setWidget(0, 0, kommentarNutzer);
-					kommentarFlexTable.setWidget(0, 1, bearbeitenk);
-					kommentarFlexTable.setWidget(0, 2, loeschenk);
-					kommentarFlexTable.setWidget(1, 0, textBeitragk);
-					kommentarFlexTable.setWidget(2, 0, datumsAnzeigek);
+					kommentarFlexTable.setWidget(i, 0, kommentarNutzer);
+					kommentarFlexTable.setWidget(i, 1, bearbeitenk);
+					kommentarFlexTable.setWidget(i, 2, loeschenk);
+					kommentarFlexTable.setWidget(i=i+1, 0, textBeitragk);
+					kommentarFlexTable.setWidget(i=i+2, 0, datumsAnzeigek);
+					
+			//			kmt.setWidget(0, 0, kommentarNutzer);
+			//			kmt.setWidget(0, 1, bearbeitenk);
+			//			kmt.setWidget(0, 2, loeschenk);
+			//			kmt.setWidget(1, 0, textBeitragk);
+			//			kmt.setWidget(2, 0, datumsAnzeigek);
+					
+					
+					
+					i++;
 
 					
 					vPanelk.add(kommentarFlexTable);
 
 					vPanel.add(vPanelk);
-					
 
 					
 					//Kommentar loeschen
@@ -823,6 +853,8 @@ public BeitragErstellen() {
 								public void onSuccess(Void result) {
 									Window.alert("Kommentar wurde geloescht!");
 									kommentarFlexTable.removeFromParent();
+									NutzerLogin nl = new NutzerLogin();
+									nl.refreshBeitraege();
 								}
 							});
 							
