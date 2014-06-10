@@ -113,32 +113,70 @@ public class NutzerRegistrieren {
 		if (s2.equals(s3)) {
 
 
-			Nutzer n = new Nutzer();
+			final Nutzer n = new Nutzer();
 			n.setNickname(usertextBox.getText());
 			n.setPassWort(passwordTextBox.getText());
 			n.setVorname(vntextBox.getText());
 			n.seteMail(emailtextBox.getText());
 	        n.setNachname(nntextBox.getText());
 	        n.setErstellZeitpunkt(aktuellesDatum = new Timestamp(System.currentTimeMillis()));
-
-
-			service.nutzerAnlegen(n, new AsyncCallback<Void>() {
-
-				@Override
-				public void onSuccess(Void result) {
-					RootPanel.get("Beitrag").clear();
-					System.out.println("User angelegt: " +s1);
-					NutzerLogin login = new NutzerLogin();
-
-					login.loadLoginView();
-
-				}
+	        
+	        
+	        
+	        //Schauen ob der Primärschlüssel des Nutzers (Nickname) schon vorhanden ist)
+	        
+	        
+	        service.sucheNickName(usertextBox.getText(), new AsyncCallback<Boolean>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					System.out.println("upps");
+					// TODO Auto-generated method stub
+					
 				}
-			});
+
+				@Override
+				public void onSuccess(Boolean result) {
+					
+					
+					
+					if (result == true) {
+						usertextBox.setStylePrimaryName("nickNameVorhanden");
+						usertextBox.setText("Nutzer bereits vorhanden!");
+
+					}
+					
+					else {
+						
+						service.nutzerAnlegen(n, new AsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								RootPanel.get("Beitrag").clear();
+								System.out.println("User angelegt: " +s1);
+								NutzerLogin login = new NutzerLogin();
+
+								login.loadLoginView();
+
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								System.out.println("upps");
+							}
+						});
+						
+					}
+					
+					
+					
+				}
+	        	
+	        });
+	        
+	        
+
+
+
 		}
 	  //Ende von Domi
 	  

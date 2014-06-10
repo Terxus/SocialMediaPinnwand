@@ -24,6 +24,7 @@ public interface PinnwandVerwaltung extends RemoteService {
 	public Nutzer loginCheck(String nutzerName, String passWort);
 	public Nutzer sucheNutzerID(int id);
 	public Nutzer updateNutzer(Nutzer nutzer);
+	public boolean sucheNickName(String nickName);
 	
 	//Von Domi
 	public Nutzer getNutzerAnhandNickname(String nickname);

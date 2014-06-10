@@ -105,8 +105,8 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
 	}
 	@Override
-	public Nutzer getUserByNickname(String nickname) {
-		return NutzerMapper.nutzerMapper().findByNickname(nickname);
+	public Nutzer getUserByNickname(String nickName) {
+		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickName);
 	}
 
 	@Override
@@ -162,5 +162,10 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) {
 		// TODO Auto-generated method stub
 		LikeMapper.likeMapper().einzelnesLikeLoeschen(beitrag, nutzer);
+	}
+	@Override
+	public boolean sucheNickName(String nickName) {
+		// TODO Auto-generated method stub
+		return NutzerMapper.nutzerMapper().sucheNickName(nickName);
 	}
 }

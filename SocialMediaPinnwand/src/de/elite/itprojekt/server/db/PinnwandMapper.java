@@ -63,6 +63,21 @@ public class PinnwandMapper {
 	    }
 	return null;
 	}
+	
+	public void loeschen(Nutzer n) {
+			Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+		      stmt.executeUpdate("DELETE FROM Pinnwand WHERE Nutzer_ID=" + n.getID());
+		      
+		      PinnwandMapper.pinnwandMapper().loeschen(n);
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    } 
+		}
+	
 
 	
 }

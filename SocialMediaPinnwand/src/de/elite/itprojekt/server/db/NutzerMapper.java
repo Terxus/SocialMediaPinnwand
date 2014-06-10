@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -200,6 +201,8 @@ public class NutzerMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 	      stmt.executeUpdate("DELETE FROM Nutzer WHERE Nutzer_ID=" + n.getID());
+	      
+	    //  PinnwandMapper.pinnwandMapper().loeschen(n);
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
@@ -277,7 +280,7 @@ public class NutzerMapper {
 
 
 
-	 public Nutzer findByNickname(String nickname) {
+	 public Nutzer sucheNickname(String nickname) {
 		    Connection con = DBConnection.connection();
 
 		    try {
@@ -309,5 +312,31 @@ public class NutzerMapper {
 
 	return null;
 	}
+	 
+		public boolean sucheNickName(String nickName) {
+			Connection con = DBConnection.connection();
+			try {
+				Statement stmt = con.createStatement();
+				 ResultSet rs = stmt.executeQuery("SELECT * FROM `Nutzer` WHERE `Nickname` = '"+nickName+"'");
+				 if(rs.next() == true) {
+					 return true;
+
+				 } else return false;
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+
+		}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 }

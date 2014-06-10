@@ -110,3 +110,6 @@ div#Footer {
   	padding: 3px;
   	width: 420px;
 }
+.nickNameVorhanden {
+	color: red;
+}

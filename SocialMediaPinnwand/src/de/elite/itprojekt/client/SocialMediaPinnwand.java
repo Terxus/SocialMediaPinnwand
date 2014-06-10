@@ -32,6 +32,9 @@ public class SocialMediaPinnwand implements EntryPoint {
 	  }
 	  else { // Wenn schon ein Cookie mit dem Namen gp5cookie existiert dann soll direkt die Pinnwand geladen werden.
 		  
+		  
+		  
+		  
 		  NutzerLogin startSeite = new NutzerLogin();
 		  startSeite.loadPinnwand();
 		  System.out.println("Cookie ist da" + " " + Cookies.getCookie("gp5cookie"));

@@ -75,4 +75,6 @@ public interface PinnwandVerwaltungAsync {
 
 	void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer, AsyncCallback<Void> callback);
 
+	void sucheNickName(String nickName, AsyncCallback<Boolean> callback);
+
 }
