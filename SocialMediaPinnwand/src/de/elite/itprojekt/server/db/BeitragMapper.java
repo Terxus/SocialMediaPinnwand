@@ -223,6 +223,30 @@ public class BeitragMapper {
 			    }
 			return beitragListe;
 			}
+		 //REPORT
+		//Beiträge zählen
+			
+			 public int zaehleBeitraege(){
+				 int count = -1;
+				Connection con = DBConnection.connection();
+
+				try {
+					Statement stmt = con.createStatement();
+
+					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Beitrag`");
+
+					while (rs.next()) {
+				        count=rs.getInt(1);
+				      }
+
+				}
+
+			    catch (SQLException e) {
+			    		e.printStackTrace();
+			    }
+				return count;
+
+			 }
 		
 		
 	

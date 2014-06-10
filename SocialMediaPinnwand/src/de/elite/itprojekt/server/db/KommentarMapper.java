@@ -181,7 +181,30 @@ public class KommentarMapper {
  			return;
  		}
 	 
-	 
+	 //REPORT
+ 	//Alle Kommentare zählen
+ 	
+	 public int zaehleKommentare(){
+		 int count = -1;
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Kommentar");
+
+			while (rs.next()) {
+		        count=rs.getInt(1);
+		      }
+
+		}
+
+	    catch (SQLException e) {
+	    		e.printStackTrace();
+	    }
+		return count;
+
+	 }
 	 
 	 
 	 

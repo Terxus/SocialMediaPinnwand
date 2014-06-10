@@ -1,8 +1,10 @@
 package de.elite.itprojekt.client.gui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -13,9 +15,14 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import de.elite.itprojekt.shared.ReportGenerator;
+import de.elite.itprojekt.shared.ReportGeneratorAsync;
+
 
 
 public class Report {
+	
+	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen für pinnwandverwaltung
 
 
 	private VerticalPanel vPanel = new VerticalPanel();
@@ -39,6 +46,10 @@ public class Report {
 	
 	private Label registrierteNutzer;
 	private Label anzahlKommentare;
+	private Label beitraege;
+	private Label anzahlBeitraege;
+	private Label abonnements;
+	private Label anzahlAbonnements;
 	private Label anzahlLikes;
 	private Label registrierteNutzerLabel;
 	private Label anzahlKommentareLabel;
@@ -79,12 +90,17 @@ public class Report {
 		reportButton.addClickHandler(new ReportClickHandler());
 		
 		//Global
-		this.registrierteNutzer = new Label("Registrierte Nutzer:");
-		this.anzahlKommentare = new Label("Kommentare Gesamt:");
-		this.anzahlLikes = new Label("Likes Gesamt:");
-		this.registrierteNutzerLabel = new Label("2");
-		this.anzahlKommentareLabel = new Label("5");
-		this.anzahlLikesLabel = new Label("44");
+		this.registrierteNutzer = new Label("Anzahl Nutzer:");
+		this.anzahlKommentare = new Label("Anzahl Kommentare:");
+		this.anzahlLikes = new Label("Anzahl Likes:");
+		this.anzahlBeitraege = new Label("Anzahl Beitraege");
+		this.anzahlAbonnements = new Label("Anzahl Abos");
+		
+		this.beitraege = new Label();
+		this.abonnements = new Label();
+		this.registrierteNutzerLabel = new Label();
+		this.anzahlKommentareLabel = new Label();
+		this.anzahlLikesLabel = new Label();
 		this.globaleStatistik = new FlexTable();
 		this.decPanelGlobal = new DecoratorPanel();
 		this.globStatLabel = new Label("Globale Nutzerstatistiken");
@@ -123,6 +139,11 @@ public class Report {
 		globaleStatistik.setWidget(2, 0, anzahlLikes);
 		globaleStatistik.setWidget(2, 1, anzahlLikesLabel);
 		
+		globaleStatistik.setWidget(3, 0, anzahlBeitraege);
+		globaleStatistik.setWidget(3, 1, beitraege);
+		globaleStatistik.setWidget(4, 0, anzahlAbonnements);
+		globaleStatistik.setWidget(4, 1, abonnements);
+		
 		decPanel.add(auswahlTabelle);
 		decPanelGlobal.add(globaleStatistik);
 		
@@ -137,11 +158,135 @@ public class Report {
 		
 
 	}
+	//Obere Beitragsliste
+	private int aboInt = 2; //Hier die abonnentenzahl reinschreiben
+	private int beitragInt = 5; //Hier die Beitragszahl reinschreiben
+	private int likesInt = 23; //Hier die Likeanzahl reinschreiben
+	
+	VerticalPanel vPanelRep = new VerticalPanel();
+	VerticalPanel vPanelDetailRep = new VerticalPanel();
+	private FlexTable repTable = new FlexTable();
+	private Label nutzerLabel = new Label("Nutzer" + " " + "hat:");
+	private Label aboLabelrep = new Label("Abonnenten:" + " " + aboInt);
+	private Label beitragLabelrep = new Label("Beitraege:" + " " + beitragInt);
+	private Label likesLabelrep = new Label("Likes:" + " " + likesInt);
+	
+	//Untere Beitragsliste
+	
+	private FlexTable detailTable = new FlexTable();
+	private Label beitragLabeldetail = new Label("Beitrag");
+	private Label kommentarLabeldetail = new Label("Kommentare");
+	private Label likesLabeldetail = new Label("Likes");
+	
+	
 	
 	public void getData() {
-		BeitragErstellen brt = new BeitragErstellen();
 		
-		brt.beitragHinzufuegen();
+		//Alle Nutzer zählen
+		
+		report.zaehleAlleNutzer(new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				registrierteNutzerLabel.setText(result.toString());
+				
+			}
+			
+		});
+		//Alle Kommentare zählen
+		report.zaehleAlleKommentare(new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				anzahlKommentareLabel.setText(result.toString());
+				
+			}
+			
+		});
+		//Alle Likes zählen
+		report.zaehleAlleLikes(new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				anzahlLikesLabel.setText(result.toString());
+				
+			}
+			
+		});
+		//Alle Beiträge zählen
+		report.zaehleAlleBeitraege(new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+			beitraege.setText(result.toString());
+				
+			}
+			
+		});
+		//Alle Abonnements zählen
+		report.zaehleAlleAbonnements(new AsyncCallback<Integer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				abonnements.setText(result.toString());
+				
+			}
+			
+		});
+		
+		
+		//NUTZER
+		
+		//Obere Beitragsliste
+		repTable.setWidget(0, 0, nutzerLabel);
+		repTable.setWidget(1, 0, aboLabelrep);
+		repTable.setWidget(2, 0, beitragLabelrep);
+		repTable.setWidget(3, 0, likesLabelrep);
+		
+		vPanelRep.add(repTable);
+		RootPanel.get("Beitrag").add(vPanelRep);
+		
+		//Untere Beitragsliste
+		
+		
+		detailTable.setWidget(0, 1, beitragLabeldetail);
+		detailTable.setWidget(0, 2, kommentarLabeldetail);
+		detailTable.setWidget(0, 3, likesLabeldetail);
+		
+		vPanelDetailRep.add(detailTable);
+		
+		RootPanel.get("Report").add(vPanelDetailRep);
+		
 	}
 	
 	
@@ -150,8 +295,7 @@ public class Report {
 	@Override
 	public void onClick(ClickEvent event) {
 		getData();
-	}
-	
+		}
 	}
 }
 	

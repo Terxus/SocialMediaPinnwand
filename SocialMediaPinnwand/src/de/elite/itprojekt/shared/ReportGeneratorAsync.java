@@ -18,5 +18,17 @@ public interface ReportGeneratorAsync {
 	void likeReportSortiert(AsyncCallback<Void> callback);
 
 	void kommentarReportSortiert(AsyncCallback<Void> callback);
+	
+	//
+
+	void zaehleAlleNutzer(AsyncCallback<Integer> callback);
+
+	void zaehleAlleKommentare(AsyncCallback<Integer> callback);
+
+	void zaehleAlleLikes(AsyncCallback<Integer> callback);
+
+	void zaehleAlleBeitraege(AsyncCallback<Integer> callback);
+
+	void zaehleAlleAbonnements(AsyncCallback<Integer> callback);
 
 }

@@ -331,7 +331,31 @@ public class NutzerMapper {
 		}
 	 
 	 
-	 
+	 //REPORT
+	//Nutzer zählen
+		
+		 public int zaehleNutzer(){
+			 int count = -1;
+			Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM nutzer");
+
+				while (rs.next()) {
+			        count=rs.getInt(1);
+			      }
+
+			}
+
+		    catch (SQLException e) {
+		    		e.printStackTrace();
+		    }
+			return count;
+
+		 }
+		
 	 
 	 
 	 

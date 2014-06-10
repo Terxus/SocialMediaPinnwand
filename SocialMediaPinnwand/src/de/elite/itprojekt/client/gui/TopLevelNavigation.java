@@ -25,11 +25,12 @@ public class TopLevelNavigation {
 		Command home = new Command() {
 		     public void execute() {
 		    	 
-			      RootPanel.get("Navigator").clear(); // Clear Methodik in eigene Methode
+			      RootPanel.get("Navigator").clear();
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
 			      RootPanel.get("Footer").clear();
+			      RootPanel.get("Report").clear();
 			      
 		    	 NutzerLogin login = new NutzerLogin();
 		    	 login.refreshPinnwand();
@@ -43,6 +44,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
 			      RootPanel.get("Footer").clear();
+			      RootPanel.get("Report").clear();
 		      
 		      
 		      AccountEdit editNutzer = new AccountEdit();
@@ -77,6 +79,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Header").clear();
 			      RootPanel.get("Footer").clear();
+			      RootPanel.get("Report").clear();
 			      
 			      NutzerLogin nl = new NutzerLogin();
 			      nl.loadLoginView();

@@ -151,5 +151,30 @@ public class AbonnementMapper {
 	    } 
 	}
 	
+	 //REPORT
+	//Abo's zählen
+		
+		 public int zaehleAbonnements(){
+			 int count = -1;
+			Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Abonnement`");
+
+				while (rs.next()) {
+			        count=rs.getInt(1);
+			      }
+
+			}
+
+		    catch (SQLException e) {
+		    		e.printStackTrace();
+		    }
+			return count;
+
+		 }
+	
 
 }

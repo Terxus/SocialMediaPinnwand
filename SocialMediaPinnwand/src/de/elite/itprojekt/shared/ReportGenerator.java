@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 
-@RemoteServiceRelativePath("reportgenerator")
+@RemoteServiceRelativePath("reportGenerator")
 public interface ReportGenerator extends RemoteService {
 	 /**
 	   * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von GWT
@@ -27,5 +27,15 @@ public interface ReportGenerator extends RemoteService {
 	  public void likeReportSortiert();
 	  
 	  public void kommentarReportSortiert();
+	  
+	  
+	  
+	  //
+	  public int zaehleAlleNutzer();
+	  public int zaehleAlleKommentare();
+	  public int zaehleAlleLikes();
+	  public int zaehleAlleBeitraege();
+	  public int zaehleAlleAbonnements();
+	  
 
 }

@@ -219,5 +219,29 @@ public class LikeMapper {
 			}
 
 		}
+		 //REPORT
+		//Likes zählen
+			
+			 public int zaehleLikes(){
+				 int count = -1;
+				Connection con = DBConnection.connection();
+
+				try {
+					Statement stmt = con.createStatement();
+
+					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Like`");
+
+					while (rs.next()) {
+				        count=rs.getInt(1);
+				      }
+
+				}
+
+			    catch (SQLException e) {
+			    		e.printStackTrace();
+			    }
+				return count;
+
+			 }
 
 }
