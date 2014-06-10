@@ -1,22 +1,28 @@
 package de.elite.itprojekt.client.gui;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 
@@ -24,10 +30,8 @@ public class Report {
 	
 	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen für pinnwandverwaltung
 
-
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label nutzerName;
-	private TextBox nutzerSuche;
 	private Button reportButton;
 	private Label zeitraumVon;
 	private DateBox dateBoxVon;
@@ -58,21 +62,46 @@ public class Report {
 	private DecoratorPanel decPanelGlobal;
 	private Label globStatLabel;
 
-
+//Suggestbox
+	
+ 	final MultiWordSuggestOracle orakel = new MultiWordSuggestOracle();
+ 	final SuggestBox vBox = new SuggestBox(orakel);
  
 	
+ 	
+ 	
+ 	//Konstruktor
+ 	
+	public Report() {
+		report.zeigeAlleNutzer(new AsyncCallback<ArrayList<Nutzer>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Nutzer> result) {
+
+
+				for (Nutzer n : result) {
+					orakel.add(n.getVorname() + " " + n.getNachname() + "     [ "
+							+ n.getNickname() + " ]");
+
+				}
+			}
+		});
+	}
+ 	
+ 	
+ 	
+ 	
+ 	
 
 	public void reportNavigation() {
 		
-		RootPanel.get("Navigator").clear();
-		RootPanel.get("neuer_Beitrag").clear();
-		RootPanel.get("Beitrag").clear();
-		RootPanel.get("Kommentar").clear();
-		
-		
 
 		this.nutzerName = new Label("Benutzer");
-		this.nutzerSuche = new TextBox();
 		this.reportButton = new Button("Report");
 		this.zeitraumVon = new Label("Von");
 		this.zeitraumBis = new Label("Bis");
@@ -109,6 +138,7 @@ public class Report {
 		radioButtonLikes.setValue(true);
 		
 		//Formatierung des Datums
+		@SuppressWarnings("deprecation")
 		DateTimeFormat dateFormat = DateTimeFormat.getShortDateFormat();
 		dateBoxVon.setFormat(new DateBox.DefaultFormat(dateFormat));
 		dateBoxBis.setFormat(new DateBox.DefaultFormat(dateFormat));
@@ -116,7 +146,7 @@ public class Report {
 		
 		
 		reportTable.setWidget(0, 0, nutzerName);
-		reportTable.setWidget(1, 0, nutzerSuche);
+		reportTable.setWidget(1, 0, vBox);
 		reportTable.setWidget(2, 0, zeitraumVon);
 		reportTable.setWidget(3, 0, dateBoxVon);
 		reportTable.setWidget(4, 0, zeitraumBis);
@@ -159,17 +189,17 @@ public class Report {
 
 	}
 	//Obere Beitragsliste
-	private int aboInt = 2; //Hier die abonnentenzahl reinschreiben
-	private int beitragInt = 5; //Hier die Beitragszahl reinschreiben
-	private int likesInt = 23; //Hier die Likeanzahl reinschreiben
+	private int aboInt; //Hier die abonnentenzahl reinschreiben
+	private int beitragInt; //Hier die Beitragszahl reinschreiben
+	private int likesInt; //Hier die Likeanzahl reinschreiben
 	
 	VerticalPanel vPanelRep = new VerticalPanel();
 	VerticalPanel vPanelDetailRep = new VerticalPanel();
 	private FlexTable repTable = new FlexTable();
-	private Label nutzerLabel = new Label("Nutzer" + " " + "hat:");
-	private Label aboLabelrep = new Label("Abonnenten:" + " " + aboInt);
-	private Label beitragLabelrep = new Label("Beitraege:" + " " + beitragInt);
-	private Label likesLabelrep = new Label("Likes:" + " " + likesInt);
+	private Label nutzerLabel = new Label();
+	private Label aboLabelrep = new Label();
+	private Label beitragLabelrep = new Label();
+	private Label likesLabelrep = new Label();
 	
 	//Untere Beitragsliste
 	
@@ -265,7 +295,97 @@ public class Report {
 		});
 		
 		
-		//NUTZER
+		//METHODIK
+		String s = this.vBox.getText();
+		s = s.substring(s.indexOf("[")+2,s.indexOf(" ]"));
+		final String nickname = s;
+		
+		report.getUserByNickname(nickname, new AsyncCallback<Nutzer>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler bei der Nutzersuche");
+				
+			}
+			@Override
+			public void onSuccess(Nutzer nutzer) {
+				nutzerLabel.setText(nutzer.getVorname() + " " + nutzer.getNachname());
+				
+				
+				
+				//Abonnenten eines Nutzers als Zahl
+				
+				report.zaehleAlleAbonnementsPerNutzer(nutzer, new AsyncCallback<Integer>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Integer abos) {
+						aboLabelrep.setText("Abonnenten:" + " " + abos);
+						
+					}
+					
+				});
+				//Beiträge eines Nutzer als Zahl
+				
+				report.zaehleBeitraegePerNutzer(nutzer, new AsyncCallback<Integer>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Integer beitr) {
+						
+						beitragLabelrep.setText("Beitraege:" + " " + beitr);
+					}
+					
+				});
+				//Likes vergeben
+				report.zaehleLikesPerNutzer(nutzer, new AsyncCallback<Integer>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Integer lks) {
+						likesLabelrep.setText("Likes:" + " " + lks);
+						
+					}
+					
+				});
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+		});
+		
+		
+		
+		
+		//NUTZER ANZEIGE
 		
 		//Obere Beitragsliste
 		repTable.setWidget(0, 0, nutzerLabel);

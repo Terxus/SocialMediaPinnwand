@@ -1,6 +1,10 @@
 package de.elite.itprojekt.shared;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 public interface ReportGeneratorAsync {
@@ -30,5 +34,15 @@ public interface ReportGeneratorAsync {
 	void zaehleAlleBeitraege(AsyncCallback<Integer> callback);
 
 	void zaehleAlleAbonnements(AsyncCallback<Integer> callback);
+
+	void zeigeAlleNutzer(AsyncCallback<ArrayList<Nutzer>> callback);
+
+	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
+
+	void zaehleAlleAbonnementsPerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
+
+	void zaehleBeitraegePerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
+
+	void zaehleLikesPerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
 
 }

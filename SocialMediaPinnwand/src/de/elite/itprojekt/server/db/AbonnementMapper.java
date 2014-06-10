@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import de.elite.itprojekt.shared.bo.Abonnement;
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 public class AbonnementMapper {
@@ -175,6 +176,28 @@ public class AbonnementMapper {
 			return count;
 
 		 }
-	
+		 
+		 //Abonnenten Zählen per Nutzer
+		 public int zaehleAbonnementsPerNutzer(Nutzer nutzer){
+			 int count = -1;
+			Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Abonnement` WHERE Nutzer_ID=" +nutzer.getID());
+
+				while (rs.next()) {
+			        count=rs.getInt(1);
+			      }
+
+			}
+
+		    catch (SQLException e) {
+		    		e.printStackTrace();
+		    }
+			return count;
+
+		 }
 
 }

@@ -1,5 +1,7 @@
 package de.elite.itprojekt.server.report;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.elite.itprojekt.server.db.AbonnementMapper;
@@ -8,6 +10,7 @@ import de.elite.itprojekt.server.db.KommentarMapper;
 import de.elite.itprojekt.server.db.LikeMapper;
 import de.elite.itprojekt.server.db.NutzerMapper;
 import de.elite.itprojekt.shared.ReportGenerator;
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 
@@ -83,6 +86,36 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	public int zaehleAlleAbonnements() {
 		// TODO Auto-generated method stub
 		return AbonnementMapper.abonnementMapper().zaehleAbonnements();
+	}
+
+	@Override
+	public ArrayList<Nutzer> zeigeAlleNutzer() {
+		// TODO Auto-generated method stub
+		return NutzerMapper.nutzerMapper().sucheAlleNutzer();
+	}
+
+	@Override
+	public Nutzer getUserByNickname(String nickname) {
+		// TODO Auto-generated method stub
+		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
+	}
+
+	@Override
+	public int zaehleAlleAbonnementsPerNutzer(Nutzer nutzer) {
+		// TODO Auto-generated method stub
+		return AbonnementMapper.abonnementMapper().zaehleAbonnementsPerNutzer(nutzer);
+	}
+
+	@Override
+	public int zaehleBeitraegePerNutzer(Nutzer nutzer) {
+		// TODO Auto-generated method stub
+		return BeitragMapper.beitragMapper().zaehleBeitraegePerNutzer(nutzer);
+	}
+
+	@Override
+	public int zaehleLikesPerNutzer(Nutzer nutzer) {
+		// TODO Auto-generated method stub
+		return LikeMapper.likeMapper().zaehleLikesPerNutzer(nutzer);
 	}
 
 }

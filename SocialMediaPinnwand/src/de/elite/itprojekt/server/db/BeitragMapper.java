@@ -247,6 +247,30 @@ public class BeitragMapper {
 				return count;
 
 			 }
+			 
+			 //REPORT Beiträge per Nutzer zählen
+			 
+			 public int zaehleBeitraegePerNutzer(Nutzer nutzer){
+				 int count = -1;
+				Connection con = DBConnection.connection();
+
+				try {
+					Statement stmt = con.createStatement();
+
+					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Beitrag` WHERE Nutzer_ID=" + nutzer.getID());
+
+					while (rs.next()) {
+				        count=rs.getInt(1);
+				      }
+
+				}
+
+			    catch (SQLException e) {
+			    		e.printStackTrace();
+			    }
+				return count;
+
+			 }
 		
 		
 	

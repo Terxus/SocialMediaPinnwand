@@ -1,7 +1,11 @@
 package de.elite.itprojekt.shared;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
+import de.elite.itprojekt.shared.bo.Nutzer;
 
 
 @RemoteServiceRelativePath("reportGenerator")
@@ -30,12 +34,24 @@ public interface ReportGenerator extends RemoteService {
 	  
 	  
 	  
-	  //
+	  //Global
 	  public int zaehleAlleNutzer();
 	  public int zaehleAlleKommentare();
 	  public int zaehleAlleLikes();
 	  public int zaehleAlleBeitraege();
 	  public int zaehleAlleAbonnements();
+	  public ArrayList<Nutzer> zeigeAlleNutzer();
 	  
-
+	  
+	  //Nutzer
+	  public Nutzer getUserByNickname(String nickname);
+	  
+	  //Abozählen eines Nutzers
+	  public int zaehleAlleAbonnementsPerNutzer(Nutzer nutzer);
+	  
+	  //Beiträge eines Nutzers
+	  public int zaehleBeitraegePerNutzer(Nutzer nutzer);
+	  
+	  //Likes eines Nutzers
+	  public int zaehleLikesPerNutzer(Nutzer nutzer);
 }
