@@ -214,10 +214,12 @@ public class BeitragErstellen {
 													+ " "
 													+ kommentar.getNutzerId()
 													+ "erstellt");
-											RootPanel.get("neuer_Beitrag")
-													.clear();
-											RootPanel.get("Kommentar").clear();
-											RootPanel.get("Beitrag").clear();
+										      RootPanel.get("Navigator").clear();
+										      RootPanel.get("neuer_Beitrag").clear();
+										      RootPanel.get("Kommentar").clear();
+										      RootPanel.get("Beitrag").clear();
+										      RootPanel.get("Footer").clear();
+										      RootPanel.get("Report").clear();
 											NutzerLogin login = new NutzerLogin();
 											login.refreshPinnwand();
 
@@ -559,11 +561,13 @@ public class BeitragErstellen {
 											addKommentar.setVisible(false);
 
 											// KommentareAuslesen(beitrag);
-											logger.severe("Kommentar erfolgreich hinzugef�gt");
-											RootPanel.get("neuer_Beitrag")
-													.clear();
-											RootPanel.get("Kommentar").clear();
-											RootPanel.get("Beitrag").clear();
+											logger.severe("Kommentar erfolgreich hinzugef�gt");								
+										      RootPanel.get("Navigator").clear();
+										      RootPanel.get("neuer_Beitrag").clear();
+										      RootPanel.get("Kommentar").clear();
+										      RootPanel.get("Beitrag").clear();
+										      RootPanel.get("Footer").clear();
+										      RootPanel.get("Report").clear();
 											NutzerLogin login = new NutzerLogin();
 											login.refreshPinnwand();
 

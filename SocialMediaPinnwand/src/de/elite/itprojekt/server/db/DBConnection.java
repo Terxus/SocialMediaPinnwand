@@ -12,10 +12,10 @@ public class DBConnection {
 	private static Connection con = null;
 	private static String dbHost = "localhost"; // Hostname
 	private static String dbPort = "3306";      // Port -- Standard: 3306
-	private static String dbName = "db10455335-itprojekt";   // Datenbankname
+	private static String dbName = "wtf";   // Datenbankname
 	private static String dbUser = "root";     // Datenbankuser
 	private static String dbPass = "";      // Datenbankpasswort
-	
+
 	//Getter und Setter
 	public static String getDbHost() {
 		return dbHost;
@@ -48,23 +48,23 @@ public class DBConnection {
 		DBConnection.dbName = dbName;
 	}
 	//Ende Getter und Setter
-	
+
 	//Start der Connection
-	
+
 	public static Connection connection() {
 		if (con == null) { //Checken ob bereits eine Verbindung besteht
 	    try {
 	    	DriverManager.registerDriver(new AppEngineDriver()); // Create driver from GWT-Package
-	    	
-	    	
+
+
 	        //Class.forName("com.mysql.jdbc.Driver"); // Datenbanktreiber für JDBC Schnittstellen laden.
-	 
+
 	        // Verbindung zur JDBC-Datenbank herstellen.
 	        con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
 
 	     //   con = DriverManager.getConnection("jdbc:google:rdbms://smp-itp:elite/db", "root", "");
-	        
-	        
+
+
 	    } catch (SQLException error) { //Wenn ein Fehler auftritt -> Verbidung trennen
 	    	con = null;
 	        System.out.println("Verbindung nicht moglich");
@@ -74,25 +74,5 @@ public class DBConnection {
 	    }
 	  }
 		return con;
-	}
-	
-	//Wird wegen Google benötigt
-	
-	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
-		try {
-			if (rs != null) {
-				rs.close();
-			}
-			if (stmt != null) {
-				stmt.close();
-			} 
-			if (con != null) {
-				con.close();
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new Exception("Connection close Fehler!" + e.toString());
-		}
 	}
 }
