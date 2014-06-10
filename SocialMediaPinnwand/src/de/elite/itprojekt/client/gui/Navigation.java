@@ -256,7 +256,7 @@ public class Navigation {
 					System.out.println("Substring: " + s);
 					vBox.setText("");
 
-					service.getUserByNickname(s, new AsyncCallback<Nutzer>() {
+					service.getNutzerAnhandNickname(s, new AsyncCallback<Nutzer>() {
 
 						@Override
 						public void onFailure(Throwable caught) {

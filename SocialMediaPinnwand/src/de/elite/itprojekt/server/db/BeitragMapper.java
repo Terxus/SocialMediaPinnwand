@@ -129,6 +129,7 @@ public class BeitragMapper {
 	 						+ "WHERE Beitrag_ID=" + beitrag.getID());
 	 				
 	 				KommentarMapper.kommentarMapper().autoKommentarLoeschen(beitrag.getID());
+	 				LikeMapper.likeMapper().likesVonBeitragLoeschen(beitrag.getID());
 	 				
 
 	 			} catch (SQLException e2) {

@@ -81,7 +81,7 @@ public class LikeMapper {
 
 		     
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(Like_ID) AS maxid " 
-		      + "FROM `like` ");
+		      + "FROM Likee ");
 
 		      
 		      if (rs.next()) {
@@ -91,7 +91,7 @@ public class LikeMapper {
 
 			        stmt = con.createStatement();
 			        
-			        stmt.executeUpdate("INSERT INTO `Like` (Like_ID, Nutzer_ID, Beitrag_ID, Datum) "
+			        stmt.executeUpdate("INSERT INTO Likee (Like_ID, Nutzer_ID, Beitrag_ID, Datum) "
 				            + "VALUES (" + like.getID() + ",'" + like.getPinnwandId() + "','" + beitrag.getID() + "','" + like.getErstellZeitpunkt()  + "')");
 					
 		      	}
@@ -108,7 +108,7 @@ public class LikeMapper {
 			Connection con = DBConnection.connection();
 			try {
 				Statement stmt = con.createStatement();
-				 ResultSet rs = stmt.executeQuery("SELECT * FROM `like` WHERE Nutzer_ID="+ n.getID() +" AND Beitrag_ID=" + b.getID());
+				 ResultSet rs = stmt.executeQuery("SELECT * FROM Likee WHERE Nutzer_ID="+ n.getID() +" AND Beitrag_ID=" + b.getID());
 				 if(rs.next() == true) {
 					 return true;
 
@@ -130,7 +130,7 @@ public class LikeMapper {
 	 			try {
 	 				stmt = con.createStatement();
 
-	 				stmt.executeUpdate("DELETE FROM `Like` "
+	 				stmt.executeUpdate("DELETE FROM Likee "
 	 						+ "WHERE Beitrag_ID=" + beitrag.getID());
 	 				
 	 				
@@ -190,7 +190,7 @@ public class LikeMapper {
 			try{
 				Statement stmt = con.createStatement();
 				//Suche alle Likes zu einem Beitrag
-				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `like` WHERE Beitrag_ID=" + id);
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Likee WHERE Beitrag_ID=" + id);
 
 
 				while (rs.next()) {
@@ -212,13 +212,34 @@ public class LikeMapper {
 			try {
 				Statement state = con.createStatement();
 
-				state.executeUpdate("DELETE FROM `Like` WHERE Beitrag_ID=" + beitrag.getID() + " AND Nutzer_ID=" + nutzer.getID());
+				state.executeUpdate("DELETE FROM Likee WHERE Beitrag_ID=" + beitrag.getID() + " AND Nutzer_ID=" + nutzer.getID());
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
+		
+		//Assoziierte Likes löschen wenn Beitrag gelöscht wird 
+	 	public void likesVonBeitragLoeschen(int id) {
+
+	 		Connection con = DBConnection.connection();
+ 			Statement stmt = null;
+
+ 			try {
+ 				stmt = con.createStatement();
+
+ 				stmt.executeUpdate("DELETE FROM Likee "
+ 						+ "WHERE Beitrag_ID=" + id);
+
+
+ 			} catch (SQLException e2) {
+ 				e2.printStackTrace();
+ 			}
+ 			
+ 			return;
+ 		}
+		
 		 //REPORT
 		//Likes zählen
 			
@@ -229,7 +250,7 @@ public class LikeMapper {
 				try {
 					Statement stmt = con.createStatement();
 
-					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Like`");
+					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Likee");
 
 					while (rs.next()) {
 				        count=rs.getInt(1);
@@ -253,7 +274,7 @@ public class LikeMapper {
 				try {
 					Statement stmt = con.createStatement();
 
-					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Like` WHERE Nutzer_ID=" + nutzer.getID());
+					ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Likee WHERE Nutzer_ID=" + nutzer.getID());
 
 					while (rs.next()) {
 				        count=rs.getInt(1);

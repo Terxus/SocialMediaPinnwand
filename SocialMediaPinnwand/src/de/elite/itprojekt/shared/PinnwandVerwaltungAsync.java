@@ -51,8 +51,6 @@ public interface PinnwandVerwaltungAsync {
 
 	void abonnementAnlegen(int AbonnentID, int PinnwandID,AsyncCallback<Abonnement> callback);
 
-	void getUserByNickname(String nickname, AsyncCallback<Nutzer> callback);
-
 	void abonnementLoeschen(Abonnement a, AsyncCallback<Void> callback);
 	
 	//

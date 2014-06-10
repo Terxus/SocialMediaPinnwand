@@ -105,11 +105,6 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
 	}
 	@Override
-	public Nutzer getUserByNickname(String nickName) {
-		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickName);
-	}
-
-	@Override
 	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID) {
 		Abonnement a = new Abonnement();
 		a.setNutzerId(AbonnentID);

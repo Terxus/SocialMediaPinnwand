@@ -28,7 +28,6 @@ public interface PinnwandVerwaltung extends RemoteService {
 	
 	//Von Domi
 	public Nutzer getNutzerAnhandNickname(String nickname);
-	public Nutzer getUserByNickname(String nickname);
 	
 	//Pinnwand
 	public ArrayList<Pinnwand> zeigeAllePinnwaende();
