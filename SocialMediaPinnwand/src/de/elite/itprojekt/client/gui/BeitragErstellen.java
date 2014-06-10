@@ -727,8 +727,6 @@ public class BeitragErstellen {
 					@Override
 					public void onSuccess(ArrayList<Kommentar> result) {
 
-						int i = 0;
-
 						for (final Kommentar k : result) {
 
 							final FlexTable kommentarFlexTable = new FlexTable();
@@ -754,15 +752,12 @@ public class BeitragErstellen {
 
 							// Dem FlexTable zuordnen
 
-							kommentarFlexTable.setWidget(i, 0, kommentarNutzer);
-							kommentarFlexTable.setWidget(i, 1, bearbeitenk);
-							kommentarFlexTable.setWidget(i, 2, loeschenk);
-							kommentarFlexTable.setWidget(i = i + 1, 0,
-									textBeitragk);
-							kommentarFlexTable.setWidget(i = i + 2, 0,
-									datumsAnzeigek);
+							kommentarFlexTable.setWidget(1, 0, kommentarNutzer);
+							kommentarFlexTable.setWidget(1, 1, bearbeitenk);
+							kommentarFlexTable.setWidget(1, 2, loeschenk);
+							kommentarFlexTable.setWidget(2, 0,textBeitragk);
+							kommentarFlexTable.setWidget(3, 0,datumsAnzeigek);
 
-							i++;
 
 							if (getNutzer().getID() != k.getNutzer().getID()) {
 								bearbeitenk.setVisible(false);

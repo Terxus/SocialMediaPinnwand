@@ -61,7 +61,7 @@ public class TopLevelNavigation {
 			      RootPanel.get("Kommentar").clear();
 			      RootPanel.get("Beitrag").clear();
 			      RootPanel.get("Footer").clear();
-			      
+			      RootPanel.get("Report").clear();
 			      
 			      Report rep = new Report();
 			      rep.reportNavigation();

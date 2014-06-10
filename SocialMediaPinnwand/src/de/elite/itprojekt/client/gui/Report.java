@@ -1,11 +1,15 @@
 package de.elite.itprojekt.client.gui;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -20,6 +24,7 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.ReportGenerator;
@@ -31,7 +36,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class Report {
 	
-	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen f¸r pinnwandverwaltung
+	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen f√ºr pinnwandverwaltung
 	Logger logger = SocialMediaPinnwand.getLogger();
 
 	private VerticalPanel vPanel = new VerticalPanel();
@@ -41,11 +46,13 @@ public class Report {
 	private DateBox dateBoxVon;
 	private Label zeitraumBis;
 	private DateBox dateBoxBis;
+	private Date datumVon = new Date();
+	private Date datumBis= new Date();
 	private FlexTable reportTable;
 	private DecoratorPanel decPanel;
 	private FlexTable auswahlTabelle;
-	private RadioButton radioButtonLikes;
-	private RadioButton radioButtonKommentare;
+	private RadioButton radioButtonNutzer;
+	private RadioButton radioButtonBeitrag;
 	private Label sortiertNach;
 	private Label likeSort;
 	private Label kommentarSort;
@@ -102,6 +109,7 @@ public class Report {
  	
  	
 
+	@SuppressWarnings("deprecation")
 	public void reportNavigation() {
 		
 
@@ -115,10 +123,10 @@ public class Report {
 		this.decPanel = new DecoratorPanel();
 		this.auswahlTabelle = new FlexTable();
 		this.sortiertNach = new Label("Sortiert nach:");
-		this.likeSort = new Label("Likes");
-		this.kommentarSort = new Label("Kommentare");
-		this.radioButtonLikes = new RadioButton("g");
-		this.radioButtonKommentare = new RadioButton("g");
+		this.likeSort = new Label("Nutzer");
+		this.kommentarSort = new Label("Beitr√§ge");
+		this.radioButtonNutzer = new RadioButton("g");
+		this.radioButtonBeitrag = new RadioButton("g");
 		
 		reportButton.addClickHandler(new ReportClickHandler());
 		
@@ -139,15 +147,7 @@ public class Report {
 		this.globStatLabel = new Label("Globale Nutzerstatistiken");
 		
 		//radiobutton nach likes sortieren vordefiniert
-		radioButtonLikes.setValue(true);
-		
-		
-		//Formatierung des Datums
-		@SuppressWarnings("deprecation")
-		DateTimeFormat dateFormat = DateTimeFormat.getShortDateFormat();
-		dateBoxVon.setFormat(new DateBox.DefaultFormat(dateFormat));
-		dateBoxBis.setFormat(new DateBox.DefaultFormat(dateFormat));
-
+		radioButtonNutzer.setValue(true);
 		
 		
 		reportTable.setWidget(0, 0, nutzerName);
@@ -163,8 +163,8 @@ public class Report {
 		
 		auswahlTabelle.setWidget(0, 0, likeSort);
 		auswahlTabelle.setWidget(0, 1, kommentarSort);
-		auswahlTabelle.setWidget(1, 0, radioButtonLikes);
-		auswahlTabelle.setWidget(1, 1, radioButtonKommentare);
+		auswahlTabelle.setWidget(1, 0, radioButtonNutzer);
+		auswahlTabelle.setWidget(1, 1, radioButtonBeitrag);
 		auswahlTabelle.setWidget(3, 0, reportButton);
 		
 		globaleStatistik.setWidget(0, 0, registrierteNutzer);
@@ -190,8 +190,7 @@ public class Report {
 		this.vPanel.add(decPanelGlobal);
 		
 		RootPanel.get("Navigator").add(vPanel);
-		
-
+		globleStatistikenausgeben();
 	}
 	//Obere Beitragsliste
 	
@@ -212,16 +211,16 @@ public class Report {
 	private Label likesLabeldetail = new Label("Likes");
 	
 	
-	
-	public void getData() {
+	// Zuerst einmal die Globalen Statisiken ausgeben
+	public void globleStatistikenausgeben() {
 		
-		//Alle Nutzer z‰hlen
+		//Alle Nutzer z√§hlen
 		
 		report.zaehleAlleNutzer(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler beim z‰hlen der Nutzer");
+				logger.severe("Fehler beim z√§hlen der Nutzer");
 				
 			}
 
@@ -232,12 +231,12 @@ public class Report {
 			}
 			
 		});
-		//Alle Kommentare z‰hlen
+		//Alle Kommentare z√§hlen
 		report.zaehleAlleKommentare(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler bei der Kommentarz‰hlung");
+				logger.severe("Fehler bei der Kommentarz√§hlung");
 				
 			}
 
@@ -248,12 +247,12 @@ public class Report {
 			}
 			
 		});
-		//Alle Likes z‰hlen
+		//Alle Likes z√§hlen
 		report.zaehleAlleLikes(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler beim z‰hlen der Likes");
+				logger.severe("Fehler beim z√§hlen der Likes");
 				
 			}
 
@@ -264,12 +263,12 @@ public class Report {
 			}
 			
 		});
-		//Alle Beitr‰ge z‰hlen
+		//Alle Beitr√§ge z√§hlen
 		report.zaehleAlleBeitraege(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler beim z‰hlen der Beitr‰ge");
+				logger.severe("Fehler beim z√§hlen der Beitr√§ge");
 				
 			}
 
@@ -280,12 +279,12 @@ public class Report {
 			}
 			
 		});
-		//Alle Abonnements z‰hlen
+		//Alle Abonnements z√§hlen
 		report.zaehleAlleAbonnements(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler beim z‰hlen der Abonnements");
+				logger.severe("Fehler beim z√§hlen der Abonnements");
 				
 			}
 
@@ -296,12 +295,30 @@ public class Report {
 			}
 			
 		});
+	
 		
-		
+
+	// Datum aus dem DateBox auslesen
+	dateBoxVon.addValueChangeHandler(new ValueChangeHandler<Date>() {
+	      public void onValueChange(ValueChangeEvent<Date> event) {
+	    	  datumVon = event.getValue();
+
+	        }
+	      });
+	dateBoxBis.addValueChangeHandler(new ValueChangeHandler<Date>() {
+	      public void onValueChange(ValueChangeEvent<Date> event) {
+	    	  datumBis = event.getValue();
+	        }
+	      });
+	}
+
+	
+	public void getData() {
+			
 		//METHODIK
 		
 		if (this.vBox.getText().isEmpty()) {
-			Window.alert("Report ohne Nutzer nicht mˆglich");
+			Window.alert("Report ohne Nutzer nicht m√∂glich");
 		} 
 		else {
 		
@@ -318,10 +335,10 @@ public class Report {
 			}
 			@Override
 			public void onSuccess(Nutzer nutzer) {
-				nutzerLabel.setText(nutzer.getVorname() + " " + nutzer.getNachname());
+				nutzerLabel.setText("Statistiken fuer: "+nutzer.getVorname() + " " + nutzer.getNachname());
 				
 				
-				
+
 				//Abonnenten eines Nutzers als Zahl
 				
 				report.zaehleAlleAbonnementsPerNutzer(nutzer, new AsyncCallback<Integer>() {
@@ -339,7 +356,7 @@ public class Report {
 					}
 					
 				});
-				//Beitr‰ge eines Nutzer als Zahl
+				//Beitr√§ge eines Nutzer als Zahl
 				
 				report.zaehleBeitraegePerNutzer(nutzer, new AsyncCallback<Integer>() {
 
@@ -391,89 +408,100 @@ public class Report {
 				
 				
 				
-				//Wenn likes ausgew‰hlt ist, sortiert nach Likes in einem Zeitraum
+				//Wenn Nutzer ausgew√§hlt ist, sortiert er alle Kommentare/Likes in einem Zeitraum
 				 
-				if (radioButtonLikes.getValue() == true) {
-					
-				/*	String von = 
-					String bis = "bis";
-					
-					logger.info("Datum von:" + " " + von);
-					logger.info("Datum bis:" + " " + bis);
-				*/
-				report.alleBeitraegeEinesNutzersNachLikes(nutzer, "2014-06-02 12:12:01.000000", "2014-06-10 12:12:01.000000", 0, new AsyncCallback<ArrayList<Beitrag>>() {
+				if (radioButtonNutzer.getValue() == true) {
+	
 
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
+					
+					DateTimeFormat simpleDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd' 'HH:mm:ss");
+					String von = simpleDateFormat.format(datumVon);
+					String bis = simpleDateFormat.format(datumBis);
+
+
 						
-					}
+					//	logger.info("Datum von:" + " " + von);
+					//	logger.info("Datum bis:" + " " + bis);
+			System.out.println("Looool" +von.toString());
+					
+					report.alleBeitraegeEinesNutzersNachLikes(nutzer, von, bis, 0, new AsyncCallback<ArrayList<Beitrag>>() {
 
-					@Override
-					public void onSuccess(ArrayList<Beitrag> likeBeitrag) {
-						int i = 0;
-						for (Beitrag b : likeBeitrag) {
-							
-							beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
-							kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
-							likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
-							
-							
-							detailTable.setWidget(i, 1, beitragLabeldetail);
-							detailTable.setWidget(i, 2, kommentarLabeldetail);
-							detailTable.setWidget(i, 3, likesLabeldetail);
-							i++;
-							
-							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+
 						}
-						
-					}
-					
-				});
-				
-				}
-				else {
-				
-				//Wenn Kommentare ausgew‰hlt ist, sortiert nach Kommentare in einem Zeitraum
-				
-				report.alleBeitraegeEinesNutzersNachKommentare(nutzer, "2014-06-02", "2014-06-11", 1, new AsyncCallback<ArrayList<Beitrag>>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
+						@Override
+						public void onSuccess(ArrayList<Beitrag> likeBeitrag) {
+							int i = 0;
+							for (Beitrag b : likeBeitrag) {
 
-					@Override
-					public void onSuccess(ArrayList<Beitrag> kommentarBeitrag) {
-						int i = 0;
-						for (Beitrag b : kommentarBeitrag) {
-							
-							beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
-							kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
-							likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
-							
-							
-							detailTable.setWidget(i, 1, beitragLabeldetail);
-							detailTable.setWidget(i, 2, kommentarLabeldetail);
-							detailTable.setWidget(i, 3, likesLabeldetail);
-							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
-							i++;
+								beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
+								kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
+								likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
+
+
+								detailTable.setWidget(i, 1, beitragLabeldetail);
+								detailTable.setWidget(i, 2, kommentarLabeldetail);
+								detailTable.setWidget(i, 3, likesLabeldetail);
+								i++;
+
+								System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+							}
+
 						}
-						
+
+					});
+
 					}
-					
-				});
-				
+					else {
+
+						DateTimeFormat simpleDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd' 'HH:mm:ss");
+						String von = simpleDateFormat.format(datumVon);
+						String bis = simpleDateFormat.format(datumBis);
+						
+					//Wenn Beitr√§ge ausgew√§hlt ist, wird  nach Kommentare/Likes in einem Zeitraum sortiert
+
+					report.alleBeitraegeEinesNutzersNachKommentare(nutzer, von,bis, 1, new AsyncCallback<ArrayList<Beitrag>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onSuccess(ArrayList<Beitrag> kommentarBeitrag) {
+							int i = 0;
+							for (Beitrag b : kommentarBeitrag) {
+
+								beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
+								kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
+								likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
+
+
+								detailTable.setWidget(i, 1, beitragLabeldetail);
+								detailTable.setWidget(i, 2, kommentarLabeldetail);
+								detailTable.setWidget(i, 3, likesLabeldetail);
+								System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+								i++;
+							}
+
+						}
+
+					});
+
+					}
+
+
+
+
+
 				}
-				
-				
-				
-				
-				
-			}
-			
-		});
+
+			});
+
 		
 		
 		
@@ -505,11 +533,14 @@ public class Report {
 		
 }
 	
+	
+	
 	private class ReportClickHandler implements ClickHandler {
-
 	@Override
 	public void onClick(ClickEvent event) {
 		getData();
+
+		
 		}
 	}
 }
