@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -54,4 +55,15 @@ public interface ReportGenerator extends RemoteService {
 	  
 	  //Likes eines Nutzers
 	  public int zaehleLikesPerNutzer(Nutzer nutzer);
+	  
+	  //Kommentar eines Nutzers
+	  public int zaehleKommentarePerNutzer(Nutzer nutzer);
+	  
+	  
+	  
+	  //Alle Beiträge des Nutzers sortiert nach Likes
+	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung);
+	  
+	  //Alle Beiträge des Nutzers sortiert nach Kommentare
+	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung);
 }

@@ -10,7 +10,7 @@ public class Beitrag extends Textbeitrag {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int nutzerId, likeId;
+	private int nutzerId, likeId, likeAnzahl, kommentarAnzahl;
 	private Pinnwand pinnwand;
 	
 	private ArrayList<Like> likes;
@@ -54,5 +54,17 @@ public class Beitrag extends Textbeitrag {
 	public void setLikeList(ArrayList<Like> findeDurchId) {
 		// TODO Auto-generated method stub
 		
+	}
+	public int getLikeAnzahl() {
+		return likeAnzahl;
+	}
+	public void setLikeAnzahl(int likeAnzahl) {
+		this.likeAnzahl = likeAnzahl;
+	}
+	public int getKommentarAnzahl() {
+		return kommentarAnzahl;
+	}
+	public void setKommentarAnzahl(int kommentarAnzahl) {
+		this.kommentarAnzahl = kommentarAnzahl;
 	}
 }

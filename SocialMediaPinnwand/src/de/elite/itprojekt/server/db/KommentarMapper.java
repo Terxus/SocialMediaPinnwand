@@ -180,6 +180,34 @@ public class KommentarMapper {
  			
  			return;
  		}
+ 	
+	public int zaehleAlleKommentareProBeitrag(Beitrag beitrag) {
+		
+		int id = beitrag.getID();
+		
+		int count = -1;
+	
+		Connection con = DBConnection.connection();
+
+
+		try{
+			Statement stmt = con.createStatement();
+			//Suche alle Likes zu einem Beitrag
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Kommentar` WHERE Beitrag_ID=" + id);
+
+
+			while (rs.next()) {
+		        count=rs.getInt(1);
+		      }
+
+		}
+
+	    catch (SQLException e) {
+	    		e.printStackTrace();
+	    }
+
+		return count;
+	}
 	 
 	 //REPORT
  	//Alle Kommentare zählen
@@ -192,6 +220,30 @@ public class KommentarMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Kommentar");
+
+			while (rs.next()) {
+		        count=rs.getInt(1);
+		      }
+
+		}
+
+	    catch (SQLException e) {
+	    		e.printStackTrace();
+	    }
+		return count;
+
+	 }
+	 
+	 //REPORT Kommentare per Nutzer zählen
+	 
+	 public int zaehleKommentarePerNutzer(Nutzer nutzer){
+		 int count = -1;
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM `Kommentar` WHERE Nutzer_ID=" + nutzer.getID());
 
 			while (rs.next()) {
 		        count=rs.getInt(1);

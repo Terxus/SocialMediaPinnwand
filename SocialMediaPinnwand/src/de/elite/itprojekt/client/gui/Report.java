@@ -22,6 +22,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
+import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
@@ -137,6 +138,7 @@ public class Report {
 		//radiobutton nach likes sortieren vordefiniert
 		radioButtonLikes.setValue(true);
 		
+		
 		//Formatierung des Datums
 		@SuppressWarnings("deprecation")
 		DateTimeFormat dateFormat = DateTimeFormat.getShortDateFormat();
@@ -189,9 +191,6 @@ public class Report {
 
 	}
 	//Obere Beitragsliste
-	private int aboInt; //Hier die abonnentenzahl reinschreiben
-	private int beitragInt; //Hier die Beitragszahl reinschreiben
-	private int likesInt; //Hier die Likeanzahl reinschreiben
 	
 	VerticalPanel vPanelRep = new VerticalPanel();
 	VerticalPanel vPanelDetailRep = new VerticalPanel();
@@ -200,6 +199,7 @@ public class Report {
 	private Label aboLabelrep = new Label();
 	private Label beitragLabelrep = new Label();
 	private Label likesLabelrep = new Label();
+	private Label kommentarLabelrep = new Label();
 	
 	//Untere Beitragsliste
 	
@@ -296,6 +296,12 @@ public class Report {
 		
 		
 		//METHODIK
+		
+		if (this.vBox.getText().isEmpty()) {
+			Window.alert("Report ohne Nutzer nicht möglich");
+		} 
+		else {
+		
 		String s = this.vBox.getText();
 		s = s.substring(s.indexOf("[")+2,s.indexOf(" ]"));
 		final String nickname = s;
@@ -363,16 +369,78 @@ public class Report {
 					}
 					
 				});
+				//Kommentare geschrieben
+				report.zaehleKommentarePerNutzer(nutzer, new AsyncCallback<Integer>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Integer kmt) {
+						kommentarLabelrep.setText("Kommentare:" + " " + kmt);
+						
+					}
+					
+				});
 				
 				
 				
+				//Wenn likes ausgewählt ist, sortiert nach Likes in einem Zeitraum
+				 
+				if (radioButtonLikes.getValue() == true) {
+					
+					String von = dateBoxVon.getValue().toString();
+					String bis = dateBoxBis.getValue().toString();
+					
+					System.out.println(von + " " + bis);
+					
 				
+				report.alleBeitraegeEinesNutzersNachLikes(nutzer, "2014-06-02 12:12:01.000000", "2014-06-10 12:12:01.000000", 0, new AsyncCallback<ArrayList<Beitrag>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(ArrayList<Beitrag> likeBeitrag) {
+						for (Beitrag b : likeBeitrag) {
+							
+							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+						}
+						
+					}
+					
+				});
 				
+				}
+				else {
 				
+				//Wenn Kommentare ausgewählt ist, sortiert nach Kommentare in einem Zeitraum
 				
+				report.alleBeitraegeEinesNutzersNachKommentare(nutzer, "2014-06-08 00:00:01.000000", "2014-06-10 17:41:01.000000", 1, new AsyncCallback<ArrayList<Beitrag>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(ArrayList<Beitrag> kommentarBeitrag) {
+						for (Beitrag b : kommentarBeitrag) {
+							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+						}
+						
+					}
+					
+				});
 				
-				
-				
+				}
 				
 				
 				
@@ -392,6 +460,7 @@ public class Report {
 		repTable.setWidget(1, 0, aboLabelrep);
 		repTable.setWidget(2, 0, beitragLabelrep);
 		repTable.setWidget(3, 0, likesLabelrep);
+		repTable.setWidget(4, 0, kommentarLabelrep);
 		
 		vPanelRep.add(repTable);
 		RootPanel.get("Beitrag").add(vPanelRep);
@@ -408,7 +477,8 @@ public class Report {
 		RootPanel.get("Report").add(vPanelDetailRep);
 		
 	}
-	
+		
+}
 	
 	private class ReportClickHandler implements ClickHandler {
 
@@ -418,6 +488,7 @@ public class Report {
 		}
 	}
 }
+
 	
 	
 	
