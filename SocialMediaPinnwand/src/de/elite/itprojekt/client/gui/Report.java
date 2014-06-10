@@ -1,6 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,6 +21,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
 import de.elite.itprojekt.shared.bo.Beitrag;
@@ -30,6 +32,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class Report {
 	
 	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen für pinnwandverwaltung
+	Logger logger = SocialMediaPinnwand.getLogger();
 
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label nutzerName;
@@ -77,7 +80,7 @@ public class Report {
 		report.zeigeAlleNutzer(new AsyncCallback<ArrayList<Nutzer>>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim laden der Nutzer");
 
 			}
 
@@ -218,7 +221,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim zählen der Nutzer");
 				
 			}
 
@@ -234,7 +237,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler bei der Kommentarzählung");
 				
 			}
 
@@ -250,7 +253,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim zählen der Likes");
 				
 			}
 
@@ -266,7 +269,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim zählen der Beiträge");
 				
 			}
 
@@ -282,7 +285,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim zählen der Abonnements");
 				
 			}
 
@@ -310,7 +313,7 @@ public class Report {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler bei der Nutzersuche");
+				logger.severe("Fehler bei der Nutzersuche");
 				
 			}
 			@Override
@@ -392,10 +395,6 @@ public class Report {
 				 
 				if (radioButtonLikes.getValue() == true) {
 					
-					String von = dateBoxVon.getValue().toString();
-					String bis = dateBoxBis.getValue().toString();
-					
-					System.out.println(von + " " + bis);
 					
 				
 				report.alleBeitraegeEinesNutzersNachLikes(nutzer, "2014-06-02 12:12:01.000000", "2014-06-10 12:12:01.000000", 0, new AsyncCallback<ArrayList<Beitrag>>() {
@@ -408,7 +407,18 @@ public class Report {
 
 					@Override
 					public void onSuccess(ArrayList<Beitrag> likeBeitrag) {
+						int i = 0;
 						for (Beitrag b : likeBeitrag) {
+							
+							beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
+							kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
+							likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
+							
+							
+							detailTable.setWidget(i, 1, beitragLabeldetail);
+							detailTable.setWidget(i, 2, kommentarLabeldetail);
+							detailTable.setWidget(i, 3, likesLabeldetail);
+							i++;
 							
 							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
 						}
@@ -422,7 +432,7 @@ public class Report {
 				
 				//Wenn Kommentare ausgewählt ist, sortiert nach Kommentare in einem Zeitraum
 				
-				report.alleBeitraegeEinesNutzersNachKommentare(nutzer, "2014-06-08 00:00:01.000000", "2014-06-10 17:41:01.000000", 1, new AsyncCallback<ArrayList<Beitrag>>() {
+				report.alleBeitraegeEinesNutzersNachKommentare(nutzer, "2014-06-02", "2014-06-11", 1, new AsyncCallback<ArrayList<Beitrag>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -432,8 +442,19 @@ public class Report {
 
 					@Override
 					public void onSuccess(ArrayList<Beitrag> kommentarBeitrag) {
+						int i = 0;
 						for (Beitrag b : kommentarBeitrag) {
+							
+							beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
+							kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
+							likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
+							
+							
+							detailTable.setWidget(i, 1, beitragLabeldetail);
+							detailTable.setWidget(i, 2, kommentarLabeldetail);
+							detailTable.setWidget(i, 3, likesLabeldetail);
 							System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
+							i++;
 						}
 						
 					}
@@ -475,7 +496,7 @@ public class Report {
 		vPanelDetailRep.add(detailTable);
 		
 		RootPanel.get("Report").add(vPanelDetailRep);
-		
+		logger.severe("Report erstellt!");
 	}
 		
 }

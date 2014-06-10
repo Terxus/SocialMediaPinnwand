@@ -2,6 +2,7 @@ package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Abonnement;
@@ -34,7 +36,7 @@ public BeitragErstellen() {
 	//Konstruktor des Todes
 	
 }
-	
+	Logger logger = SocialMediaPinnwand.getLogger();
 	private Timestamp aktuellesDatum;
 	private static Nutzer nutzer;
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
@@ -43,14 +45,14 @@ public BeitragErstellen() {
 	//Nutzerobjekt per ID von Cookie holen
 	public void setNutzer(Nutzer nutzer) {
 		BeitragErstellen.nutzer = nutzer;
-		System.out.println("Nutzerobjekt zu Nutzer mit der ID:" + " " + BeitragErstellen.nutzer.getID() + " " + "gesetzt.");
+		logger.severe("Nutzerobjekt zu Nutzer mit der ID:" + " " + BeitragErstellen.nutzer.getID() + " " + "gesetzt.");
 	}
 	
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("Fehler");
+				logger.severe("Fehler bei der Nutzererkennung");
 			}
 			@Override
 			public void onSuccess(Nutzer result) {
@@ -141,13 +143,14 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler bei Likeszählung");
 				
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				anzahlLikes.setText(result.toString());
+				logger.severe("Likes gefunden!");
 				
 			}
 			
@@ -195,14 +198,13 @@ public BeitragErstellen() {
 								kommentar.setNutzer(getNutzer());
 								kommentar.setBeitrag(beitrag);
 								
-								System.out.println(kommentar.getNutzerId());
-								System.out.println(kommentar.getBeitrag().getText());
+
 								
 								service.kommentarErstellen(kommentar, new AsyncCallback<Void>() {
 
 									@Override
 									public void onFailure(Throwable caught) {
-										System.out.println("War wohl n fehler");
+										logger.severe("Fehler bei Kommentarerstellung!");
 										
 									}
 
@@ -210,7 +212,7 @@ public BeitragErstellen() {
 									public void onSuccess(Void result) {
 										tAreak.setVisible(false);
 										addKommentar.setVisible(false);
-										
+										logger.severe("Kommentar bei Beitrag:" + " " + kommentar.getBeitrag().getText() + " " + "und der ID:" + " " + kommentar.getNutzerId() + "erstellt");
 										KommentareAuslesen(beitrag);
 										
 									}
@@ -235,7 +237,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Likecheck fehlgeschlagen");
 				
 			}
 
@@ -259,7 +261,7 @@ public BeitragErstellen() {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									logger.severe("Fehler bei Delike!");
 									
 								}
 
@@ -269,7 +271,7 @@ public BeitragErstellen() {
 
 										@Override
 										public void onFailure(Throwable caught) {
-											// TODO Auto-generated method stub
+											logger.severe("Fehler bei Likezählung");
 											
 										}
 
@@ -314,7 +316,7 @@ public BeitragErstellen() {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									logger.severe("Like konnte nicht erstellt werden");
 									
 								}
 
@@ -383,7 +385,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Fehler beim auslesen der Kommentare");
 				
 			}
 
@@ -476,7 +478,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Likes konnten nicht generiert werden");
 				
 			}
 
@@ -503,7 +505,7 @@ public BeitragErstellen() {
 				service.textBeitragLoeschen(beitrag, new AsyncCallback<Void>() {
 							@Override
 							public void onFailure(Throwable caught) {
-								Window.alert("Fehler beim loeschen!");
+								logger.severe("Fehler beim Löschen!");
 							}
 
 							@Override
@@ -511,6 +513,7 @@ public BeitragErstellen() {
 								Window.alert("Textbeitrag wurde geloescht!");
 								beitragsGrid.removeFromParent();
 								kommentarFlexTable.removeFromParent();
+								logger.severe("Beitrag erfolgreich gelöscht");
 							}
 						});
 			}
@@ -541,7 +544,7 @@ public BeitragErstellen() {
 
 									@Override
 									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
+										logger.severe("Konnte Beitrag nicht bearbeiten");
 										
 									}
 
@@ -598,7 +601,7 @@ public BeitragErstellen() {
 
 									@Override
 									public void onFailure(Throwable caught) {
-										System.out.println("War wohl n fehler");
+										logger.severe("Kommentar konnte nicht hinzugefügt werden");
 										
 									}
 
@@ -608,6 +611,7 @@ public BeitragErstellen() {
 										addKommentar.setVisible(false);
 										
 										KommentareAuslesen(beitrag);
+										logger.severe("Kommentar erfolgreich hinzugefügt");
 										
 									}
 									
@@ -631,7 +635,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Likecheck nicht erfolgreich!");
 				
 			}
 
@@ -652,7 +656,7 @@ public BeitragErstellen() {
 								
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									logger.severe("Error bei Delike!");
 									
 								}
 
@@ -662,7 +666,7 @@ public BeitragErstellen() {
 
 										@Override
 										public void onFailure(Throwable caught) {
-											// TODO Auto-generated method stub
+											logger.severe("Error beim zählen der Likes");
 											
 										}
 
@@ -706,7 +710,7 @@ public BeitragErstellen() {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									logger.severe("Like konnte nicht hinzugefügt werden");
 									
 								}
 
@@ -719,7 +723,7 @@ public BeitragErstellen() {
 
 										@Override
 										public void onFailure(Throwable caught) {
-											// TODO Auto-generated method stub
+											logger.severe("Like konnte nicht gezählt werden");
 											
 										}
 
@@ -778,7 +782,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Eigene Kommentare wurden nicht gefunden");
 				
 			}
 
@@ -847,6 +851,7 @@ public BeitragErstellen() {
 								@Override
 								public void onFailure(Throwable caught) {
 									Window.alert("Fehler beim loeschen!");
+									logger.severe("Fehler beim löschen!");
 								}
 
 								@Override
@@ -855,6 +860,7 @@ public BeitragErstellen() {
 									kommentarFlexTable.removeFromParent();
 									NutzerLogin nl = new NutzerLogin();
 									nl.refreshBeitraege();
+									logger.severe("Kommentar gelöscht!");
 								}
 							});
 							
@@ -886,7 +892,7 @@ public BeitragErstellen() {
 
 												@Override
 												public void onFailure(Throwable caught) {
-													// TODO Auto-generated method stub
+													logger.severe("Fehler beim bearbeiten");
 													
 												}
 
@@ -931,8 +937,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				System.out.println("Error in Navigation!");
+				logger.severe("Fehler bei der Darstellung der Abos");
 			}
 
 			@Override
@@ -955,7 +960,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Beiträge nicht gefunden!");
 				
 			}
 
@@ -963,11 +968,6 @@ public BeitragErstellen() {
 			public void onSuccess(ArrayList<Beitrag> result) {
 				
 				for (Beitrag b: result) {
-					System.out.println("");
-					System.out.println("Er schrieb:");
-					System.out.println(abo.getPinnwand().getNutzer().getVorname());
-					System.out.println(b.getText());
-					
 					BeitragErstellen erstelle = new BeitragErstellen();
 					erstelle.beitragAnzeigenVonAbo(b,abo.getPinnwand().getNutzer());
 					
@@ -1044,14 +1044,14 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				System.out.println("War wohl n fehler");
+				logger.severe("Beitrag konnte nicht erstellt werden!");
 				
 			}
 
 			@Override
 			public void onSuccess(Void result) {
 				zeigeAlleBeitraege(getNutzer());
+				logger.severe("Beitrag erstellt!");
 			}
 			
 		});
@@ -1070,7 +1070,7 @@ public BeitragErstellen() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("hmm2");
+				logger.severe("Beiträge nicht gefunden!");
 				
 			}
 

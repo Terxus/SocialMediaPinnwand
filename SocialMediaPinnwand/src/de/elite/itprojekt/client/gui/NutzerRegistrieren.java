@@ -1,6 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -15,6 +16,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
@@ -23,6 +25,8 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class NutzerRegistrieren {
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	
+	Logger logger = SocialMediaPinnwand.getLogger();
 
 	private FlexTable tableFlex = new FlexTable();
 	private DecoratorPanel decPanelRegister = new DecoratorPanel();
@@ -130,7 +134,7 @@ public class NutzerRegistrieren {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
+					logger.severe("Fehler beim Auslesen der Nicknames");
 					
 				}
 
@@ -156,12 +160,13 @@ public class NutzerRegistrieren {
 								NutzerLogin login = new NutzerLogin();
 
 								login.loadLoginView();
+								logger.severe("Neuen Nutzer registriert!");
 
 							}
 
 							@Override
 							public void onFailure(Throwable caught) {
-								System.out.println("upps");
+								logger.severe("Fehler beim Registrieren eines neuen Nutzers");
 							}
 						});
 						

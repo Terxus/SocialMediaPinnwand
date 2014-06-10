@@ -1,5 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,6 +23,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
@@ -29,6 +32,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class NutzerLogin {
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	Logger logger = SocialMediaPinnwand.getLogger();
 
 	//Get the Nutzer
 	
@@ -127,7 +131,7 @@ public class NutzerLogin {
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					System.out.println("Fehler");
+					logger.severe("Fehler bei der Nutzererkennung");
 				}
 				@Override
 				public void onSuccess(Nutzer result) {
@@ -153,6 +157,7 @@ public class NutzerLogin {
 
 		//			PinnwandDarstellung pnd = new PinnwandDarstellung();
 		//			pnd.zeigeAlleBeitraege(result);
+					logger.severe("Pinnwand geladen!");
 					
 				}
 			});
@@ -180,7 +185,7 @@ public class NutzerLogin {
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					System.out.println("Fehler");
+					logger.severe("Pinnwand konnte nicht refreshed werden");
 				}
 				@Override
 				public void onSuccess(Nutzer result) {
@@ -207,7 +212,7 @@ public class NutzerLogin {
 					//Zeigt nur eigene an
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
-					
+					logger.severe("Pinnwand neu geladen!");
 					
 					//Zeigt abobeiträge an
 				//	beitrag.abonnementBeitraegeAnzeigen(result);
@@ -248,7 +253,7 @@ public class NutzerLogin {
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					System.out.println("Fehler");
+					logger.severe("Navigation konnte nicht geladen werden");
 				}
 				@Override
 				public void onSuccess(Nutzer result) {
@@ -273,7 +278,7 @@ public class NutzerLogin {
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					System.out.println("Fehler");
+					logger.severe("Beiträge konnten nicht geladen werden");
 				}
 				@Override
 				public void onSuccess(Nutzer result) {
@@ -353,6 +358,7 @@ public class NutzerLogin {
 				public void onFailure(Throwable caught) {
 					// TODO Auto-generated method stub
 					Window.alert("Keine DB-Verbindung");
+					logger.severe("Datenbankverbindung fehlerhaft!");
 				}
 			});
 

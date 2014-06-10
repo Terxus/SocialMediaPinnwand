@@ -62,6 +62,9 @@ public class DBConnection {
 	        // Verbindung zur JDBC-Datenbank herstellen.
 	        con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
 
+	     //   con = DriverManager.getConnection("jdbc:google:rdbms://smp-itp:elite/db", "root", "");
+	        
+	        
 	    } catch (SQLException error) { //Wenn ein Fehler auftritt -> Verbidung trennen
 	    	con = null;
 	        System.out.println("Verbindung nicht moglich");

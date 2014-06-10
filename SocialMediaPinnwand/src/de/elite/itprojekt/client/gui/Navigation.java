@@ -1,6 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Abonnement;
@@ -26,6 +28,8 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class Navigation {
 
+	Logger logger = SocialMediaPinnwand.getLogger();
+	
 	private Nutzer nutzer = null;
 	private int nutzerID = Integer.valueOf(Cookies.getCookie("gp5cookie"));
 
@@ -42,7 +46,7 @@ public class Navigation {
 				new AsyncCallback<Nutzer>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						System.out.println("Fehler");
+						logger.severe("Fehler bei der Nutzererkennung");
 					}
 
 					@Override
@@ -135,7 +139,7 @@ public class Navigation {
 				@Override
 				public void onFailure(Throwable caught) {
 					// TODO Auto-generated method stub
-					System.out.println("Error in Navigation!");
+					logger.severe("Fehler beim auslesen der Abonnements!");
 				}
 
 				@Override
@@ -144,6 +148,7 @@ public class Navigation {
 						for (Abonnement abo :result) {
 							Navigation navi = new Navigation();
 							navi.abonnierteNutzerAnzeigen(abo);
+							logger.severe("Abonnierte Nutzer wurden ausgelesen.");
 						}
 					}
 
@@ -171,8 +176,9 @@ public class Navigation {
 						
 							service.abonnementLoeschen(abo, new AsyncCallback<Void>(){
 								public void onFailure(Throwable error) {
-									Window.alert("Fail");	
-								
+									
+									Window.alert("Fail");
+									logger.severe("Abonnement konnte nicht gelöscht werden!");
 						
 								}
 								@Override
@@ -181,6 +187,7 @@ public class Navigation {
 									abonnierteNutzerAnzeigen.removeFromParent();
 									NutzerLogin nl = new NutzerLogin();
 									nl.refreshBeitraege();
+									logger.severe("Abo von" +abo.getPinnwand().getNutzer().getNickname() + "gelöscht");
 								}
 						    });	
 		
@@ -253,7 +260,7 @@ public class Navigation {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
+							logger.severe("Nutzer nicht gefunden!");
 
 						}
 
@@ -263,6 +270,7 @@ public class Navigation {
 								// ziehe aktuellen User aus dem Cookiewert
 							if (nutzerID == result.getID()) {
 								Window.alert("Man kann sich nicht selbst abbonieren!");
+								logger.severe("Nutzer versuchte sich selbst zu Abonnieren!");
 								vBox.setText("");
 							} else if (nutzerID != result.getID()) {
 								service.abonnementAnlegen(nutzerID,
@@ -274,7 +282,7 @@ public class Navigation {
 													Throwable caught) {
 												// TODO Auto-generated
 												// method stub
-												Window.alert("onFailure createAbo");
+												logger.severe("Abonnement konnte nicht angelegt werden!");
 											}
 
 											@Override
@@ -284,6 +292,7 @@ public class Navigation {
 												vBox.setText("");
 												NutzerLogin nl = new NutzerLogin();
 												nl.refreshNavi();
+												logger.severe("Nutzer wurde erfolgreich Abonniert!");
 												
 											}
 

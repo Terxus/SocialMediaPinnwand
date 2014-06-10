@@ -1,5 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -15,6 +17,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
@@ -24,12 +27,13 @@ public class AccountEdit {
 	private Nutzer nutzer;
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	Logger logger = SocialMediaPinnwand.getLogger();
 	
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("Fehler");
+				logger.severe("Nutzer konnte nicht ausgelesen werden.");
 			}
 			@Override
 			public void onSuccess(Nutzer result) {
@@ -180,7 +184,7 @@ public class AccountEdit {
 		service.updateNutzer(neuerNutzer, new AsyncCallback<Nutzer>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				System.out.println("Fehler");
+				logger.severe("Nutzer konnte nicht aktualisiert werden!");
 			}
 			@Override
 			public void onSuccess(Nutzer result) {
@@ -216,12 +220,12 @@ public class AccountEdit {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				logger.severe("Nutzer konnte nicht gelöscht werden.");
 				
 			}
 			@Override
 			public void onSuccess(Void result) {
-				System.out.println("Nutzer gelöscht");
+				logger.severe("Nutzer gelöscht!");
 				logout();
 			}
 		});
