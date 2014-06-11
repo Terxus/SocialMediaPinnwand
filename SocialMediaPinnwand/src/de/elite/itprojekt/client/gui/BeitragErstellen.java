@@ -40,7 +40,7 @@ public class BeitragErstellen {
 	private static Nutzer nutzer;
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy
 																			// aufbauen
-																			// fÃ¼r
+																			// für
 																			// Pinnwandverwaltung
 
 	// Nutzerobjekt per ID von Cookie holen
@@ -100,11 +100,11 @@ public class BeitragErstellen {
 	private Label datumsAnzeigek;
 	FlexTable kommentarFlexTable = new FlexTable();
 
-	// Fï¿½r neuen Beitraghinzufï¿½gen
+	// Fuer neuen Beitraghinzufuegen
 
 	public void beitragAnzeigenVonAbo(final Beitrag beitrag, final Nutzer nutzer) {
 
-		// Widgets fï¿½r AboBeitrag
+		// Widgets fuer AboBeitrag
 
 		this.eingeloggterUser = new Label(nutzer.getVorname() + " "
 				+ nutzer.getNachname());
@@ -136,14 +136,13 @@ public class BeitragErstellen {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Fehler bei Likeszï¿½hlung");
+				logger.severe("Fehler bei Likeszaehlung");
 
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				anzahlLikes.setText(result.toString());
-				logger.severe("Likes gefunden!");
 
 			}
 
@@ -215,11 +214,9 @@ public class BeitragErstellen {
 													+ kommentar.getNutzerId()
 													+ "erstellt");
 										      RootPanel.get("Navigator").clear();
-										      RootPanel.get("neuer_Beitrag").clear();
 										      RootPanel.get("Kommentar").clear();
 										      RootPanel.get("Beitrag").clear();
-										      RootPanel.get("Footer").clear();
-										      RootPanel.get("Report").clear();
+										      RootPanel.get("neuer_Beitrag").clear();
 											NutzerLogin login = new NutzerLogin();
 											login.refreshPinnwand();
 
@@ -236,7 +233,7 @@ public class BeitragErstellen {
 
 		});
 
-		// DAVOR ERST ï¿½BERPRï¿½FEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
+		// DAVOR ERST UEBERPRUEFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
 		// NUTZER!
 
 		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
@@ -251,12 +248,6 @@ public class BeitragErstellen {
 			public void onSuccess(Boolean result) {
 
 				if (result == true) {
-
-					System.out.println("Der Nutzer" + " "
-							+ getNutzer().getVorname() + " "
-							+ "will den Beitrag" + " " + beitrag.getText()
-							+ " " + "Liken");
-					System.out.println("Hat es das schon? :" + " " + result);
 
 					beitragsGrid.setWidget(2, 2, delike);
 
@@ -283,7 +274,7 @@ public class BeitragErstellen {
 														@Override
 														public void onFailure(
 																Throwable caught) {
-															logger.severe("Fehler bei Likezï¿½hlung");
+															logger.severe("Fehler bei Likezaehlung");
 
 														}
 
@@ -386,7 +377,7 @@ public class BeitragErstellen {
 
 	public void beitragAnzeigen(final Beitrag beitrag, final Nutzer nutzer) {
 
-		// Widgets erzeugen fï¿½r Beitrag
+		// Widgets erzeugen fuer Beitrag
 
 		this.eingeloggterUser = new Label(nutzer.getVorname() + " "
 				+ nutzer.getNachname());
@@ -436,10 +427,10 @@ public class BeitragErstellen {
 		this.vPanel.add(beitragsGrid);
 		RootPanel.get("Beitrag").add(vPanel);
 
-		// ClickHandler mï¿½ssen fï¿½r jedes Beitragobjekt gelten, darum mï¿½ssen sie
+		// ClickHandler muessen fuer jedes Beitragobjekt gelten, darum muessen sie
 		// hier definiert werden
 
-		// Beitrag lï¿½schen
+		// Beitrag loeschen
 
 		loeschen.addClickHandler(new ClickHandler() {
 
@@ -448,7 +439,7 @@ public class BeitragErstellen {
 				service.textBeitragLoeschen(beitrag, new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						logger.severe("Fehler beim Lï¿½schen!");
+						logger.severe("Fehler beim Loeschen!");
 					}
 
 					@Override
@@ -456,7 +447,9 @@ public class BeitragErstellen {
 						Window.alert("Textbeitrag wurde geloescht!");
 						beitragsGrid.removeFromParent();
 						kommentarFlexTable.removeFromParent();
-						logger.severe("Beitrag erfolgreich gelï¿½scht");
+						
+						NutzerLogin nl = new NutzerLogin();
+						nl.refreshBeitraege();
 					}
 				});
 			}
@@ -475,7 +468,7 @@ public class BeitragErstellen {
 				beitragsGrid.setWidget(1, 0, newBeitrag);
 				beitragsGrid.setWidget(1, 1, speichern);
 
-				// Bearbeiteter Text Speichern und in Label zurï¿½ckverwandeln
+				// Bearbeiteter Text Speichern und in Label zurueckverwandeln
 				// (*Magic*)
 				speichern.addClickHandler(new ClickHandler() {
 					@Override
@@ -511,7 +504,7 @@ public class BeitragErstellen {
 			}
 		});
 
-		// Kommentar hinzufï¿½gen
+		// Kommentar hinzufuegen
 
 		kommentieren.addClickHandler(new ClickHandler() {
 			@Override
@@ -543,15 +536,12 @@ public class BeitragErstellen {
 							kommentar.setNutzer(nutzer);
 							kommentar.setBeitrag(beitrag);
 
-							System.out
-									.println(kommentar.getBeitrag().getText());
-
 							service.kommentarErstellen(kommentar,
 									new AsyncCallback<Void>() {
 
 										@Override
 										public void onFailure(Throwable caught) {
-											logger.severe("Kommentar konnte nicht hinzugefï¿½gt werden");
+											logger.severe("Kommentar konnte nicht hinzugefuegt werden");
 
 										}
 
@@ -560,14 +550,11 @@ public class BeitragErstellen {
 											tAreak.setVisible(false);
 											addKommentar.setVisible(false);
 
-											// KommentareAuslesen(beitrag);
-											logger.severe("Kommentar erfolgreich hinzugefï¿½gt");								
+											// KommentareAuslesen(beitrag);								
 										      RootPanel.get("Navigator").clear();
-										      RootPanel.get("neuer_Beitrag").clear();
 										      RootPanel.get("Kommentar").clear();
 										      RootPanel.get("Beitrag").clear();
-										      RootPanel.get("Footer").clear();
-										      RootPanel.get("Report").clear();
+										      RootPanel.get("neuer_Beitrag").clear();
 											NutzerLogin login = new NutzerLogin();
 											login.refreshPinnwand();
 
@@ -584,7 +571,7 @@ public class BeitragErstellen {
 
 		});
 
-		// DAVOR ERST ï¿½BERPRï¿½FEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
+		// DAVOR ERST UEBERPRUEFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
 		// NUTZER!
 
 		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
@@ -625,7 +612,7 @@ public class BeitragErstellen {
 														@Override
 														public void onFailure(
 																Throwable caught) {
-															logger.severe("Error beim zï¿½hlen der Likes");
+															logger.severe("Error beim zaehlen der Likes");
 
 														}
 
@@ -670,7 +657,7 @@ public class BeitragErstellen {
 
 										@Override
 										public void onFailure(Throwable caught) {
-											logger.severe("Like konnte nicht hinzugefï¿½gt werden");
+											logger.severe("Like konnte nicht hinzugefuegt werden");
 
 										}
 
@@ -686,7 +673,7 @@ public class BeitragErstellen {
 														@Override
 														public void onFailure(
 																Throwable caught) {
-															logger.severe("Like konnte nicht gezï¿½hlt werden");
+															logger.severe("Like konnte nicht gezaehlt werden");
 
 														}
 
@@ -722,8 +709,8 @@ public class BeitragErstellen {
 	// Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers
 	// angezeigt.
 	// Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann
-	// ï¿½ndert sich die darstellung.
-	// Denn dann kann man die Kommentare nicht bearbeiten und lï¿½schen.
+	// aendert sich die darstellung.
+	// Denn dann kann man die Kommentare nicht bearbeiten und loeschen.
 	public void KommentareAuslesen(final Beitrag beitrag) {
 
 		int id = beitrag.getID();
@@ -798,7 +785,7 @@ public class BeitragErstellen {
 												public void onFailure(
 														Throwable caught) {
 													Window.alert("Fehler beim loeschen!");
-													logger.severe("Fehler beim lï¿½schen!");
+													logger.severe("Fehler beim loeschen!");
 												}
 
 												@Override
@@ -809,7 +796,7 @@ public class BeitragErstellen {
 															.removeFromParent();
 													NutzerLogin nl = new NutzerLogin();
 													nl.refreshBeitraege();
-													logger.severe("Kommentar gelï¿½scht!");
+													logger.severe("Kommentar geloescht!");
 												}
 											});
 
@@ -832,7 +819,7 @@ public class BeitragErstellen {
 									kommentarFlexTable.setWidget(1, 1,
 											speichern);
 									// Bearbeiteter Text Speichern und in Label
-									// zurï¿½ckverwandeln (*Magic*)
+									// zurueckverwandeln (*Magic*)
 									speichern
 											.addClickHandler(new ClickHandler() {
 												@Override
@@ -892,7 +879,7 @@ public class BeitragErstellen {
 
 	}
 
-	// Abobeitrï¿½ge anzeigen
+	// Abobeitraege anzeigen
 	public void abonnementBeitraegeAnzeigen(Nutzer nutzer) {
 
 		// Ersmal alle abo's rausziehen
@@ -918,7 +905,7 @@ public class BeitragErstellen {
 				});
 	}
 
-	// Dann die Beitrï¿½ge von den Abonnenten rausziehen
+	// Dann die Beitraege von den Abonnenten rausziehen
 	public void getBeitraeVonAbo(final Abonnement abo) {
 
 		int id = abo.getPinnwand().getNutzer().getID();
@@ -949,7 +936,7 @@ public class BeitragErstellen {
 
 	}
 
-	// END OF ABOBEITRï¿½GE
+	// END OF ABOBEITRAEGE
 
 	public void beitragHinzufuegen() {
 
@@ -957,7 +944,7 @@ public class BeitragErstellen {
 		tArea.setPixelSize(473, 15);
 		this.addBeitrag = new Button("Hinzufuegen");
 
-		// ClickHandler fï¿½r neuen Beitrag
+		// ClickHandler fuer neuen Beitrag
 
 		this.addBeitrag.addClickHandler(new addBeitragClickHandler());
 		this.tArea.addClickHandler(new getNutzerClickHandler());
@@ -968,7 +955,7 @@ public class BeitragErstellen {
 		RootPanel.get("neuer_Beitrag").add(vPanelAddBeitrag);
 	}
 
-	// ClickHandler der den Beitrag hinzufï¿½gt
+	// ClickHandler der den Beitrag hinzufuegt
 	private class addBeitragClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -1011,7 +998,6 @@ public class BeitragErstellen {
 			@Override
 			public void onSuccess(Void result) {
 				zeigeAlleBeitraege(getNutzer());
-				logger.severe("Beitrag erstellt!");
 			}
 
 		});
@@ -1031,7 +1017,7 @@ public class BeitragErstellen {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						logger.severe("Beitrï¿½ge nicht gefunden!");
+						logger.severe("Beitraege nicht gefunden!");
 
 					}
 
