@@ -49,6 +49,10 @@ public class NutzerRegistrieren {
 	
 	private Timestamp aktuellesDatum;
 
+	
+	public NutzerRegistrieren() {
+		logger.severe("Nutzerregistration geladen");
+	}
   
   
   public void nutzerRegistrieren() {
@@ -127,7 +131,7 @@ public class NutzerRegistrieren {
 	        
 	        
 	        
-	        //Schauen ob der Primärschlüssel des Nutzers (Nickname) schon vorhanden ist)
+	        //Schauen ob der Primaerschluessel des Nutzers (Nickname) schon vorhanden ist
 	        
 	        
 	        service.sucheNickName(usertextBox.getText(), new AsyncCallback<Boolean>() {

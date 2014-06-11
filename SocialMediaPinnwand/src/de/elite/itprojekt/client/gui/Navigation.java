@@ -148,7 +148,6 @@ public class Navigation {
 						for (Abonnement abo :result) {
 							Navigation navi = new Navigation();
 							navi.abonnierteNutzerAnzeigen(abo);
-							logger.severe("Abonnierte Nutzer wurden ausgelesen.");
 						}
 					}
 
@@ -178,7 +177,7 @@ public class Navigation {
 								public void onFailure(Throwable error) {
 									
 									Window.alert("Fail");
-									logger.severe("Abonnement konnte nicht gelöscht werden!");
+									logger.severe("Abonnement konnte nicht geloescht werden!");
 						
 								}
 								@Override
@@ -187,7 +186,7 @@ public class Navigation {
 									abonnierteNutzerAnzeigen.removeFromParent();
 									NutzerLogin nl = new NutzerLogin();
 									nl.refreshBeitraege();
-									logger.severe("Abo von" +abo.getPinnwand().getNutzer().getNickname() + "gelöscht");
+									logger.severe("Abo von" +abo.getPinnwand().getNutzer().getNickname() + "geloescht");
 								}
 						    });	
 		
@@ -239,12 +238,6 @@ public class Navigation {
 		
 	public void abonnieren() {	
 	
-
-
-				System.out.println("Gibt die Suggestbox aus: "
-						+ vBox.getText());
-				
-				
 			//Bug in leerem String und einem falschen username führt zu Absturz!!!
 				if (vBox.getText().isEmpty()) {
 					Window.alert("Bitte einen Suchbegriff eingeben");
@@ -292,7 +285,7 @@ public class Navigation {
 												vBox.setText("");
 												NutzerLogin nl = new NutzerLogin();
 												nl.refreshNavi();
-												logger.severe("Nutzer wurde erfolgreich Abonniert!");
+												logger.severe(s2 + " " + "wurde erfolgreich Abonniert!");
 												
 											}
 

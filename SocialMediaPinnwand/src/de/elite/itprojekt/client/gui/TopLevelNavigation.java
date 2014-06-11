@@ -86,9 +86,9 @@ public class TopLevelNavigation {
 		     }
 		};
 	   
-	    headerMenu.addItem("Home", home);
-	    headerMenu.addItem("Account", editNutzer);
-	    headerMenu.addItem("ReportGenerator", report);
+	    headerMenu.addItem("Pinnwand", home);
+	    headerMenu.addItem("Konto", editNutzer);
+	    headerMenu.addItem("Reports", report);
 	    headerMenu.addItem("Logout", logout);
 		
 		RootPanel.get("Header").add(headerMenu);

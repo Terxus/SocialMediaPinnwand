@@ -77,6 +77,7 @@ public class Report {
  	//Konstruktor
  	
 	public Report() {
+		logger.severe("Report Generator einsatzbereit");
 		report.zeigeAlleNutzer(new AsyncCallback<ArrayList<Nutzer>>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -91,7 +92,6 @@ public class Report {
 				for (Nutzer n : result) {
 					orakel.add(n.getVorname() + " " + n.getNachname() + "     [ "
 							+ n.getNickname() + " ]");
-
 				}
 			}
 		});
@@ -126,8 +126,8 @@ public class Report {
 		this.registrierteNutzer = new Label("Anzahl Nutzer:");
 		this.anzahlKommentare = new Label("Anzahl Kommentare:");
 		this.anzahlLikes = new Label("Anzahl Likes:");
-		this.anzahlBeitraege = new Label("Anzahl Beitraege");
-		this.anzahlAbonnements = new Label("Anzahl Abos");
+		this.anzahlBeitraege = new Label("Anzahl Beitraege:");
+		this.anzahlAbonnements = new Label("Anzahl Abos:");
 		
 		this.beitraege = new Label();
 		this.abonnements = new Label();

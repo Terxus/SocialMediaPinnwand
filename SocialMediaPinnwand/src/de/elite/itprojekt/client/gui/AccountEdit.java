@@ -29,6 +29,12 @@ public class AccountEdit {
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 	Logger logger = SocialMediaPinnwand.getLogger();
 	
+	public AccountEdit() {
+		logger.severe("Kontoansicht geladen");
+	}
+	
+	
+	
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 			@Override
