@@ -395,8 +395,12 @@ public class Report {
 				 
 				if (radioButtonLikes.getValue() == true) {
 					
+				/*	String von = 
+					String bis = "bis";
 					
-				
+					logger.info("Datum von:" + " " + von);
+					logger.info("Datum bis:" + " " + bis);
+				*/
 				report.alleBeitraegeEinesNutzersNachLikes(nutzer, "2014-06-02 12:12:01.000000", "2014-06-10 12:12:01.000000", 0, new AsyncCallback<ArrayList<Beitrag>>() {
 
 					@Override
