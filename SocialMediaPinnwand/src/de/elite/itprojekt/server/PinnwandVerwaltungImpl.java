@@ -372,8 +372,8 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * Diese Methode lässt einen Like zu einem bestimmten Beitrag löschen.
 	 * 
 	 * @author Dominik Liebscher
-	 * @param Beitrag beitrag
-	 * @return int
+	 * @param Beitrag beitrag, Nutzer nutzer
+	 * @return void
 	 * 
 	 */
 	@Override
