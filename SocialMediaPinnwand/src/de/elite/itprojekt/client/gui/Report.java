@@ -417,6 +417,9 @@ public class Report {
 					DateTimeFormat simpleDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd' 'HH:mm:ss");
 					String von = simpleDateFormat.format(datumVon);
 					String bis = simpleDateFormat.format(datumBis);
+					String zero = ".000000";
+					von.concat(zero);
+					bis.concat(zero);
 
 
 						
