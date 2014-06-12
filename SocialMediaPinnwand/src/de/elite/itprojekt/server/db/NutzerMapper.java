@@ -84,7 +84,7 @@ public class NutzerMapper {
 		        
 		        //Pinnwand und Abonnement?! :D
 
-		        //NutzerObjekte der ArrayList hinzufügen
+		        //NutzerObjekte der ArrayList hinzufÃ¼gen
 		        alleNutzer.add(n);
 		      }
 			return alleNutzer;
@@ -131,7 +131,7 @@ public class NutzerMapper {
 	return null;
 	}
 	
-	//Die ID des Nutzer zurückgeben
+	//Die ID des Nutzer zurÃ¼ckgeben
 	
 	public int sucheNutzerReturnID(int id){
 
@@ -193,7 +193,7 @@ public class NutzerMapper {
 	    return sucheNutzerID(n.getID());
 	}
 	
-	//Nutzer löschen
+	//Nutzer lÃ¶schen
 	
 	public void nutzerLoeschen(Nutzer n){
 		Connection con = DBConnection.connection();
@@ -212,7 +212,7 @@ public class NutzerMapper {
 	//Nutzer registrieren
 	
 	 public Nutzer nutzerAnlegen(Nutzer n) {
-		 System.out.println("user müsste jetzt angelegt werden");
+		 System.out.println("user mÃ¼sste jetzt angelegt werden");
 		    Connection con = DBConnection.connection();
 		    try {
 		      Statement stmt = con.createStatement();
@@ -243,7 +243,6 @@ public class NutzerMapper {
 		    return sucheNutzerID(n.getID());
 	}
 	 
-	 //Übernommen von Domi
 	 
 	 public Nutzer getNutzerAnhandNickname(String nickname) {
 		    Connection con = DBConnection.connection();
@@ -332,7 +331,7 @@ public class NutzerMapper {
 	 
 	 
 	 //REPORT
-	//Nutzer zählen
+	//Nutzer zÃ¤hlen
 		
 		 public int zaehleNutzer(){
 			 int count = -1;

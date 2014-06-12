@@ -40,7 +40,7 @@ public class BeitragErstellen {
 	private static Nutzer nutzer;
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy
 																			// aufbauen
-																			// f�r
+																			// für
 																			// Pinnwandverwaltung
 
 	// Nutzerobjekt per ID von Cookie holen
@@ -910,7 +910,7 @@ public class BeitragErstellen {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						logger.severe("Beitr�ge nicht gefunden!");
+						logger.severe("Beiträge nicht gefunden!");
 
 					}
 
@@ -1004,7 +1004,7 @@ public class BeitragErstellen {
 		int id = nutzer.getID();
 		final Nutzer n = nutzer;
 
-		// Lie�t fremde Kommentare aus
+		// Ließt fremde Kommentare aus
 		abonnementBeitraegeAnzeigen(n);
 
 		service.findeAlleUserBeitraege(id,

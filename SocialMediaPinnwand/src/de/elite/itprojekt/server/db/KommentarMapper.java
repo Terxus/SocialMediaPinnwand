@@ -120,7 +120,7 @@ public class KommentarMapper {
 
 	}
 	 
-	//Kommentar löschen
+	//Kommentar lÃ¶schen
 	 
 	 	public void kommentarLoeschen(Kommentar kommentar) {
 	 		
@@ -161,7 +161,7 @@ public class KommentarMapper {
 		}
 	 
 	 
-	 //Kommentar löschen wenn beitrag gelöscht wird
+	 //Kommentar lÃ¶schen wenn beitrag gelÃ¶scht wird
 	
  	public void autoKommentarLoeschen(int id) {
  		
@@ -210,7 +210,7 @@ public class KommentarMapper {
 	}
 	 
 	 //REPORT
- 	//Alle Kommentare zählen
+ 	//Alle Kommentare zÃ¤hlen
  	
 	 public int zaehleKommentare(){
 		 int count = -1;
@@ -234,7 +234,7 @@ public class KommentarMapper {
 
 	 }
 	 
-	 //REPORT Kommentare per Nutzer zählen
+	 //REPORT Kommentare per Nutzer zÃ¤hlen
 	 
 	 public int zaehleKommentarePerNutzer(Nutzer nutzer){
 		 int count = -1;

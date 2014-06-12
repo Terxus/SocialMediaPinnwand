@@ -35,7 +35,7 @@ public class Navigation {
 
 	//Hole Aktuellen eingeloggten Nutzer per Cookie anhand der ID
 
-	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für pinnwandverwaltung
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen fÃ¼r Pinnwandverwaltung
 
 
 	//Methode die den Nutzer holt
@@ -118,7 +118,7 @@ public class Navigation {
 
 
 
-				//Tabellen dem Vertikalen Panel hinzufügen
+				//Tabellen dem Vertikalen Panel hinzufÃ¼gen
 				vPanel.add(nutzerTabelle);
 				vPanel.add(suchTabelle);
 				vPanel.add(sucheResultatTabelle);
@@ -238,7 +238,7 @@ public class Navigation {
 		
 	public void abonnieren() {	
 	
-			//Bug in leerem String und einem falschen username führt zu Absturz!!!
+			
 				if (vBox.getText().isEmpty()) {
 					Window.alert("Bitte einen Suchbegriff eingeben");
 				} else  {

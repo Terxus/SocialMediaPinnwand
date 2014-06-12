@@ -40,7 +40,7 @@ public class LikeMapper {
 			try {
 				Statement stmt = con.createStatement();
 				
-				ResultSet rs = stmt.executeQuery("SELECT * FROM Like WHERE Beitrag_ID=" +id);
+				ResultSet rs = stmt.executeQuery("SELECT * FROM Likee WHERE Beitrag_ID=" +id);
 
 				while (rs.next()) {
 
@@ -49,7 +49,7 @@ public class LikeMapper {
 			        l.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 			        l.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
 			        
-			        //Mit Beitrag verknüpfen?!
+			        //Mit Beitrag verknÃ¼pfen?!
 
 
 			        likeListe.add(l);
@@ -120,7 +120,7 @@ public class LikeMapper {
 			}
 
 		}
-		//Likes von Beitrag löschen Sinn?
+		//Likes von Beitrag lÃ¶schen Sinn?
 	 
 	 	public void loeschen(Beitrag beitrag) {
 	 		
@@ -153,7 +153,7 @@ public class LikeMapper {
 			try{
 				Statement stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT * FROM Like WHERE Like_ID=" + id );
+				ResultSet rs = stmt.executeQuery("SELECT * FROM Likee WHERE Like_ID=" + id );
 
 
 				if (rs.next()) {
@@ -220,7 +220,7 @@ public class LikeMapper {
 
 		}
 		
-		//Assoziierte Likes löschen wenn Beitrag gelöscht wird 
+		//Assoziierte Likes lÃ¶schen wenn Beitrag gelÃ¶scht wird 
 	 	public void likesVonBeitragLoeschen(int id) {
 
 	 		Connection con = DBConnection.connection();
@@ -241,7 +241,7 @@ public class LikeMapper {
  		}
 		
 		 //REPORT
-		//Likes zählen
+		//Likes zÃ¤hlen
 			
 			 public int zaehleLikes(){
 				 int count = -1;
@@ -265,7 +265,7 @@ public class LikeMapper {
 
 			 }
 			 
-			 //REPORT Likes per Nutzer zählen
+			 //REPORT Likes per Nutzer zÃ¤hlen
 			 
 			 public int zaehleLikesPerNutzer(Nutzer nutzer){
 				 int count = -1;

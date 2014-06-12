@@ -3,7 +3,7 @@ package de.elite.itprojekt.shared.bo;
 public class Abonnement extends BusinessObject {
 
 	/**
-	 * @author Benjamin Auw‰rter
+	 * @author Benjamin Auw√§rter
 	 */
 	
 	public Abonnement() {}

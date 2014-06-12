@@ -71,7 +71,7 @@ public class AccountEdit {
 	private Button bestaetigenButton;
 	FlexTable editUser = new FlexTable();
 	
-	//Textboxen für changes
+	//Textboxen fÃ¼r Ã„nderungen
 	
 	private TextBox vorNameTextBox = new TextBox();
 	private TextBox nachNameTextBox = new TextBox();
@@ -88,7 +88,7 @@ public class AccountEdit {
 
 	public void editNutzer() {
 		
-		//Widgets erzeugen für Beitrag
+		//Widgets erzeugen fÃ¼r Beitrag
 
 		this.Vorname = new Label("");
 		this.Nachname = new Label("");
@@ -146,7 +146,7 @@ public class AccountEdit {
 	//Umwandlungen der Labels zu Textboxen
 	public void nutzerDatenAendern() {
 		vorNameTextBox.setText(this.Vorname.getText().toString()); //Hier wird der alte Name in die Textbox geschrieben
-		editUser.setWidget(0, 1, vorNameTextBox); //Das Label an der Position 0, 1 wird mit der Textbox überschrieben
+		editUser.setWidget(0, 1, vorNameTextBox); //Das Label an der Position 0, 1 wird mit der Textbox Ã¼berschrieben
 		nachNameTextBox.setText(this.Nachname.getText().toString());
 		editUser.setWidget(1, 1, nachNameTextBox);
 		nickNameTextBox.setText(this.Nickname.getText().toString());
@@ -158,7 +158,7 @@ public class AccountEdit {
 		editUser.setWidget(4, 1, eMailTextBox);
 	}
 
-	//Bestätige Ergebnisse
+	//BestÃ¤tige Ergebnisse
 	
 	private class okButtonClickHandler implements ClickHandler {
 		@Override
@@ -213,7 +213,7 @@ public class AccountEdit {
 		});
 	}
 	
-	//Nutzer Löschen
+	//Nutzer LÃ¶schen
 	private class deleteAccountButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -226,19 +226,19 @@ public class AccountEdit {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.severe("Nutzer konnte nicht gelöscht werden.");
+				logger.severe("Nutzer konnte nicht gelÃ¶scht werden.");
 				
 			}
 			@Override
 			public void onSuccess(Void result) {
-				logger.severe("Nutzer gelöscht!");
+				logger.severe("Nutzer gelÃ¶scht!");
 				logout();
 			}
 		});
 	}
 	
 	public void logout() {
-	 Window.alert("Account gelöscht!");
+	 Window.alert("Account gelÃ¶scht!");
    	 Cookies.removeCookie("gp5cookie");
      RootPanel.get("Navigator").clear();
      RootPanel.get("Beitrag").clear();

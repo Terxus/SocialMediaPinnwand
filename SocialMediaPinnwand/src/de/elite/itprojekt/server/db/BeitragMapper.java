@@ -42,7 +42,7 @@ public class BeitragMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id + " ORDER BY Datum DESC");
 			
 			
-		//hier eventl. mit Pinnwand verknüpfen?!
+		//hier eventl. mit Pinnwand verknÃ¼pfen?!
 
 			while (rs.next()) {
 		        Beitrag b = new Beitrag();
@@ -61,7 +61,7 @@ public class BeitragMapper {
 	return beitragListe;
 	}
 	
-	//Beitrag in DB einfügen
+	//Beitrag in DB einfÃ¼gen
 	 
 	 public void textBeitragErstellen(Beitrag textBeitrag){
 		 
@@ -89,7 +89,7 @@ public class BeitragMapper {
 	    }
 
 	}
-	 //Alle Beiträge zu nutzer anzeigen
+	 //Alle BeitrÃ¤ge zu nutzer anzeigen
 	 public ArrayList<Beitrag> findeAlleUserBeitraege(int id) {
 		 Connection con = DBConnection.connection();
 			Statement stmt = null;
@@ -184,7 +184,7 @@ public class BeitragMapper {
 		return null;
 		}
 		
-		//Alle Beitraege die zu einer Pinnwand gehören (Abobeziehung)
+		//Alle Beitraege die zu einer Pinnwand gehÃ¶ren (Abobeziehung)
 		
 		 public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id){
 
@@ -225,7 +225,7 @@ public class BeitragMapper {
 			return beitragListe;
 			}
 		 //REPORT
-		//Beiträge zählen
+		//BeitrÃ¤ge zÃ¤hlen
 			
 			 public int zaehleBeitraege(){
 				 int count = -1;
@@ -249,7 +249,7 @@ public class BeitragMapper {
 
 			 }
 			 
-			 //REPORT Beiträge per Nutzer zählen
+			 //REPORT BeitrÃ¤ge per Nutzer zÃ¤hlen
 			 
 			 public int zaehleBeitraegePerNutzer(Nutzer nutzer){
 				 int count = -1;
@@ -273,7 +273,7 @@ public class BeitragMapper {
 
 			 }
 			 
-			 //Beiträge sortiert nach Likes und Datum
+			 //BeitrÃ¤ge sortiert nach Likes und Datum
 			 
 			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung) {
 					//Aufbau der DBVerbindung
@@ -303,7 +303,7 @@ public class BeitragMapper {
 				    		return null;
 					    }				
 				}
-			 //Beiträge sortiert nach Kommentare und Datum
+			 //BeitrÃ¤ge sortiert nach Kommentare und Datum
 			 
 			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung) {
 					//Aufbau der DBVerbindung

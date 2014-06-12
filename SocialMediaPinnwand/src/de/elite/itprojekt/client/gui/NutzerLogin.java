@@ -67,7 +67,7 @@ public class NutzerLogin {
 
 	  public void loadLoginView() {
 			
-		//FlexTable f¸r Login
+		//FlexTable f√ºr Login
 		
 		loginFlex.setWidget(0, 1, nutzerNameBox);
 		loginFlex.setWidget(1, 1, passwortBox);
@@ -80,7 +80,7 @@ public class NutzerLogin {
 		decPanel.add(loginFlex);
 		
 		
-		// HTML element hinzuf¸gen
+		// HTML element hinzuf√ºgen
 		
 		RootPanel.get("Navigator").add(decPanel);
 		
@@ -151,7 +151,7 @@ public class NutzerLogin {
 					beitrag.beitragHinzufuegen();
 					
 					
-					//Zeigt abobeitr‰ge an
+					//Zeigt Abobeitr√§ge an
 			//		beitrag.abonnementBeitraegeAnzeigen(result);
 					
 
@@ -195,7 +195,7 @@ public class NutzerLogin {
 					Navigation navi = new Navigation();
 					BeitragErstellen beitrag = new BeitragErstellen();
 					
-					//Beitr‰ge Anzeigen lassen per User
+					//Beitr√§ge Anzeigen lassen per User
 					beitrag.zeigeAlleBeitraege(result);
 					navi.addNavigation(result);
 					navi.getAbonnierteNutzerListe(result);
@@ -214,7 +214,7 @@ public class NutzerLogin {
 					beitrag.beitragHinzufuegen();
 					logger.severe("Pinnwand neu geladen!");
 					
-					//Zeigt abobeitr‰ge an
+					//Zeigt abobeitr√§ge an
 				//	beitrag.abonnementBeitraegeAnzeigen(result);
 					
 				}
@@ -226,7 +226,7 @@ public class NutzerLogin {
 			BeitragErstellen beitrag = new BeitragErstellen();
 			
 			
-			//Beitr‰ge wieder anzeigen
+			//Beitr√§ge wieder anzeigen
 			
 			beitrag.zeigeAlleBeitraege(holeNutzer());
 			
@@ -278,7 +278,7 @@ public class NutzerLogin {
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					logger.severe("Beitr‰ge konnten nicht geladen werden");
+					logger.severe("Beitr√§ge konnten nicht geladen werden");
 				}
 				@Override
 				public void onSuccess(Nutzer result) {
@@ -303,7 +303,7 @@ public class NutzerLogin {
 			loginButton.setFocus(true);
 		}
 	  }
-	  // ClickHandler der neuen User hinzuf¸gen soll
+	  // ClickHandler der neuen User hinzuf√ºgen soll
 	  
 	  private class RegistrierClickHandler implements ClickHandler {
 
@@ -314,7 +314,7 @@ public class NutzerLogin {
 		}
 	  }
 	  
-	  // ClickHandler der einen Login ermˆglichen soll
+	  // ClickHandler der einen Login erm√∂glichen soll
 	  private class LoginClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {

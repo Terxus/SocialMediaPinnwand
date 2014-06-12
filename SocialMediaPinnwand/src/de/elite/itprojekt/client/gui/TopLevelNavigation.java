@@ -55,7 +55,7 @@ public class TopLevelNavigation {
 		Command report = new Command() {
 		     public void execute() {
 		    	 
-		    	 //Erstmal alles aufr‰umen :P
+		    	 //Erstmal alles aufr√§umen :P
 			      RootPanel.get("Navigator").clear();
 			      RootPanel.get("neuer_Beitrag").clear();
 			      RootPanel.get("Kommentar").clear();

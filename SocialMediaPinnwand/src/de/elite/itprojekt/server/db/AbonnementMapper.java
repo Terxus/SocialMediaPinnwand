@@ -64,7 +64,7 @@ public class AbonnementMapper {
 	}
 
 
-	//Abonnements in einer Liste zurückgeben
+	//Abonnements in einer Liste zurÃ¼ckgeben
 	public ArrayList<Abonnement> getAboByNutzer(int id){
 
 		Connection con = DBConnection.connection();
@@ -98,7 +98,6 @@ public class AbonnementMapper {
 
 	}
 	
-	//Abo anlegen (Übernommen von Domi)
 	
 	public Abonnement abonnementAnlegen(Abonnement a){
 		//Aufbau der DBVerbindung
@@ -153,7 +152,7 @@ public class AbonnementMapper {
 	}
 	
 	 //REPORT
-	//Abo's zählen
+	//Abo's zÃ¤hlen
 		
 		 public int zaehleAbonnements(){
 			 int count = -1;
@@ -177,7 +176,7 @@ public class AbonnementMapper {
 
 		 }
 		 
-		 //Abonnenten Zählen per Nutzer
+		 //Abonnenten ZÃ¤hlen per Nutzer
 		 public int zaehleAbonnementsPerNutzer(Nutzer nutzer){
 			 int count = -1;
 			Connection con = DBConnection.connection();

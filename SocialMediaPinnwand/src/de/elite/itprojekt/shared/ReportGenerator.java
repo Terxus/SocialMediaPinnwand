@@ -47,10 +47,10 @@ public interface ReportGenerator extends RemoteService {
 	  //Nutzer
 	  public Nutzer getUserByNickname(String nickname);
 	  
-	  //Aboz‰hlen eines Nutzers
+	  //Aboz√§hlen eines Nutzers
 	  public int zaehleAlleAbonnementsPerNutzer(Nutzer nutzer);
 	  
-	  //Beitr‰ge eines Nutzers
+	  //Beitr√§ge eines Nutzers
 	  public int zaehleBeitraegePerNutzer(Nutzer nutzer);
 	  
 	  //Likes eines Nutzers
@@ -61,9 +61,9 @@ public interface ReportGenerator extends RemoteService {
 	  
 	  
 	  
-	  //Alle Beitr‰ge des Nutzers sortiert nach Likes
+	  //Alle Beitr√§ge des Nutzers sortiert nach Likes
 	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung);
 	  
-	  //Alle Beitr‰ge des Nutzers sortiert nach Kommentare
+	  //Alle Beitr√§ge des Nutzers sortiert nach Kommentare
 	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung);
 }
