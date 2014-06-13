@@ -66,7 +66,7 @@ public class NutzerReport extends VerticalPanel{
 				
 				
 						// Sortieralgorithmus für Kommentare
-						Collections.sort(nutzer, Nutzer.sortiereKommentare());
+						Collections.sort(nutzer, Nutzer.sortiereLikes());
 				
 				int i = 0;
 				for (Nutzer n : nutzer) {
@@ -133,7 +133,7 @@ public class NutzerReport extends VerticalPanel{
 				
 
 				//Sortieralgorithmus für Likes
-				Collections.sort(nutzer, Nutzer.sortiereLikes());
+				Collections.sort(nutzer, Nutzer.sortiereKommentare());
 				
 				int i = 0;
 				for (Nutzer n : nutzer) {
