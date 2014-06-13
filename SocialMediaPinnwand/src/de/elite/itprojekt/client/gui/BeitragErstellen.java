@@ -385,7 +385,7 @@ public class BeitragErstellen {
 		this.bearbeiten = new PushButton("Bearbeiten");
 		this.loeschen = new Button();
 		this.textBeitrag = new Label(beitrag.getText());
-		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString());
+		this.datumsAnzeige = new Label(beitrag.getErstellZeitpunkt().toString().substring(0, 19));
 		this.like = new PushButton("Like");
 		this.anzahlLikes = new Label();
 
@@ -738,7 +738,7 @@ public class BeitragErstellen {
 							bearbeitenk = new PushButton("Bearbeiten");
 							textBeitragk = new Label(k.getText());
 							datumsAnzeigek = new Label(k.getErstellZeitpunkt()
-									.toString());
+									.toString().substring(0, 19));
 							loeschenk = new Button();
 
 							// Design
@@ -857,6 +857,8 @@ public class BeitragErstellen {
 																					kommentar);
 																	speichern
 																			.setVisible(false);
+																	NutzerLogin nl = new NutzerLogin();
+																	nl.refreshBeitraege();
 																}
 
 															});

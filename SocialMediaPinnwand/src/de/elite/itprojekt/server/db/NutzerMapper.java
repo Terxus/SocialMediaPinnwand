@@ -340,7 +340,7 @@ public class NutzerMapper {
 			try {
 				Statement stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM nutzer");
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Nutzer");
 
 				while (rs.next()) {
 			        count=rs.getInt(1);
@@ -354,6 +354,40 @@ public class NutzerMapper {
 			return count;
 
 		 }
+		 
+		//Alle Nutzer innerhalb eines Zeitraums ausgeben
+		 
+		 public ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis) {
+				//Aufbau der DBVerbindung
+				Connection con = DBConnection.connection();
+				ArrayList <Nutzer> nutzer= new ArrayList<Nutzer>();
+				//Versuch der Abfrage
+				try{
+					Statement stmt = con.createStatement();
+			//		String sql = "SELECT * from Beitrag WHERE Nutzer_ID =" + nutzer.getID() + " AND Datum between '" + von + "' AND '" + bis + "'";
+					String sql = "SELECT * from Nutzer WHERE Datum between '" + von + "' AND '" + bis + "'";
+					ResultSet rs = stmt.executeQuery(sql);
+
+					while (rs.next()) {
+						// Ergebnis in Beitrag- Objekt umwandeln
+				        Nutzer n = new Nutzer();
+				        n.setID(rs.getInt("Nutzer_ID"));
+				        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
+				        n.setVorname(rs.getString("Vorname"));
+				        n.setNachname(rs.getString("Nachname"));
+				        n.setNickname(rs.getString("Nickname"));
+				        n.setLikeAnzahl(LikeMapper.likeMapper().zaehleLikesPerNutzer(n));
+				        n.setKommentarAnzahl(KommentarMapper.kommentarMapper().zaehleKommentarePerNutzer(n));
+
+				        nutzer.add(n);
+					}
+					return nutzer;		
+				}
+				   catch (SQLException e) {
+			    		e.printStackTrace();
+			    		return null;
+				    }				
+			}
 		
 	 
 	 

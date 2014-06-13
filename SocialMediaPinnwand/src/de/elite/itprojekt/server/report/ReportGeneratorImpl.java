@@ -126,16 +126,21 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	@Override
-	public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung) {
-		// TODO Auto-generated method stub
-		return BeitragMapper.beitragMapper().alleBeitraegeEinesNutzersNachLikes(nutzer, von, bis, sortierung);
-	}
-
-	@Override
 	public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(
 			Nutzer nutzer, String von, String bis, int sortierung) {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().alleBeitraegeEinesNutzersNachKommentare(nutzer, von, bis, sortierung);
+	}
+
+	@Override
+	public ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis) {
+		return NutzerMapper.nutzerMapper().alleNutzerNachZeitraum(von, bis);
+	}
+	
+	@Override
+	public ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis) {
+		// TODO Auto-generated method stub
+		return BeitragMapper.beitragMapper().alleBeitraegeNachLikes(von, bis);
 	}
 
 }

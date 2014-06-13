@@ -61,9 +61,10 @@ public interface ReportGenerator extends RemoteService {
 	  
 	  
 	  
-	  //Alle Beiträge des Nutzers sortiert nach Likes
-	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung);
+	  ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis);
+	  ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis);
 	  
 	  //Alle Beiträge des Nutzers sortiert nach Kommentare
 	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung);
+
 }

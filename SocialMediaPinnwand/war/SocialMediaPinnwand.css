@@ -18,8 +18,8 @@ div#TopLevelFrame {
 
 div#Details {
 	margin-left: 20em;
-	min-height: 500px; /*Früher 400px*/
-	max-height: 600px; /*Früher 500px*/
+	min-height: 500px; /*Frï¿½her 400px*/
+	max-height: 600px; /*Frï¿½her 500px*/
 	padding: 1em 1em;
 	border-left: 1px dashed silver;
 	overflow:scroll;
@@ -60,6 +60,9 @@ div#Kommentar {
 .Date {
 	font-size: 10px;
 	font-weight: bold;
+}
+.bold {
+font-weight: bold;
 }
 div#Header {
 	margin: 0 auto;      /* standardkonforme horizontale Zentrierung */
@@ -109,6 +112,12 @@ div#Footer {
   	border: 1px solid #000000;
   	padding: 3px;
   	width: 420px;
+}
+.detailTable {
+  background-color: #C3D9FF;
+  border: 1px solid #000000;
+  padding: 3px;
+  margin: 3px;
 }
 .nickNameVorhanden {
 	color: red;

@@ -60,9 +60,9 @@ public class DBConnection {
 	        //Class.forName("com.mysql.jdbc.Driver"); // Datenbanktreiber für JDBC Schnittstellen laden.
 
 	        // Verbindung zur JDBC-Datenbank herstellen.
-	    //   con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
+	        con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
 
-	       con = DriverManager.getConnection("jdbc:google:rdbms://smp-itp:tmp/db", "root", "");
+	     //   con = DriverManager.getConnection("jdbc:google:rdbms://smp-itp:elite/db", "root", "");
 
 
 	    } catch (SQLException error) { //Wenn ein Fehler auftritt -> Verbidung trennen

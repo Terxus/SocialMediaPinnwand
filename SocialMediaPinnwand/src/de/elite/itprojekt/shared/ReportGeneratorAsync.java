@@ -48,8 +48,11 @@ public interface ReportGeneratorAsync {
 
 	void zaehleKommentarePerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
 
-	void alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung, AsyncCallback<ArrayList<Beitrag>> callback);
-
 	void alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung, AsyncCallback<ArrayList<Beitrag>> callback);
+
+	void alleNutzerNachZeitraum(String von, String bis, AsyncCallback<ArrayList<Nutzer>> callback);
+	
+	void alleBeitraegeNachZeitraum(String von, String bis, AsyncCallback<ArrayList<Beitrag>> callback);
+	
 
 }

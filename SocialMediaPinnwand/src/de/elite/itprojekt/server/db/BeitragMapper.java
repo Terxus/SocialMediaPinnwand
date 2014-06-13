@@ -275,14 +275,14 @@ public class BeitragMapper {
 			 
 			 //Beiträge sortiert nach Likes und Datum
 			 
-			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung) {
+			 public ArrayList<Beitrag> alleBeitraegeNachLikes(String von, String bis) {
 					//Aufbau der DBVerbindung
 					Connection con = DBConnection.connection();
 					ArrayList <Beitrag> beitraege= new ArrayList<Beitrag>();
 					//Versuch der Abfrage
 					try{
 						Statement stmt = con.createStatement();
-						String sql = "SELECT * from Beitrag WHERE Nutzer_ID =" + nutzer.getID() + " AND Datum between '" + von + "' AND '" + bis + "'";
+						String sql = "SELECT * from Beitrag WHERE Datum between '" + von + "' AND '" + bis + "'";
 						ResultSet rs = stmt.executeQuery(sql);
 
 						while (rs.next()) {

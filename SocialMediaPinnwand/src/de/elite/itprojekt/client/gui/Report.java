@@ -10,55 +10,59 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
-import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
-import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
-
-
 public class Report {
-	
-	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen für pinnwandverwaltung
+
+	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy
+																		// aufbauen
+																		// für
+																		// pinnwandverwaltung
 	Logger logger = SocialMediaPinnwand.getLogger();
 
 	private VerticalPanel vPanel = new VerticalPanel();
-	private Label nutzerName;
 	private Button reportButton;
 	private Label zeitraumVon;
 	private DateBox dateBoxVon;
 	private Label zeitraumBis;
 	private DateBox dateBoxBis;
 	private Date datumVon = new Date();
-	private Date datumBis= new Date();
+	private Date datumBis = new Date();
 	private FlexTable reportTable;
+	private FlexTable userSuche;
 	private DecoratorPanel decPanel;
 	private FlexTable auswahlTabelle;
 	private RadioButton radioButtonNutzer;
 	private RadioButton radioButtonBeitrag;
-	private Label sortiertNach;
-	private Label likeSort;
-	private Label kommentarSort;
-	
-	//Globale Nutzerstatistik
-	
+	private RadioButton radioButtonIndi;
+
+	private Label reportArt;
+	private Label NutzerSort;
+	private Label lblSortierart;
+	private Label BeitraegeSort;
+	private Label IndiSort;
+	private Label NutzerSuche;
+	ListBox lb = new ListBox();
+
+	// Globale Nutzerstatistik
+
 	private Label registrierteNutzer;
 	private Label anzahlKommentare;
 	private Label beitraege;
@@ -73,16 +77,13 @@ public class Report {
 	private DecoratorPanel decPanelGlobal;
 	private Label globStatLabel;
 
-//Suggestbox
-	
- 	final MultiWordSuggestOracle orakel = new MultiWordSuggestOracle();
- 	final SuggestBox vBox = new SuggestBox(orakel);
- 
-	
- 	
- 	
- 	//Konstruktor
- 	
+	// Suggestbox
+
+	final MultiWordSuggestOracle orakel = new MultiWordSuggestOracle();
+	final SuggestBox vBox = new SuggestBox(orakel);
+
+	// Konstruktor
+
 	public Report() {
 		logger.severe("Report Generator einsatzbereit");
 		report.zeigeAlleNutzer(new AsyncCallback<ArrayList<Nutzer>>() {
@@ -95,48 +96,43 @@ public class Report {
 			@Override
 			public void onSuccess(ArrayList<Nutzer> result) {
 
-
 				for (Nutzer n : result) {
-					orakel.add(n.getVorname() + " " + n.getNachname() + "     [ "
-							+ n.getNickname() + " ]");
+					orakel.add(n.getVorname() + " " + n.getNachname()
+							+ "     [ " + n.getNickname() + " ]");
 				}
 			}
 		});
 	}
- 	
- 	
- 	
- 	
- 	
 
 	@SuppressWarnings("deprecation")
 	public void reportNavigation() {
-		
 
-		this.nutzerName = new Label("Benutzer");
 		this.reportButton = new Button("Report");
 		this.zeitraumVon = new Label("Von");
 		this.zeitraumBis = new Label("Bis");
+		this.lblSortierart = new Label("Sortieren nach:");
 		this.dateBoxVon = new DateBox();
 		this.dateBoxBis = new DateBox();
 		this.reportTable = new FlexTable();
+		this.userSuche = new FlexTable();
 		this.decPanel = new DecoratorPanel();
 		this.auswahlTabelle = new FlexTable();
-		this.sortiertNach = new Label("Sortiert nach:");
-		this.likeSort = new Label("Nutzer");
-		this.kommentarSort = new Label("Beiträge");
+		this.reportArt = new Label("Reportart:");
+		this.NutzerSort = new Label("Nutzer");
+		this.BeitraegeSort = new Label("Beiträge");
+		this.IndiSort = new Label("Individuell");
 		this.radioButtonNutzer = new RadioButton("g");
 		this.radioButtonBeitrag = new RadioButton("g");
-		
-		reportButton.addClickHandler(new ReportClickHandler());
-		
-		//Global
+		this.radioButtonIndi = new RadioButton("g");
+		this.NutzerSuche = new Label("Nutzer Suchen:");
+
+		// Global
 		this.registrierteNutzer = new Label("Anzahl Nutzer:");
 		this.anzahlKommentare = new Label("Anzahl Kommentare:");
 		this.anzahlLikes = new Label("Anzahl Likes:");
 		this.anzahlBeitraege = new Label("Anzahl Beitraege:");
 		this.anzahlAbonnements = new Label("Anzahl Abos:");
-		
+
 		this.beitraege = new Label();
 		this.abonnements = new Label();
 		this.registrierteNutzerLabel = new Label();
@@ -145,411 +141,267 @@ public class Report {
 		this.globaleStatistik = new FlexTable();
 		this.decPanelGlobal = new DecoratorPanel();
 		this.globStatLabel = new Label("Globale Nutzerstatistiken");
-		
-		//radiobutton nach likes sortieren vordefiniert
-		radioButtonNutzer.setValue(true);
-		
-		
-		reportTable.setWidget(0, 0, nutzerName);
-		reportTable.setWidget(1, 0, vBox);
-		reportTable.setWidget(2, 0, zeitraumVon);
-		reportTable.setWidget(3, 0, dateBoxVon);
-		reportTable.setWidget(4, 0, zeitraumBis);
-		reportTable.setWidget(5, 0, dateBoxBis);
-		reportTable.setWidget(6, 0, sortiertNach);
-		
 
-		//In dem Decoratorpanel ist einen neue FlexTable
-		
-		auswahlTabelle.setWidget(0, 0, likeSort);
-		auswahlTabelle.setWidget(0, 1, kommentarSort);
-		auswahlTabelle.setWidget(1, 0, radioButtonNutzer);
-		auswahlTabelle.setWidget(1, 1, radioButtonBeitrag);
-		auswahlTabelle.setWidget(3, 0, reportButton);
-		
+		reportTable.setWidget(1, 0, zeitraumVon);
+		reportTable.setWidget(2, 0, dateBoxVon);
+		reportTable.setWidget(3, 0, zeitraumBis);
+		reportTable.setWidget(4, 0, dateBoxBis);
+		reportTable.setWidget(5, 0, lblSortierart);
+		reportTable.setWidget(5, 1, lb);
+		userSuche.setWidget(0, 0, NutzerSuche);
+		userSuche.setWidget(0, 1, vBox);
+
+		// In dem Decoratorpanel ist einen neue FlexTable
+
+		auswahlTabelle.setWidget(0, 0, reportArt);
+		auswahlTabelle.setWidget(1, 0, NutzerSort);
+		auswahlTabelle.setWidget(1, 1, BeitraegeSort);
+		auswahlTabelle.setWidget(1, 2, IndiSort);
+		auswahlTabelle.setWidget(2, 0, radioButtonNutzer);
+		auswahlTabelle.setWidget(2, 1, radioButtonBeitrag);
+		auswahlTabelle.setWidget(2, 2, radioButtonIndi);
+
 		globaleStatistik.setWidget(0, 0, registrierteNutzer);
 		globaleStatistik.setWidget(0, 1, registrierteNutzerLabel);
 		globaleStatistik.setWidget(1, 0, anzahlKommentare);
 		globaleStatistik.setWidget(1, 1, anzahlKommentareLabel);
 		globaleStatistik.setWidget(2, 0, anzahlLikes);
 		globaleStatistik.setWidget(2, 1, anzahlLikesLabel);
-		
+
 		globaleStatistik.setWidget(3, 0, anzahlBeitraege);
 		globaleStatistik.setWidget(3, 1, beitraege);
 		globaleStatistik.setWidget(4, 0, anzahlAbonnements);
 		globaleStatistik.setWidget(4, 1, abonnements);
-		
+
 		decPanel.add(auswahlTabelle);
 		decPanelGlobal.add(globaleStatistik);
-		
-		
-		
-		this.vPanel.add(reportTable);
+
 		this.vPanel.add(decPanel);
+		this.vPanel.add(reportTable);
+		this.vPanel.add(userSuche);
+		this.vPanel.add(reportButton);
 		this.vPanel.add(globStatLabel);
 		this.vPanel.add(decPanelGlobal);
-		
+
 		RootPanel.get("Navigator").add(vPanel);
+		reportTable.setVisible(false);
+		userSuche.setVisible(false);
+		reportButton.setVisible(false);
+
+		lb.addItem("Kommentare");
+		lb.addItem("Likes");
+		lb.setVisibleItemCount(2);
+
 		globleStatistikenausgeben();
+
+		radioButtonBeitrag.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				reportTable.setVisible(true);
+				reportButton.setVisible(true);
+				lb.setVisible(true);
+				lblSortierart.setVisible(true);
+				userSuche.setVisible(false);
+
+			}
+
+		});
+
+		radioButtonNutzer.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				reportTable.setVisible(true);
+				reportButton.setVisible(true);
+				lb.setVisible(true);
+				lblSortierart.setVisible(true);
+				userSuche.setVisible(false);
+			}
+
+		});
+
+		radioButtonIndi.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				reportTable.setVisible(false);
+				userSuche.setVisible(true);
+				reportButton.setVisible(true);
+
+			}
+
+		});
+
+		// Datum auslesen
+		dateBoxVon.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				datumVon = event.getValue();
+
+			}
+		});
+		dateBoxBis.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				datumBis = event.getValue();
+			}
+		});
+
+		reportButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+			      RootPanel.get("Beitrag").clear();
+			      BeitragReport.detailTable.clear();
+			      NutzerReport.detailTable.clear();
+
+				if (radioButtonBeitrag.getValue() && lb.getSelectedIndex() == 1) {
+					BeitragReport.sortiereBeitraegeAnhandLikes(datumVon,
+							datumBis);
+
+				} else if (radioButtonBeitrag.getValue()
+						&& lb.getSelectedIndex() == 0) {
+					BeitragReport.sortiereBeitraegeAnhandKommentare(datumVon,
+							datumBis);
+				}
+
+				else if (radioButtonNutzer.getValue()
+						&& lb.getSelectedIndex() == 0) {
+					NutzerReport.sortiereNutzerAnhandKommentare(datumVon,
+							datumBis);
+
+				} else if (radioButtonNutzer.getValue()
+						&& lb.getSelectedIndex() == 1) {
+					NutzerReport.sortiereNutzerAnhandLikes(datumVon, datumBis);
+
+				} else if (radioButtonIndi.getValue() == true) {
+					userSuchen();
+					System.out.println("funktioniert!");
+				}
+
+				else {
+					Window.alert("Bitte wählen Sie einen Report Typ aus");
+				}
+
+			}
+
+		});
+
 	}
-	//Obere Beitragsliste
-	
-	VerticalPanel vPanelRep = new VerticalPanel();
-	VerticalPanel vPanelDetailRep = new VerticalPanel();
-	private FlexTable repTable = new FlexTable();
-	private Label nutzerLabel = new Label();
-	private Label aboLabelrep = new Label();
-	private Label beitragLabelrep = new Label();
-	private Label likesLabelrep = new Label();
-	private Label kommentarLabelrep = new Label();
-	
-	//Untere Beitragsliste
-	
-	private FlexTable detailTable = new FlexTable();
-	private Label beitragLabeldetail = new Label("Beitrag");
-	private Label kommentarLabeldetail = new Label("Kommentare");
-	private Label likesLabeldetail = new Label("Likes");
-	
-	
+
 	// Zuerst einmal die Globalen Statisiken ausgeben
 	public void globleStatistikenausgeben() {
-		
-		//Alle Nutzer zählen
-		
+
+		// Alle Nutzer zählen
+
 		report.zaehleAlleNutzer(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Fehler beim zählen der Nutzer");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				registrierteNutzerLabel.setText(result.toString());
-				
+
 			}
-			
+
 		});
-		//Alle Kommentare zählen
+		// Alle Kommentare zählen
 		report.zaehleAlleKommentare(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Fehler bei der Kommentarzählung");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				anzahlKommentareLabel.setText(result.toString());
-				
+
 			}
-			
+
 		});
-		//Alle Likes zählen
+		// Alle Likes zählen
 		report.zaehleAlleLikes(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Fehler beim zählen der Likes");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				anzahlLikesLabel.setText(result.toString());
-				
+
 			}
-			
+
 		});
-		//Alle Beiträge zählen
+		// Alle Beiträge zählen
 		report.zaehleAlleBeitraege(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Fehler beim zählen der Beiträge");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
-			beitraege.setText(result.toString());
-				
+				beitraege.setText(result.toString());
+
 			}
-			
+
 		});
-		//Alle Abonnements zählen
+		// Alle Abonnements zählen
 		report.zaehleAlleAbonnements(new AsyncCallback<Integer>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Fehler beim zählen der Abonnements");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Integer result) {
 				abonnements.setText(result.toString());
-				
+
 			}
-			
+
 		});
-	
-		
 
-	// Datum aus dem DateBox auslesen
-	dateBoxVon.addValueChangeHandler(new ValueChangeHandler<Date>() {
-	      public void onValueChange(ValueChangeEvent<Date> event) {
-	    	  datumVon = event.getValue();
+		// Datum aus dem DateBox auslesen
+		dateBoxVon.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				datumVon = event.getValue();
 
-	        }
-	      });
-	dateBoxBis.addValueChangeHandler(new ValueChangeHandler<Date>() {
-	      public void onValueChange(ValueChangeEvent<Date> event) {
-	    	  datumBis = event.getValue();
-	        }
-	      });
+			}
+		});
+		dateBoxBis.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			public void onValueChange(ValueChangeEvent<Date> event) {
+				datumBis = event.getValue();
+			}
+		});
+		;
+
 	}
 
-	
-	public void getData() {
-			
-		//METHODIK
-		
+	public void userSuchen() {
+
+		// Sucht den User aus der Datenbank
+
 		if (this.vBox.getText().isEmpty()) {
 			Window.alert("Report ohne Nutzer nicht möglich");
-		} 
-		else {
-		
-		String s = this.vBox.getText();
-		s = s.substring(s.indexOf("[")+2,s.indexOf(" ]"));
-		final String nickname = s;
-		
-		report.getUserByNickname(nickname, new AsyncCallback<Nutzer>() {
+		} else {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				logger.severe("Fehler bei der Nutzersuche");
-				
-			}
-			@Override
-			public void onSuccess(Nutzer nutzer) {
-				nutzerLabel.setText("Statistiken fuer: "+nutzer.getVorname() + " " + nutzer.getNachname());
-				
-				
+			String s = this.vBox.getText();
+			s = s.substring(s.indexOf("[") + 2, s.indexOf(" ]"));
+			final String nickname = s;
+			NutzerReport.zeigeStatistikeinzelnerNutzer(nickname);
 
-				//Abonnenten eines Nutzers als Zahl
-				
-				report.zaehleAlleAbonnementsPerNutzer(nutzer, new AsyncCallback<Integer>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Integer abos) {
-						aboLabelrep.setText("Abonnenten:" + " " + abos);
-						
-					}
-					
-				});
-				//Beiträge eines Nutzer als Zahl
-				
-				report.zaehleBeitraegePerNutzer(nutzer, new AsyncCallback<Integer>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Integer beitr) {
-						
-						beitragLabelrep.setText("Beitraege:" + " " + beitr);
-					}
-					
-				});
-				//Likes vergeben
-				report.zaehleLikesPerNutzer(nutzer, new AsyncCallback<Integer>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Integer lks) {
-						likesLabelrep.setText("Likes:" + " " + lks);
-						
-					}
-					
-				});
-				//Kommentare geschrieben
-				report.zaehleKommentarePerNutzer(nutzer, new AsyncCallback<Integer>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Integer kmt) {
-						kommentarLabelrep.setText("Kommentare:" + " " + kmt);
-						
-					}
-					
-				});
-				
-				
-				
-				//Wenn Nutzer ausgewählt ist, sortiert er alle Kommentare/Likes in einem Zeitraum
-				 
-				if (radioButtonNutzer.getValue() == true) {
-	
-
-					
-					DateTimeFormat simpleDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd' 'HH:mm:ss");
-					String von = simpleDateFormat.format(datumVon);
-					String bis = simpleDateFormat.format(datumBis);
-					String zero = ".000000";
-					von.concat(zero);
-					bis.concat(zero);
-
-
-						
-					//	logger.info("Datum von:" + " " + von);
-					//	logger.info("Datum bis:" + " " + bis);
-			System.out.println("Looool" +von.toString());
-					
-					report.alleBeitraegeEinesNutzersNachLikes(nutzer, von, bis, 0, new AsyncCallback<ArrayList<Beitrag>>() {
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onSuccess(ArrayList<Beitrag> likeBeitrag) {
-							int i = 0;
-							for (Beitrag b : likeBeitrag) {
-
-								beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
-								kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
-								likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
-
-
-								detailTable.setWidget(i, 1, beitragLabeldetail);
-								detailTable.setWidget(i, 2, kommentarLabeldetail);
-								detailTable.setWidget(i, 3, likesLabeldetail);
-								i++;
-
-								System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
-							}
-
-						}
-
-					});
-
-					}
-					else {
-
-						DateTimeFormat simpleDateFormat = DateTimeFormat.getFormat("yyyy-MM-dd' 'HH:mm:ss");
-						String von = simpleDateFormat.format(datumVon);
-						String bis = simpleDateFormat.format(datumBis);
-						
-					//Wenn Beiträge ausgewählt ist, wird  nach Kommentare/Likes in einem Zeitraum sortiert
-
-					report.alleBeitraegeEinesNutzersNachKommentare(nutzer, von,bis, 1, new AsyncCallback<ArrayList<Beitrag>>() {
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onSuccess(ArrayList<Beitrag> kommentarBeitrag) {
-							int i = 0;
-							for (Beitrag b : kommentarBeitrag) {
-
-								beitragLabeldetail = new Label("Beitrag:" + " " + b.getText());
-								kommentarLabeldetail = new Label("Kommentare:" + " " + String.valueOf(b.getKommentarAnzahl()));
-								likesLabeldetail = new Label(String.valueOf("Likes:" + " " + b.getLikeAnzahl()));
-
-
-								detailTable.setWidget(i, 1, beitragLabeldetail);
-								detailTable.setWidget(i, 2, kommentarLabeldetail);
-								detailTable.setWidget(i, 3, likesLabeldetail);
-								System.out.println("Beitrag:" + " " + b.getText() + " " + "Kommentare:" + " " + b.getKommentarAnzahl() + " " + "Likes:" + " " + b.getLikeAnzahl());
-								i++;
-							}
-
-						}
-
-					});
-
-					}
-
-
-
-
-
-				}
-
-			});
-
-		
-		
-		
-		
-		//NUTZER ANZEIGE
-		
-		//Obere Beitragsliste
-		repTable.setWidget(0, 0, nutzerLabel);
-		repTable.setWidget(1, 0, aboLabelrep);
-		repTable.setWidget(2, 0, beitragLabelrep);
-		repTable.setWidget(3, 0, likesLabelrep);
-		repTable.setWidget(4, 0, kommentarLabelrep);
-		
-		vPanelRep.add(repTable);
-		RootPanel.get("Beitrag").add(vPanelRep);
-		
-		//Untere Beitragsliste
-		
-		
-		detailTable.setWidget(0, 1, beitragLabeldetail);
-		detailTable.setWidget(0, 2, kommentarLabeldetail);
-		detailTable.setWidget(0, 3, likesLabeldetail);
-		
-		vPanelDetailRep.add(detailTable);
-		
-		RootPanel.get("Report").add(vPanelDetailRep);
-		logger.severe("Report erstellt!");
-	}
-		
-}
-	
-	
-	
-	private class ReportClickHandler implements ClickHandler {
-	@Override
-	public void onClick(ClickEvent event) {
-		getData();
-
-		
 		}
-	}
+	};
 }
-
-	
-	
-	
-	
-	
