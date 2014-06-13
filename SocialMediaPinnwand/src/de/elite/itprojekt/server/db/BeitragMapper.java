@@ -8,7 +8,11 @@ import java.util.ArrayList;
 
 import de.elite.itprojekt.shared.bo.*;
 
-
+/**
+ * Diese Klasse bildet die Beitragsobjekte auf eine relationale Datenbank ab
+ * @author Maik
+ *
+ */
 public class BeitragMapper {
 	
 	private static BeitragMapper beitragMapper = null;
@@ -32,6 +36,11 @@ public class BeitragMapper {
 		return beitragMapper;
 	}
 	
+	/**
+	 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehören, anhand der Nutzer ID in einer Liste aus
+	 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
+	 * @return Liste der Beiträge
+	 */
 	 public ArrayList<Beitrag> getBeitragByPinnwand(int id) {
 
 		Connection con = DBConnection.connection();
@@ -61,8 +70,11 @@ public class BeitragMapper {
 	return beitragListe;
 	}
 	
-	//Beitrag in DB einfÃ¼gen
-	 
+	
+	 /**
+	  * Diese Methode speichert einen neuen Textbeitrag in der Datenbank
+	  * @param textBeitrag Neuer Beitrag, der abgespeichert werden soll (Beitragsobjekt)
+	  */
 	 public void textBeitragErstellen(Beitrag textBeitrag){
 		 
 		Connection con = DBConnection.connection();
@@ -89,7 +101,12 @@ public class BeitragMapper {
 	    }
 
 	}
-	 //Alle BeitrÃ¤ge zu nutzer anzeigen
+	 
+	 /**
+	  * Diese Methode gibt alle Beiträge eines Nutzers anhand der ID in einer Liste aus
+	  * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
+	  * @return Liste der Beiträge
+	  */
 	 public ArrayList<Beitrag> findeAlleUserBeitraege(int id) {
 		 Connection con = DBConnection.connection();
 			Statement stmt = null;
@@ -116,7 +133,10 @@ public class BeitragMapper {
 
 			return result;
 		}
-	 	
+	 	/**
+	 	 * Diese Methode löscht einen Beitrag aus der Datenbank
+	 	 * @param beitrag Der Beitrag, der gelöscht werden soll
+	 	 */
 	 	public void textBeitragLoeschen(Beitrag beitrag) {
 	 		
 	 		Connection con = DBConnection.connection();
@@ -139,6 +159,11 @@ public class BeitragMapper {
 	 			return;
 	 		}
 	 
+	 	/**
+	 	 * Diese Methode aktualisiert einen Beitragsdatensatz in der Datenbank
+	 	 * @param beitrag Neue Version des Beitrags
+	 	 * @return den eben aktualisierten Beitrag
+	 	 */
 		public Beitrag updateBeitrag(Beitrag beitrag){
 			
 			Connection con = DBConnection.connection();
@@ -158,7 +183,12 @@ public class BeitragMapper {
 		}
 	
 		
-		//Beitrag per ID aus der DB holen
+		
+		/**
+		 * Diese Methode gibt einen einzelnen Beitrag anhand der ID aus.
+		 * @param id Eindeutiger Identifikator des Beitrags in der Datenbank
+		 * @return Beitrag
+		 */
 		public Beitrag sucheBeitragID(int id){
 
 			Connection con = DBConnection.connection();
@@ -185,7 +215,11 @@ public class BeitragMapper {
 		}
 		
 		//Alle Beitraege die zu einer Pinnwand gehÃ¶ren (Abobeziehung)
-		
+		/**
+		 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehören, anhand der Nutzer ID in einer Liste aus
+		 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
+		 * @return Liste der Beiträge
+		 */
 		 public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id){
 
 	
@@ -224,9 +258,11 @@ public class BeitragMapper {
 			    }
 			return beitragListe;
 			}
-		 //REPORT
-		//BeitrÃ¤ge zÃ¤hlen
-			
+		
+			/**
+			 * Diese Methode gibt die gesamte Anzahl der in der Datenbank gespeicherten Beiträge zurück
+			 * @return Anzahl der Beiträge 
+			 */
 			 public int zaehleBeitraege(){
 				 int count = -1;
 				Connection con = DBConnection.connection();
@@ -249,8 +285,12 @@ public class BeitragMapper {
 
 			 }
 			 
-			 //REPORT BeitrÃ¤ge per Nutzer zÃ¤hlen
-			 
+	
+			 /**
+			  * Diese Methode gibt die Anzahl der verfassten Beiträge eines Nutzers aus
+			  * @param nutzer Nutzer, dessen Beitragsanzahl ermittelt werden soll
+			  * @return Anzahl der Beiträge  
+			  */
 			 public int zaehleBeitraegePerNutzer(Nutzer nutzer){
 				 int count = -1;
 				Connection con = DBConnection.connection();
@@ -274,7 +314,14 @@ public class BeitragMapper {
 			 }
 			 
 			 //BeitrÃ¤ge sortiert nach Likes und Datum
-			 
+			 /**
+			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Likes und Datum
+			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
+			  * @param von frühester Erstellungszeitpunkt
+			  * @param bis spätester Erstellungszeitpunkt
+			  * @param sortierung
+			  * @return Sortierte Liste der Beiträge
+			  */
 			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung) {
 					//Aufbau der DBVerbindung
 					Connection con = DBConnection.connection();
@@ -304,7 +351,14 @@ public class BeitragMapper {
 					    }				
 				}
 			 //BeitrÃ¤ge sortiert nach Kommentare und Datum
-			 
+			 /**
+			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Kommentare und Datum
+			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
+			  * @param von frühester Erstellzeitpunkt
+			  * @param bis spätester Erstellzeitpunkt
+			  * @param sortierung
+			  * @return
+			  */
 			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung) {
 					//Aufbau der DBVerbindung
 					Connection con = DBConnection.connection();

@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
-
+/**
+ * Diese Klasse bildet die Nutzerobjekte auf eine relationale Datenbank ab
+ * @author Maik
+ *
+ */
 public class NutzerMapper {
 	
 	private static NutzerMapper nutzerMapper = null;
@@ -33,7 +37,12 @@ public class NutzerMapper {
 		return nutzerMapper;
 	}
 
-	
+	/**
+	 * Diese Methode meldet den Nutzer an
+	 * @param nutzerName Name des Nutzers, der sich anmelden möchte
+	 * @param passWort eingegebenes Passwort
+	 * @return Nutzer
+	 */
 	public Nutzer loginCheckerNutzer(String nutzerName, String passWort) {
 		Connection con = DBConnection.connection();
 		Nutzer n = new Nutzer();
@@ -58,8 +67,11 @@ public class NutzerMapper {
 		}
 		return n;
 	}
-	//Alle Nutzer holen
 	
+	/**
+	 * Diese Methode gibt alle registrierten Nutzer in einer Liste aus
+	 * @return Liste aller Nutzer
+	 */
 	public ArrayList<Nutzer> sucheAlleNutzer(){
 
 		Connection con = DBConnection.connection();
@@ -99,7 +111,11 @@ public class NutzerMapper {
 	
 	//Nutzer per ID holen
 	
-	
+	/**
+	 * Diese Methode gibt einen Nutzer anhand der ID zurück
+	 * @param id Eindeutiger Identifikator eines Nutzers
+	 * @return Nutzer
+	 */
 	public Nutzer sucheNutzerID(int id){
 
 
@@ -132,7 +148,11 @@ public class NutzerMapper {
 	}
 	
 	//Die ID des Nutzer zurÃ¼ckgeben
-	
+	/**
+	 * Diese Methode gibt die ID eines Nutzers zurück
+	 * @param id Eindeutiger Identifikator eines Nutzers in der Datenbank
+	 * @return Nutzer ID
+	 */
 	public int sucheNutzerReturnID(int id){
 
 
@@ -174,8 +194,12 @@ public class NutzerMapper {
 	
 	
 	
-	//Nutzer updaten
 	
+	/**
+	 * Diese Methode aktualisiert einen Nutzerdatensatz in der Datenbank
+	 * @param n Nutzer, dessen Datensatz aktualisiert werden soll
+	 * @return Nutzer ID
+	 */
 	public Nutzer updateNutzer(Nutzer n){
 
 		Connection con = DBConnection.connection();
@@ -193,8 +217,11 @@ public class NutzerMapper {
 	    return sucheNutzerID(n.getID());
 	}
 	
-	//Nutzer lÃ¶schen
 	
+	/**
+	 * Diese Methode löscht einen Nutzer in der Datenbank
+	 * @param n Nutzer, der gelöscht werden soll
+	 */
 	public void nutzerLoeschen(Nutzer n){
 		Connection con = DBConnection.connection();
 
@@ -209,8 +236,12 @@ public class NutzerMapper {
 	    } 
 	}
 	
-	//Nutzer registrieren
 	
+	/**
+	 * Diese Methode speichert einen neuen Nutzer in der Datenbank und ordnet ihm eine Pinnwand zu
+	 * @param n Neuer Nutzer
+	 * @return Nutzer ID
+	 */
 	 public Nutzer nutzerAnlegen(Nutzer n) {
 		 System.out.println("user mÃ¼sste jetzt angelegt werden");
 		    Connection con = DBConnection.connection();
@@ -243,7 +274,11 @@ public class NutzerMapper {
 		    return sucheNutzerID(n.getID());
 	}
 	 
-	 
+	 /**
+	  * Diese Methode gibt den Nutzer anhand seines Nicknames aus
+	  * @param nickname Nickname eines Nutzers
+	  * @return Nutzer
+	  */
 	 public Nutzer getNutzerAnhandNickname(String nickname) {
 		    Connection con = DBConnection.connection();
 
@@ -278,7 +313,11 @@ public class NutzerMapper {
 		  }
 
 
-
+	 /**
+	  * Diese Methode gibt einen Nutzer anhand des nicknames zurück
+	  * @param nickname übergebener nickname
+	  * @return Nutzer
+	  */
 	 public Nutzer sucheNickname(String nickname) {
 		    Connection con = DBConnection.connection();
 
@@ -311,7 +350,11 @@ public class NutzerMapper {
 
 	return null;
 	}
-	 
+	 	/**
+	 	 * Diese Methode überprüft, ob ein nickname bereits in der Datenbank gespeichert ist 
+	 	 * @param nickName übergebener nickname
+	 	 * @return true/false, je nachdem ob der nickname schon vergeben wurde oder nicht
+	 	 */
 		public boolean sucheNickName(String nickName) {
 			Connection con = DBConnection.connection();
 			try {
@@ -330,9 +373,11 @@ public class NutzerMapper {
 		}
 	 
 	 
-	 //REPORT
-	//Nutzer zÃ¤hlen
-		
+	
+		/**
+		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zurück
+		 * @return Anzahl aller Nutzer
+		 */
 		 public int zaehleNutzer(){
 			 int count = -1;
 			Connection con = DBConnection.connection();

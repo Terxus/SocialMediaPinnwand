@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
-
+/**
+ * Diese Klasse bildet die Abonnementobjekte auf eine relationale Datenbank ab
+ * @author Maik
+ *
+ */
 public class AbonnementMapper {
 
 	private static AbonnementMapper abonnementMapper = null;
@@ -30,7 +34,11 @@ public class AbonnementMapper {
 		return abonnementMapper;
 	}
 
-	//Einzelnes Abo anzeigen
+	/**
+	 * Durch den Aufruf dieser Methode wird ein einzelnes Abonnement anhand der ID ausgegeben
+	 * @param id Eindeutiger Identifikator eines Abonnements in der Datenbank
+	 * @return Abonnement Objekt
+	 */
 	public Abonnement getAboById(int id){
 
 		Connection con = DBConnection.connection();
@@ -64,7 +72,12 @@ public class AbonnementMapper {
 	}
 
 
-	//Abonnements in einer Liste zurÃ¼ckgeben
+	
+	/**
+	 * Diese Methode gibt alle Abonnements eines Nutzern in einer Liste zurück
+	 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
+	 * @return Liste der Abonnements
+	 */
 	public ArrayList<Abonnement> getAboByNutzer(int id){
 
 		Connection con = DBConnection.connection();
@@ -98,7 +111,11 @@ public class AbonnementMapper {
 
 	}
 	
-	
+	/**
+	 * Diese Methode speichert ein neu angelegtes Abonnement in der Datenbank
+	 * @param a angelegtes Abonnement (neues Abo Objekt)
+	 * @return Das eben abgespeicherte Abo-Objekt
+	 */
 	public Abonnement abonnementAnlegen(Abonnement a){
 		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
@@ -134,8 +151,11 @@ public class AbonnementMapper {
 	    return getAboById(maxid+1);
 	}
 
-
-
+	
+	/**
+	 * Durch diese Methode wird ein Abonnement aus der Datenbank gelöscht
+	 * @param a Das Abonnement, das gelöscht werden soll
+	 */
 	public void abonnementLoeschen(Abonnement a){
 
 		Connection con = DBConnection.connection();
@@ -151,9 +171,11 @@ public class AbonnementMapper {
 	    } 
 	}
 	
-	 //REPORT
-	//Abo's zÃ¤hlen
-		
+
+		/**
+		 * Diese Methode gibt die Anzahl aller Abonnements zurück
+		 * @return Anzahl Abonnements (numerischer Wert)
+		 */
 		 public int zaehleAbonnements(){
 			 int count = -1;
 			Connection con = DBConnection.connection();
@@ -176,7 +198,12 @@ public class AbonnementMapper {
 
 		 }
 		 
-		 //Abonnenten ZÃ¤hlen per Nutzer
+		
+		 /**
+		  * Diese Methode gibt die Anzahl der Abonnements eines Nutzers zurück
+		  * @param nutzer Nutzer, dessen Abonnements gezählt werden sollen
+		  * @return Anzahl Abonnements (numerischer Wert)
+		  */
 		 public int zaehleAbonnementsPerNutzer(Nutzer nutzer){
 			 int count = -1;
 			Connection con = DBConnection.connection();

@@ -7,7 +7,11 @@ import java.sql.Statement;
 
 import de.elite.itprojekt.shared.bo.*;
 
-
+/**
+ * Diese Klasse bildet die Pinnwandobjekte auf eine relationale Datenbank ab
+ * @author Maik
+ *
+ */
 public class PinnwandMapper {
 	
 	private static PinnwandMapper pinnwandMapper = null;
@@ -33,7 +37,11 @@ public class PinnwandMapper {
 	
 	
 	
-	
+	/**
+	 * Diese Methode gibt eine einzelne Pinnwand anhand der ID zurück
+	 * @param id Eindeutiger Identifikator einer Pinnwand in der Datenbank
+	 * @return Pinnwand
+	 */
 	public Pinnwand suchePinnwandID(int id){
 
 
@@ -63,7 +71,10 @@ public class PinnwandMapper {
 	    }
 	return null;
 	}
-	
+	/**
+	 * Diese Methode löscht eine Pinnwand in der Datenbank
+	 * @param n Eindeutiger Identifikator eines Nutzers in der Datenbank
+	 */
 	public void loeschen(Nutzer n) {
 			Connection con = DBConnection.connection();
 

@@ -15,9 +15,7 @@ import com.google.cloud.sql.jdbc.Statement;
  */
 
 public class DBConnection {
-	/**
-	 * Zugangsdaten und Name der Datenbank, sowie die zugehörigen Getter und Setter
-	 */
+	
 	private static Connection con = null;
 	private static String dbHost = "localhost"; // Hostname
 	private static String dbPort = "3306";      // Port -- Standard: 3306
@@ -25,7 +23,7 @@ public class DBConnection {
 	private static String dbUser = "root";     // Datenbankuser
 	private static String dbPass = "";      // Datenbankpasswort
 
-	
+	// Getter und Setter
 	public static String getDbHost() {
 		return dbHost;
 	}
