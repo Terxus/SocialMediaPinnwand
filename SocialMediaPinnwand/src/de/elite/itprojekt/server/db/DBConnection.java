@@ -8,7 +8,16 @@ import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.google.cloud.sql.jdbc.ResultSet;
 import com.google.cloud.sql.jdbc.Statement;
 
+/**
+ * Diese Klasse dient der Verwaltung der Datenbankverbindung (Auf- und Abbau)
+ * @author Maik
+ *
+ */
+
 public class DBConnection {
+	/**
+	 * Zugangsdaten und Name der Datenbank, sowie die zugehörigen Getter und Setter
+	 */
 	private static Connection con = null;
 	private static String dbHost = "localhost"; // Hostname
 	private static String dbPort = "3306";      // Port -- Standard: 3306
@@ -16,7 +25,7 @@ public class DBConnection {
 	private static String dbUser = "root";     // Datenbankuser
 	private static String dbPass = "";      // Datenbankpasswort
 
-	//Getter und Setter
+	
 	public static String getDbHost() {
 		return dbHost;
 	}
@@ -50,6 +59,11 @@ public class DBConnection {
 	//Ende Getter und Setter
 
 	//Start der Connection
+	
+	/**
+	 * Diese Methode baut die Verbindung zur Datenbank auf.
+	 * @return con etablierte Verbindung
+	 */
 
 	public static Connection connection() {
 		if (con == null) { //Checken ob bereits eine Verbindung besteht
