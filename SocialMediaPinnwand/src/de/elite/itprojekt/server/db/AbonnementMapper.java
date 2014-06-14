@@ -8,7 +8,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 /**
  * Diese Klasse bildet die Abonnementobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin Auwï¿½rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class AbonnementMapper {
@@ -74,7 +74,7 @@ public class AbonnementMapper {
 
 	
 	/**
-	 * Diese Methode gibt alle Abonnements eines Nutzern in einer Liste zurück
+	 * Diese Methode gibt alle Abonnements eines Nutzern in einer Liste zurï¿½ck
 	 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
 	 * @return Liste der Abonnements
 	 */
@@ -153,8 +153,8 @@ public class AbonnementMapper {
 
 	
 	/**
-	 * Durch diese Methode wird ein Abonnement aus der Datenbank gelöscht
-	 * @param a Das Abonnement, das gelöscht werden soll
+	 * Durch diese Methode wird ein Abonnement aus der Datenbank gelï¿½scht
+	 * @param a Das Abonnement, das gelï¿½scht werden soll
 	 */
 	public void abonnementLoeschen(Abonnement a){
 
@@ -173,7 +173,7 @@ public class AbonnementMapper {
 	
 
 		/**
-		 * Diese Methode gibt die Anzahl aller Abonnements zurück
+		 * Diese Methode gibt die Anzahl aller Abonnements zurï¿½ck
 		 * @return Anzahl Abonnements (numerischer Wert)
 		 */
 		 public int zaehleAbonnements(){
@@ -200,8 +200,8 @@ public class AbonnementMapper {
 		 
 		
 		 /**
-		  * Diese Methode gibt die Anzahl der Abonnements eines Nutzers zurück
-		  * @param nutzer Nutzer, dessen Abonnements gezählt werden sollen
+		  * Diese Methode gibt die Anzahl der Abonnements eines Nutzers zurï¿½ck
+		  * @param nutzer Nutzer, dessen Abonnements gezï¿½hlt werden sollen
 		  * @return Anzahl Abonnements (numerischer Wert)
 		  */
 		 public int zaehleAbonnementsPerNutzer(Nutzer nutzer){
@@ -223,7 +223,7 @@ public class AbonnementMapper {
 		    		e.printStackTrace();
 		    }
 			return count;
-
+//
 		 }
 
 }
