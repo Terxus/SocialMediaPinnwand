@@ -102,7 +102,7 @@ public class LikeMapper {
 		    }
 		}
 		
-		//Checken ob beitrag schon von Nutzer geliked wurde - Noch nicht implementiert
+		//Checken ob beitrag schon von Nutzer geliked wurde
 		
 		public boolean likeUeberpruefung(Nutzer n, Beitrag b) {
 			Connection con = DBConnection.connection();

@@ -206,12 +206,6 @@ public class BeitragMapper {
 				        b.setText((rs.getString("Text")));
 				        b.setLikeId((rs.getInt("Like_ID")));
 				        b.setPinnwand(PinnwandMapper.pinnwandMapper().suchePinnwandID(rs.getInt("Nutzer_ID")));
-				        //Likes in Array
-				        //b.setLikeList(LikeMapper.likeMapper().findeDurchId(rs.getInt("Beitrag_ID")));
-
-				        //Kommentare zu jeweiligen Beitrag im Array
-				        b.setKommentarListe(KommentarMapper.kommentarMapper().findeDurchId(rs.getInt("Beitrag_ID")));
-
 				        			       
 
 				        beitragListe.add(b);
