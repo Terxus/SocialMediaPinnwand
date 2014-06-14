@@ -145,39 +145,15 @@ public class NutzerLogin {
 					navi.addNavigation(result);
 					navi.getAbonnierteNutzerListe(result);
 					
-					//Zeigt nur eigene an
+					//Zeigt alle Beiträge an
 					beitrag.setNutzer(result);
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
-					
-					
-					//Zeigt Abobeiträge an
-			//		beitrag.abonnementBeitraegeAnzeigen(result);
-					
-
-		//			PinnwandDarstellung pnd = new PinnwandDarstellung();
-		//			pnd.zeigeAlleBeitraege(result);
+	
 					logger.severe("Pinnwand geladen!");
 					
 				}
 			});
-		  
-
-		//KommentarErstellen kommentar = new KommentarErstellen();
-		  
-		/*  
-	    final Label welcomeMsg = new Label("welcome");
-	    welcomeMsg.addStyleName("welcomeMsg");*/
-		
-	    
-	 
-	    //beitrag.beitragAnzeigen();
-	    
-	    
-	    //kommentar.addKommentar();
-	    
-	    /*RootPanel.get("Header").add(welcomeMsg);
-		Window.alert("New page loaded");*/
 	  }
 	  
 	  public void refreshPinnwand() {
@@ -190,17 +166,7 @@ public class NutzerLogin {
 				@Override
 				public void onSuccess(Nutzer result) {
 					setNutzer(result);
-					/*
-					//Contentobjekte Erzeugen
-					Navigation navi = new Navigation();
-					BeitragErstellen beitrag = new BeitragErstellen();
-					
-					//Beiträge Anzeigen lassen per User
-					beitrag.zeigeAlleBeitraege(result);
-					navi.addNavigation(result);
-					navi.getAbonnierteNutzerListe(result);
-					beitrag.beitragHinzufuegen();
-					*/
+	
 					
 					BeitragErstellen beitrag = new BeitragErstellen();
 					Navigation navi = new Navigation();
@@ -209,39 +175,14 @@ public class NutzerLogin {
 					navi.addNavigation(result);
 					navi.getAbonnierteNutzerListe(result);
 					
-					//Zeigt nur eigene an
+					//Alle Beiträge anzeigen
 					beitrag.zeigeAlleBeitraege(result);
 					beitrag.beitragHinzufuegen();
 					logger.severe("Pinnwand neu geladen!");
-					
-					//Zeigt abobeiträge an
-				//	beitrag.abonnementBeitraegeAnzeigen(result);
+
 					
 				}
-			});
-
-		  /*
-		  //Contentobjekte erzeugen
-			Navigation navi = new Navigation();
-			BeitragErstellen beitrag = new BeitragErstellen();
-			
-			
-			//Beiträge wieder anzeigen
-			
-			beitrag.zeigeAlleBeitraege(holeNutzer());
-			
-			
-			//KommentarErstellen kommentar = new KommentarErstellen();
-			
-			//Contentobjektmethode zum aufbauen aufrufen
-			
-			navi.addNavigation();
-			//beitrag.beitragAnzeigen();
-			beitrag.beitragHinzufuegen();
-			//kommentar.addKommentar();
-			 * 
-			 */
-		  
+			});		  
 	  }
 	  
 	  
