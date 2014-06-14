@@ -20,8 +20,6 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class SocialMediaPinnwand implements EntryPoint {
 	
-
-	
 	private static final String LOGGER_NAME = "Social Media";
 	private static final Logger log = Logger.getLogger(LOGGER_NAME);
 	public static Logger getLogger() {
@@ -30,12 +28,7 @@ public class SocialMediaPinnwand implements EntryPoint {
 	
 	public final Nutzer n = new Nutzer();
 	
-	/*
-	 *
-	 * Remote proxy call
-	 */
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
-	
 	
 	  /**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
@@ -48,19 +41,27 @@ public class SocialMediaPinnwand implements EntryPoint {
 	  
 	  String cookie = Cookies.getCookie("gp5cookie");
 	  
-	  if(cookie == null) { // Wenn noch kein Cookie existiert loginseite Laden
+	  if(cookie == null) {
+		  
+		  /**
+		   * Wenn noch kein Cookie mit dem Namen <b>gp5cookie</b> im Browser des Anwenders existiert,
+		   * dann soll die Loginseite geladen werden.
+		   */
 	  
 		  NutzerLogin startSeite = new NutzerLogin();
 		  startSeite.loadLoginView();
-		  System.out.println("Cookie ist nicht da");
+		  System.out.println("Cookie ist nicht vorhanden");
 	  }
-	  else { // Wenn schon ein Cookie mit dem Namen gp5cookie existiert dann soll direkt die Pinnwand geladen werden.
-
+	  else {
 		  
+		  /**
+		   * Wenn ein Cookie mit dem Namen <b>gp5cookie</b> vorhanden ist, dann soll die Pinnwand geladen werden.
+		   * In der Klasse NutzerLogin existiert dann eine weitere Nutzerüberprüfungsinstanz.
+		   */
 		  
 		  NutzerLogin startSeite = new NutzerLogin();
 		  startSeite.loadPinnwand();
-		  System.out.println("Cookie ist da" + " " + Cookies.getCookie("gp5cookie"));
+		  System.out.println("Cookie mit der ID:" + " " + Cookies.getCookie("gp5cookie") + " " + "ist vorhanden");
 	  }
   }
 }
