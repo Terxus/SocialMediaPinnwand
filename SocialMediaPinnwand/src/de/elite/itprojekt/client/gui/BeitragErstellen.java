@@ -61,13 +61,13 @@ public class BeitragErstellen {
 	private static Nutzer nutzer;
 	
 	/**
-	 * service heisst unsere Proxyreferenz welches mit dem Server interagiert.
+	 * <b>service</b> heißt unsere Proxyreferenz, welche mit dem Server interagiert.
 	 */
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); 
 	
 	/**
-	 * Hier wird der aktuell eingeloggter Nutzer festgelegt.
+	 * Hier wird der aktuell eingeloggte Nutzer festgelegt.
 	 * @param nutzer
 	 */
 	
