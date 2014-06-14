@@ -23,7 +23,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Klasse ist die Implementierungsklasse des Interfaces PinnwandVerwaltung. Enthalten sind alle Methoden die von der GUI benötigt werden. Diese Klasse enthält die entsprechende Applikationslogik und greift auf die verschiedenen Mapper zu.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auw�rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * 
 	 *
 	 */

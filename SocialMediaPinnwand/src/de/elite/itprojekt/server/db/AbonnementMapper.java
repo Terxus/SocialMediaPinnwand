@@ -8,7 +8,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 /**
  * Diese Klasse bildet die Abonnementobjekte auf eine relationale Datenbank ab
- * @author Maik
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class AbonnementMapper {

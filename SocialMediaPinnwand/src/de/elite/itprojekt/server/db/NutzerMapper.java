@@ -11,7 +11,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 /**
  * Diese Klasse bildet die Nutzerobjekte auf eine relationale Datenbank ab
- * @author Maik
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class NutzerMapper {

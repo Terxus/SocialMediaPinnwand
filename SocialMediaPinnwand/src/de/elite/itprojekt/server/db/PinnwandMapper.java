@@ -9,7 +9,7 @@ import de.elite.itprojekt.shared.bo.*;
 
 /**
  * Diese Klasse bildet die Pinnwandobjekte auf eine relationale Datenbank ab
- * @author Maik
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class PinnwandMapper {
