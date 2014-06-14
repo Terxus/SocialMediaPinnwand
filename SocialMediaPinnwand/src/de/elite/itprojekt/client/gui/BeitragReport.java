@@ -87,9 +87,7 @@ public class BeitragReport extends SplitLayoutPanel {
 							detailTable.setWidget(i+1, 2, likesLabeldetail);
 							
 							//Styles
-							beitragLabelheader.setStylePrimaryName("bold");
-							kommentarLabelheader.setStylePrimaryName("bold");
-							likesLabelheader.setStylePrimaryName("bold");
+							detailTable.getRowFormatter().addStyleName(0, "detailTableHeader");
 							detailTable.setStylePrimaryName("detailTable");
 							
 	
@@ -160,9 +158,7 @@ public class BeitragReport extends SplitLayoutPanel {
 							detailTable.setWidget(i+1, 2, likesLabeldetail);
 							
 							//Styles
-							beitragLabelheader.setStylePrimaryName("bold");
-							kommentarLabelheader.setStylePrimaryName("bold");
-							likesLabelheader.setStylePrimaryName("bold");
+							detailTable.getRowFormatter().addStyleName(0, "detailTableHeader");
 							detailTable.setStylePrimaryName("detailTable");
 						
 							i++;

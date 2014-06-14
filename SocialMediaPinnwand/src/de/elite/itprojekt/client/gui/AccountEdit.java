@@ -68,7 +68,8 @@ public class AccountEdit {
 	private Label PasswortLabel = new Label("Passwort:");
 	private Label Email;
 	private Label EmailLabel = new Label("Email:");
-	private Button bestaetigenButton;
+	private Button bestaetigenLoeschenButton;
+	private Button bestaetigenEditierenButton;
 	FlexTable editUser = new FlexTable();
 	
 	//Textboxen für Änderungen
@@ -95,10 +96,11 @@ public class AccountEdit {
 		this.Nickname = new Label("");
 		this.Passwort = new Label("");
 		this.Email = new Label("");
-		this.bestaetigenButton = new Button("Bestaetigen");
+		this.bestaetigenLoeschenButton = new Button("Bestätigen");
+		this.bestaetigenEditierenButton = new Button("Bestätigen");
 		
-		this.bestaetigenButton.setEnabled(false);
-
+		this.bestaetigenLoeschenButton.setVisible(false);
+		this.bestaetigenEditierenButton.setVisible(false);
 		
 		editUser.setWidget(0, 0, VornamenLabel);
 		editUser.setWidget(0, 1, Vorname);
@@ -110,7 +112,8 @@ public class AccountEdit {
 		editUser.setWidget(3, 1, Passwort);
 		editUser.setWidget(4, 0, EmailLabel);
 		editUser.setWidget(4, 1, Email);
-		editUser.setWidget(6, 0, bestaetigenButton);
+		editUser.setWidget(6, 0, bestaetigenLoeschenButton);
+		editUser.setWidget(7, 0, bestaetigenEditierenButton);
 		editUser.setWidget(6, 1, accountDelLabel);
 		editUser.setWidget(6, 2, deleteAccountButton);
 		
@@ -132,15 +135,19 @@ public class AccountEdit {
 		this.Nickname.addClickHandler(new infoClickHandler());
 		this.Email.addClickHandler(new infoClickHandler());
 		this.Passwort.addClickHandler(new infoClickHandler());
-		this.bestaetigenButton.addClickHandler(new okButtonClickHandler());
+		this.bestaetigenEditierenButton.addClickHandler(new okButtonClickHandler());
+		this.bestaetigenLoeschenButton.addClickHandler(new bestaetigenLoeschenButton());
 		this.deleteAccountButton.addClickHandler(new deleteAccountButtonClickHandler());
 	}
 	//Vorname 
 	private class infoClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
+			bestaetigenEditierenButton.setVisible(true);
+			accountDelLabel.setVisible(false);
+			deleteAccountButton.setVisible(false);		
 			nutzerDatenAendern();
-			bestaetigenButton.setEnabled(true);
+		
 		}
 	}
 	//Umwandlungen der Labels zu Textboxen
@@ -156,6 +163,8 @@ public class AccountEdit {
 		editUser.setWidget(3, 1, passWortTextBox);
 		eMailTextBox.setText(this.Email.getText().toString()); 
 		editUser.setWidget(4, 1, eMailTextBox);
+		accountDelLabel.setVisible(false);
+		deleteAccountButton.setVisible(false);		
 	}
 
 	//Bestätige Ergebnisse
@@ -207,8 +216,10 @@ public class AccountEdit {
 				editUser.setWidget(2, 1, Nickname);
 				editUser.setWidget(3, 1, Passwort);
 				editUser.setWidget(4, 1, Email);
-				bestaetigenButton.setEnabled(false);
+				bestaetigenEditierenButton.setVisible(false);
 				Window.alert("Nutzerdaten geaendert!");
+				accountDelLabel.setVisible(true);
+				deleteAccountButton.setVisible(true);
 			}
 		});
 	}
@@ -217,7 +228,15 @@ public class AccountEdit {
 	private class deleteAccountButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			nutzerLoeschen();
+			Window.alert("Bitte klicken Sie auf bestätigen wenn Sie ihren Account löschen wollen!");
+			bestaetigenLoeschenButton.setVisible(true);
+		}
+	}
+	
+	private class bestaetigenLoeschenButton implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+		nutzerLoeschen();
 		}
 	}
 	

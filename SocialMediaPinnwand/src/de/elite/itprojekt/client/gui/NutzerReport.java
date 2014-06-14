@@ -30,11 +30,11 @@ public class NutzerReport extends VerticalPanel{
 		//Untere Beitragsliste
 		
 		static FlexTable detailTable = new FlexTable();
-		private static Label beitragLabeldetail = new Label("Nutzer");
+		private static Label nutzerLabeldetail = new Label("Nutzer");
 		private static Label kommentarLabeldetail = new Label("Kommentare");
 		private static Label likesLabeldetail = new Label("Likes");
 
-		private static Label beitragLabelheader = new Label("Nutzer");
+		private static Label nutzerLabelheader = new Label("Nutzer");
 		private static Label kommentarLabelheader = new Label("Kommentare");
 		private static Label likesLabelheader = new Label("Likes");
 	
@@ -71,7 +71,7 @@ public class NutzerReport extends VerticalPanel{
 				int i = 0;
 				for (Nutzer n : nutzer) {
 					
-					beitragLabeldetail = new Label(n.getVorname() +" " +n.getNachname());
+					nutzerLabeldetail = new Label(n.getVorname() +" " +n.getNachname());
 					kommentarLabeldetail = new Label(String.valueOf(n.getKommentarAnzahl()));
 					likesLabeldetail = new Label(String.valueOf(n.getLikeAnzahl()));
 					
@@ -80,18 +80,16 @@ public class NutzerReport extends VerticalPanel{
 					detailTable.getFlexCellFormatter().setWidth(1,1,"30%"); 
 					detailTable.getFlexCellFormatter().setWidth(1,2,"10%"); 
 
-					detailTable.setWidget(0, 0, beitragLabelheader);
+					detailTable.setWidget(0, 0, nutzerLabelheader);
 					detailTable.setWidget(0, 1, kommentarLabelheader);
 					detailTable.setWidget(0, 2, likesLabelheader);
 					
-					detailTable.setWidget(i+1, 0, beitragLabeldetail);
+					detailTable.setWidget(i+1, 0, nutzerLabeldetail);
 					detailTable.setWidget(i+1, 1, kommentarLabeldetail);
 					detailTable.setWidget(i+1, 2, likesLabeldetail);
 					
 					//Styles
-					beitragLabelheader.setStylePrimaryName("bold");
-					kommentarLabelheader.setStylePrimaryName("bold");
-					likesLabelheader.setStylePrimaryName("bold");
+					detailTable.getRowFormatter().addStyleName(0, "detailTableHeader");
 					detailTable.setStylePrimaryName("detailTable");
 					
 					i++;
@@ -139,7 +137,7 @@ public class NutzerReport extends VerticalPanel{
 				for (Nutzer n : nutzer) {
 
 					
-					beitragLabeldetail = new Label(n.getVorname() +" " +n.getNachname());
+					nutzerLabeldetail = new Label(n.getVorname() +" " +n.getNachname());
 					kommentarLabeldetail = new Label(String.valueOf(n.getKommentarAnzahl()));
 					likesLabeldetail = new Label(String.valueOf(n.getLikeAnzahl()));
 					
@@ -149,18 +147,16 @@ public class NutzerReport extends VerticalPanel{
 					detailTable.getFlexCellFormatter().setWidth(1,2,"10%");
 
 
-					detailTable.setWidget(0, 0, beitragLabelheader);
+					detailTable.setWidget(0, 0, nutzerLabelheader);
 					detailTable.setWidget(0, 1, kommentarLabelheader);
 					detailTable.setWidget(0, 2, likesLabelheader);
 					
-					detailTable.setWidget(i+1, 0, beitragLabeldetail);
+					detailTable.setWidget(i+1, 0, nutzerLabeldetail);
 					detailTable.setWidget(i+1, 1, kommentarLabeldetail);
 					detailTable.setWidget(i+1, 2, likesLabeldetail);
 					
 					//Styles
-					beitragLabelheader.setStylePrimaryName("bold");
-					kommentarLabelheader.setStylePrimaryName("bold");
-					likesLabelheader.setStylePrimaryName("bold");
+					detailTable.getRowFormatter().addStyleName(0, "detailTableHeader");
 					detailTable.setStylePrimaryName("detailTable");
 					
 					i++;
@@ -187,7 +183,6 @@ public class NutzerReport extends VerticalPanel{
 
 			VerticalPanel vPanelRep = new VerticalPanel();
 			VerticalPanel vPanelDetailRep = new VerticalPanel();
-			FlexTable repTable = new FlexTable();
 			Label nutzerLabel = new Label();
 			Label aboLabelrep = new Label();
 			Label beitragLabelrep = new Label();
@@ -282,7 +277,7 @@ public class NutzerReport extends VerticalPanel{
 		
 		//NUTZER ANZEIGE
 
-		nutzerLabel.setStyleName("bold");
+
 		detailTable.setWidget(0, 0, nutzerLabel);
 		detailTable.setWidget(1, 0, aboLabelrep);
 		detailTable.setWidget(2, 0, beitragLabelrep);
@@ -292,7 +287,8 @@ public class NutzerReport extends VerticalPanel{
 		
 		detailTable.setWidth("400px");
 
-
+		detailTable.getRowFormatter().addStyleName(0, "detailTableHeader");
+		detailTable.setStylePrimaryName("detailTable");
 		vPanelRep.add(detailTable);
 		RootPanel.get("Beitrag").add(vPanelRep);
 
