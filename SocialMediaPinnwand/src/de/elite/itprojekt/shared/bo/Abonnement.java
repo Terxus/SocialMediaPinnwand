@@ -3,7 +3,9 @@ package de.elite.itprojekt.shared.bo;
 public class Abonnement extends BusinessObject {
 
 	/**
-	 * Diese Klasse bildet die Abonnementobjekte auf eine relationale Datenbank ab
+	 * Diese Klasse bildet die Abonnements ab. Ein Abonnemnt ist eine Beziehung zwischen
+	 * einer Pinnwand und einer anderen. Ein Nutzer erhält alle Beiträge des Nutzers, den
+	 * er Abonniert hat.
 	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @version 1.0
 	 */
