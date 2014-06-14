@@ -125,7 +125,7 @@ public class Beitrag extends Textbeitrag {
 	}
 	
 	/**
-	 * Diese Methode vergleicht jeweils unterschiedliche Beiträge, und die Gesamtanzahl der Likes.
+	 * Diese Methode sortiert die Beitragsobjekte, anhand der Gesamtzahl der Likes in absteigender Reihenfolge.
 	 * @return
 	 */
 	
@@ -140,7 +140,7 @@ public class Beitrag extends Textbeitrag {
 	}
 	
 	/**
-	 * Diese Methode vergleicht jeweils unterschiedliche Beiträge, und die Gesamtanzahl der Kommentare.
+	 * Diese Methode sortiert die Beitragsobjekte, anhand der Gesamtzahl der Likes in absteigender Reihenfolge.
 	 * @return
 	 */
 	

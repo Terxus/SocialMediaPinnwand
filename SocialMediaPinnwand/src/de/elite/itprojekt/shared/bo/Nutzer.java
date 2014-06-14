@@ -162,7 +162,7 @@ public class Nutzer extends BusinessObject implements Comparator<Nutzer> {
 	}
 	
 	/**
-	 * Diese Methode vergleicht jeweils unterschiedliche Nutzer, und die Gesamtanzahl der Likes.
+	 * Diese Methode sortiert die Nutzerobjekte, anhand der Gesamtzahl der Likes in absteigender Reihenfolge.
 	 * @return 
 	 */
 	
@@ -177,7 +177,7 @@ public class Nutzer extends BusinessObject implements Comparator<Nutzer> {
 	}
 	
 	/**
-	 * Diese Methode vergleicht jeweils unterschiedliche Nutzer, und die Gesamtzahl der Kommentare.
+	 * Diese Methode sortiert die Nutzerobjekte, anhand der Gesamtzahl der Kommentare in absteigender Reihenfolge.
 	 * @return
 	 */
 	  

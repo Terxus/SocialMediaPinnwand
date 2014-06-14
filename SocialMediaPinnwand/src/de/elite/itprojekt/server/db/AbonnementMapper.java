@@ -7,6 +7,11 @@ import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
+/**
+ * Diese Klasse bildet die Abonnementobjekte auf eine relationale Datenbank ab
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ *
+ */
 public class AbonnementMapper {
 
 	private static AbonnementMapper abonnementMapper = null;
@@ -30,7 +35,11 @@ public class AbonnementMapper {
 		return abonnementMapper;
 	}
 
-	//Einzelnes Abo anzeigen
+	/**
+	 * Durch den Aufruf dieser Methode wird ein einzelnes Abonnement anhand der ID ausgegeben
+	 * @param id Eindeutiger Identifikator eines Abonnements in der Datenbank
+	 * @return Abonnement Objekt
+	 */
 	public Abonnement getAboById(int id){
 
 		Connection con = DBConnection.connection();
@@ -43,7 +52,7 @@ public class AbonnementMapper {
 
 
 			if (rs.next()) {
-		
+
 				Abonnement a = new Abonnement();
 		        a.setID(rs.getInt("Abonnement_ID"));
 		        a.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -64,7 +73,12 @@ public class AbonnementMapper {
 	}
 
 
-	//Abonnements in einer Liste zurückgeben
+
+	/**
+	 * Diese Methode gibt alle Abonnements eines Nutzern in einer Liste zurück
+	 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
+	 * @return Liste der Abonnements
+	 */
 	public ArrayList<Abonnement> getAboByNutzer(int id){
 
 		Connection con = DBConnection.connection();
@@ -77,13 +91,13 @@ public class AbonnementMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Abonnement WHERE Nutzer_ID="+id);
 
 			while (rs.next()) {
-	
+
 				Abonnement a = new Abonnement();
 		        a.setID(rs.getInt("Abonnement_ID"));
 		        a.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 		        a.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
 		        a.setPinnwand(PinnwandMapper.pinnwandMapper().suchePinnwandID(rs.getInt("Pinnwand_ID")));
-	
+
 		        aboListe.add(a);
 
 		      }
@@ -93,12 +107,16 @@ public class AbonnementMapper {
 	    catch (SQLException e) {
 	    		e.printStackTrace();
 	    }
-		
+
 		return aboListe;
 
 	}
-	
-	
+
+	/**
+	 * Diese Methode speichert ein neu angelegtes Abonnement in der Datenbank
+	 * @param a angelegtes Abonnement (neues Abo Objekt)
+	 * @return Das eben abgespeicherte Abo-Objekt
+	 */
 	public Abonnement abonnementAnlegen(Abonnement a){
 		//Aufbau der DBVerbindung
 		Connection con = DBConnection.connection();
@@ -108,13 +126,13 @@ public class AbonnementMapper {
 		try{
 			Statement stmt = con.createStatement();
 
-	     
+
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(Abonnement_ID) AS maxid "
 	          + "FROM Abonnement ");
 
-	      
+
 	      if (rs.next()) {
-		      
+
 	    	  	maxid=rs.getInt("maxid");
 		        a.setID(rs.getInt("maxid") + 1);
 
@@ -135,7 +153,10 @@ public class AbonnementMapper {
 	}
 
 
-
+	/**
+	 * Durch diese Methode wird ein Abonnement aus der Datenbank gelöscht
+	 * @param a Das Abonnement, das gelöscht werden soll
+	 */
 	public void abonnementLoeschen(Abonnement a){
 
 		Connection con = DBConnection.connection();
@@ -150,10 +171,12 @@ public class AbonnementMapper {
 	      e.printStackTrace();
 	    } 
 	}
-	
-	 //REPORT
-	//Abo's zählen
-		
+
+
+		/**
+		 * Diese Methode gibt die Anzahl aller Abonnements zur�ck
+		 * @return Anzahl Abonnements (numerischer Wert)
+		 */
 		 public int zaehleAbonnements(){
 			 int count = -1;
 			Connection con = DBConnection.connection();
@@ -175,8 +198,13 @@ public class AbonnementMapper {
 			return count;
 
 		 }
-		 
-		 //Abonnenten Zählen per Nutzer
+
+
+		 /**
+		  * Diese Methode gibt die Anzahl der Abonnements eines Nutzers zur�ck
+		  * @param nutzer Nutzer, dessen Abonnements gezählt werden sollen
+		  * @return Anzahl Abonnements (numerischer Wert)
+		  */
 		 public int zaehleAbonnementsPerNutzer(Nutzer nutzer){
 			 int count = -1;
 			Connection con = DBConnection.connection();
@@ -196,7 +224,7 @@ public class AbonnementMapper {
 		    		e.printStackTrace();
 		    }
 			return count;
-
+//
 		 }
 
 }

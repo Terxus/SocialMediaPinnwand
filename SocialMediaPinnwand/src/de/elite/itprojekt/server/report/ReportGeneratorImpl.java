@@ -140,7 +140,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	@Override
 	public ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis) {
 		// TODO Auto-generated method stub
-		return BeitragMapper.beitragMapper().alleBeitraegeNachLikes(von, bis);
+		return BeitragMapper.beitragMapper().alleBeitraegeNachZeitraum(von, bis);
 	}
 
 }

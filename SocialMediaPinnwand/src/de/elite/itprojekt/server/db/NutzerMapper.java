@@ -6,12 +6,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import de.elite.itprojekt.shared.bo.Beitrag;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
 
+/**
+ * Diese Klasse bildet die Nutzerobjekte auf eine relationale Datenbank ab
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ *
+ */
 public class NutzerMapper {
-	
+
 	private static NutzerMapper nutzerMapper = null;
 
 	/**
@@ -33,7 +37,12 @@ public class NutzerMapper {
 		return nutzerMapper;
 	}
 
-	
+	/**
+	 * Diese Methode meldet den Nutzer an
+	 * @param nutzerName Name des Nutzers, der sich anmelden möchte
+	 * @param passWort eingegebenes Passwort
+	 * @return Nutzer
+	 */
 	public Nutzer loginCheckerNutzer(String nutzerName, String passWort) {
 		Connection con = DBConnection.connection();
 		Nutzer n = new Nutzer();
@@ -58,8 +67,11 @@ public class NutzerMapper {
 		}
 		return n;
 	}
-	//Alle Nutzer holen
-	
+
+	/**
+	 * Diese Methode gibt alle registrierten Nutzer in einer Liste aus
+	 * @return Liste aller Nutzer
+	 */
 	public ArrayList<Nutzer> sucheAlleNutzer(){
 
 		Connection con = DBConnection.connection();
@@ -71,7 +83,7 @@ public class NutzerMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer");
 
 			while (rs.next()) {
-				
+
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
 		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -81,7 +93,8 @@ public class NutzerMapper {
 		        n.seteMail(rs.getString("Email"));
 		        n.setNickname(rs.getString("Nickname"));
 
-		        
+
+		        //Pinnwand und Abonnement?! :D
 
 		        //NutzerObjekte der ArrayList hinzufügen
 		        alleNutzer.add(n);
@@ -95,10 +108,14 @@ public class NutzerMapper {
 	//Falls keines gefunden leeres Objekt
 	return alleNutzer;
 	}
-	
+
 	//Nutzer per ID holen
-	
-	
+
+	/**
+	 * Diese Methode gibt einen Nutzer anhand der ID zurück
+	 * @param id Eindeutiger Identifikator eines Nutzers
+	 * @return Nutzer
+	 */
 	public Nutzer sucheNutzerID(int id){
 
 
@@ -109,7 +126,7 @@ public class NutzerMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer WHERE Nutzer_ID=" + id );
 
 			if (rs.next()) {
-				
+
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
 		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -129,9 +146,13 @@ public class NutzerMapper {
 	    }
 	return null;
 	}
-	
+
 	//Die ID des Nutzer zurückgeben
-	
+	/**
+	 * Diese Methode gibt die ID eines Nutzers zurück
+	 * @param id Eindeutiger Identifikator eines Nutzers in der Datenbank
+	 * @return Nutzer ID
+	 */
 	public int sucheNutzerReturnID(int id){
 
 
@@ -142,7 +163,7 @@ public class NutzerMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzer WHERE Nutzer_ID=" + id );
 
 			if (rs.next()) {
-				
+
 		        Nutzer n = new Nutzer();
 		        n.setID(rs.getInt("Nutzer_ID"));
 		        n.setErstellZeitpunkt(rs.getTimestamp("Datum"));
@@ -163,15 +184,29 @@ public class NutzerMapper {
 	return 0;
 	}
 
-	//Nutzer updaten
-	
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Diese Methode aktualisiert einen Nutzerdatensatz in der Datenbank
+	 * @param n Nutzer, dessen Datensatz aktualisiert werden soll
+	 * @return Nutzer ID
+	 */
 	public Nutzer updateNutzer(Nutzer n){
 
 		Connection con = DBConnection.connection();
 
 	    try {
 	      Statement stmt = con.createStatement();
-	      
+
 	      stmt.executeUpdate("UPDATE Nutzer " + "SET Vorname= \"" + n.getVorname() + "\", " + "Nachname=\"" + n.getNachname() + "\", " + "Email= \"" + n.geteMail() + "\",     " + "Passwort= \"" + n.getPassWort() + "\",                                  " + "Nickname= \""  + n.getNickname() +  "\"" + "WHERE Nutzer_ID=" + n.getID());
 
 	    }
@@ -181,24 +216,32 @@ public class NutzerMapper {
 
 	    return sucheNutzerID(n.getID());
 	}
-	
-	//Nutzer löschen
-	
+
+
+	/**
+	 * Diese Methode löscht einen Nutzer in der Datenbank
+	 * @param n Nutzer, der gelöscht werden soll
+	 */
 	public void nutzerLoeschen(Nutzer n){
 		Connection con = DBConnection.connection();
 
 	    try {
 	      Statement stmt = con.createStatement();
 	      stmt.executeUpdate("DELETE FROM Nutzer WHERE Nutzer_ID=" + n.getID());
-	      
+
+	    //  PinnwandMapper.pinnwandMapper().loeschen(n);
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
 	    } 
 	}
-	
-	//Nutzer registrieren
-	
+
+
+	/**
+	 * Diese Methode speichert einen neuen Nutzer in der Datenbank und ordnet ihm eine Pinnwand zu
+	 * @param n Neuer Nutzer
+	 * @return Nutzer ID
+	 */
 	 public Nutzer nutzerAnlegen(Nutzer n) {
 		 System.out.println("user müsste jetzt angelegt werden");
 		    Connection con = DBConnection.connection();
@@ -208,7 +251,7 @@ public class NutzerMapper {
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(Nutzer_ID) AS maxid "
 		          + "FROM Nutzer ");
 		      if (rs.next()) {
-		        
+
 		        n.setID(rs.getInt("maxid") + 1);
 
 		        stmt = con.createStatement();
@@ -217,21 +260,25 @@ public class NutzerMapper {
 							+ n.getVorname() + "', '" + n.getNachname() + "', '" + n.getNickname() + "','" + n.getPassWort()
 							+ "','" + n.geteMail() + "','" + n.getErstellZeitpunkt()  + "')");
 			           }
-		      
+
 		      //Dem registrierten Nutzer eine Pinnwand zuordnen
 
 		      stmt.executeUpdate ("INSERT INTO Pinnwand " + "VALUES (" + n.getID() + ", '"
 						+ n.getErstellZeitpunkt() + "', '" + n.getID() + "', '" + n.getID() + "')");
-		      
-		      
+
+
 		    }
 		    catch (SQLException e) {
 		      e.printStackTrace();
 		    }
 		    return sucheNutzerID(n.getID());
 	}
-	 
-	 
+
+	 /**
+	  * Diese Methode gibt den Nutzer anhand seines Nicknames aus
+	  * @param nickname Nickname eines Nutzers
+	  * @return Nutzer
+	  */
 	 public Nutzer getNutzerAnhandNickname(String nickname) {
 		    Connection con = DBConnection.connection();
 
@@ -266,7 +313,11 @@ public class NutzerMapper {
 		  }
 
 
-
+	 /**
+	  * Diese Methode gibt einen Nutzer anhand des nicknames zurück
+	  * @param nickname übergebener nickname
+	  * @return Nutzer
+	  */
 	 public Nutzer sucheNickname(String nickname) {
 		    Connection con = DBConnection.connection();
 
@@ -299,7 +350,11 @@ public class NutzerMapper {
 
 	return null;
 	}
-	 
+	 	/**
+	 	 * Diese Methode überprüft, ob ein nickname bereits in der Datenbank gespeichert ist 
+	 	 * @param nickName übergebener nickname
+	 	 * @return true/false, je nachdem ob der nickname schon vergeben wurde oder nicht
+	 	 */
 		public boolean sucheNickName(String nickName) {
 			Connection con = DBConnection.connection();
 			try {
@@ -316,11 +371,13 @@ public class NutzerMapper {
 			}
 
 		}
-	 
-	 
-	 //REPORT
-	//Nutzer zählen
-		
+
+
+
+		/**
+		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zur�ck
+		 * @return Anzahl aller Nutzer
+		 */
 		 public int zaehleNutzer(){
 			 int count = -1;
 			Connection con = DBConnection.connection();
@@ -328,7 +385,7 @@ public class NutzerMapper {
 			try {
 				Statement stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Nutzer");
+				ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM nutzer");
 
 				while (rs.next()) {
 			        count=rs.getInt(1);
@@ -342,9 +399,15 @@ public class NutzerMapper {
 			return count;
 
 		 }
-		 
+
+
+		 /**
+	      * Diese Methode gibt alle Nutzer aus die sich in einem bestimmten Zeitpunkt registriert haben.
+		  * @param String von, String bis
+		  * @return Lister der Nutzer
+		  */
 		//Alle Nutzer innerhalb eines Zeitraums ausgeben
-		 
+
 		 public ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis) {
 				//Aufbau der DBVerbindung
 				Connection con = DBConnection.connection();
@@ -375,12 +438,9 @@ public class NutzerMapper {
 			    		return null;
 				    }				
 			}
-		
-	 
-	 
-	 
-	 
-	 
-	 
+
+
+
+
 
 }

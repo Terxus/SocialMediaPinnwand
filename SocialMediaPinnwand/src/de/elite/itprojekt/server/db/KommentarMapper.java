@@ -9,8 +9,13 @@ import java.util.ArrayList;
 import de.elite.itprojekt.shared.bo.*;
 
 
+/**
+ * Diese Klasse bildet die Kommentarobjekte auf eine relationale Datenbank ab
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ *
+ */
 public class KommentarMapper {
-	
+
 	private static KommentarMapper kommentarMapper = null;
 
 	/**
@@ -31,7 +36,12 @@ public class KommentarMapper {
 		}
 		return kommentarMapper;
 	}
-	
+
+	/**
+	 * Durch den Aufruf dieser Methode wird ein einzelner Kommentar anhand der ID ausgegeben
+	 * @param id Eindeutiger Identifikator eines Kommentares in der Datenbank
+	 * @return Kommentar 
+	 */
 	 public Kommentar findeEinzelneDurchId(int id){
 			Connection con = DBConnection.connection();
 
@@ -39,7 +49,7 @@ public class KommentarMapper {
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM Kommentar WHERE Kommentar_ID=" + id );
 
-				
+
 				if (rs.next()) {
 			        Kommentar k = new Kommentar();
 			        k.setID(rs.getInt("Kommentar_ID"));
@@ -58,7 +68,11 @@ public class KommentarMapper {
 			return null;
 
 		 }
-	 
+	 /**
+		 * Diese Methode gibt alle Kommentare eines Beitrags in einer Liste zurück
+		 * @param id Eindeutiger Identifikator des Beitrags in der Datenbank
+		 * @return Liste der Kommentare
+		 */
 	 public ArrayList<Kommentar> findeDurchId(int id){
 		Connection con = DBConnection.connection();
 		ArrayList <Kommentar> kommentarListe= new ArrayList<Kommentar>();
@@ -75,7 +89,7 @@ public class KommentarMapper {
 		        k.setText(rs.getString("Text"));
 		        k.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
 		        k.setBeitrag(BeitragMapper.beitragMapper().sucheBeitragID(rs.getInt("Beitrag_ID")));
-		        
+
 
 
 		        kommentarListe.add(k);
@@ -88,29 +102,33 @@ public class KommentarMapper {
 	    }
 		return kommentarListe;
 	 }
-	 //Kommentar anlegen
-	 
-	 
+
+
+	 /**
+		 * Diese Methode speichert einen neu angelegten Kommentar in der Datenbank
+		 * @param kommentar angelegter neuer Kommentar (neues Kommentar Objekt)
+		 * @return Den eben abgespeicherten Kommentar 
+		 */
 	 public void kommentarErstellen(Kommentar kommentar){
-		 
+
 		Connection con = DBConnection.connection();
-	
+
 		try{
 			Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(Kommentar_ID) AS maxid " 
 	      + "FROM Kommentar ");
 	      if (rs.next()) {
-	    	  
+
 	    	  kommentar.setID(rs.getInt("maxid") + 1);
-	    	  
+
 	    	  stmt = con.createStatement();
 
 		        stmt.executeUpdate("INSERT INTO Kommentar (Kommentar_ID, Nutzer_ID, Beitrag_ID, Text, Datum) "
 			            + "VALUES (" + kommentar.getID() + ",'" + kommentar.getNutzer().getID() + "','"  + kommentar.getBeitrag().getID() + "','" + kommentar.getText() + "','" + kommentar.getErstellZeitpunkt() +"')");
 
 		        System.out.println(kommentar.getErstellZeitpunkt());
-		        
+
 	      }
 	    }
 
@@ -119,11 +137,14 @@ public class KommentarMapper {
 	    }
 
 	}
-	 
-	//Kommentar löschen
-	 
+
+
+	 /**
+		 * Durch diese Methode wird ein Kommentar aus der Datenbank gelöscht
+		 * @param kommentar Der Kommentar, der gelöscht werden soll
+		 */
 	 	public void kommentarLoeschen(Kommentar kommentar) {
-	 		
+
 	 		Connection con = DBConnection.connection();
 	 			Statement stmt = null;
 
@@ -136,21 +157,25 @@ public class KommentarMapper {
 	 			} catch (SQLException e2) {
 	 				e2.printStackTrace();
 	 			}
-	 			
+
 	 			return;
 	 		}
-	 
-	 	//Kommentar bearbeiten
-	 	
+
+
+	 	/**
+	 	 * Diese Methode aktualisiert einen Kommentardatensatz in der Datenbank
+	 	 * @param kommentar neue Version des Kommentars
+	 	 * @return den eben aktualisierten Kommentar
+	 	 */
 	public Kommentar kommentarBearbeiten(Kommentar kommentar){
-			
+
 			Connection con = DBConnection.connection();
 
 		    try {
 		      Statement stmt = con.createStatement();
-		      
+
 		      stmt.executeUpdate("UPDATE Kommentar SET Text=\"" + kommentar.getText() + "\" WHERE Kommentar_ID= " + kommentar.getID());
-	
+
 
 		    }
 		    catch (SQLException e) {
@@ -159,10 +184,13 @@ public class KommentarMapper {
 
 		    return findeEinzelneDurchId(kommentar.getID());
 		}
-	 
-	 
-	 //Kommentar löschen wenn beitrag gelöscht wird
-	
+
+
+
+	/**
+	 * Wenn ein Beitrag gelöscht wird, löscht diese Methode alle zugehörigen Kommentare
+	 * @param id Eindeutiger Identifikator des Beitrags in der Datenbank
+	 */
  	public void autoKommentarLoeschen(int id) {
  		
  		Connection con = DBConnection.connection();
@@ -180,13 +208,17 @@ public class KommentarMapper {
  			
  			return;
  		}
- 	
+ 	/**
+ 	 * Diese Methode zählt die Anzahl der Kommentare, die einem Beitrag zugeh�ren
+ 	 * @param beitrag Beitrag, dessen Kommentare gezählt werden sollen
+ 	 * @return Anzahl der Kommentare des Beitrags 
+ 	 */
 	public int zaehleAlleKommentareProBeitrag(Beitrag beitrag) {
-		
+
 		int id = beitrag.getID();
-		
+
 		int count = -1;
-	
+
 		Connection con = DBConnection.connection();
 
 
@@ -208,10 +240,12 @@ public class KommentarMapper {
 
 		return count;
 	}
-	 
-	 //REPORT
- 	//Alle Kommentare zählen
- 	
+
+
+ 	/**
+ 	 * Diese Methode gibt die Anzahl aller Kommentare zurück
+ 	 * @return Anzahl der Kommentare 
+ 	 */
 	 public int zaehleKommentare(){
 		 int count = -1;
 		Connection con = DBConnection.connection();
@@ -233,9 +267,13 @@ public class KommentarMapper {
 		return count;
 
 	 }
-	 
-	 //REPORT Kommentare per Nutzer zählen
-	 
+
+
+	 /**
+	  * Diese Methode gibt die Anzahl der Kommentare zurück, die ein Nutzer verfasst hat
+	  * @param nutzer Nutzer, dessen Kommentare gez�hlt werden sollen
+	  * @return Anzahl der Kommentare
+	  */
 	 public int zaehleKommentarePerNutzer(Nutzer nutzer){
 		 int count = -1;
 		Connection con = DBConnection.connection();
@@ -257,9 +295,6 @@ public class KommentarMapper {
 		return count;
 
 	 }
-	 
-	 
-	 
-	 
-	 
+
+
 }
