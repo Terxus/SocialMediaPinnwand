@@ -11,7 +11,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 /**
  * Diese Klasse bildet die Nutzerobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin AuwÃ¤rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class NutzerMapper {
@@ -39,7 +39,7 @@ public class NutzerMapper {
 
 	/**
 	 * Diese Methode meldet den Nutzer an
-	 * @param nutzerName Name des Nutzers, der sich anmelden möchte
+	 * @param nutzerName Name des Nutzers, der sich anmelden mÃ¶chte
 	 * @param passWort eingegebenes Passwort
 	 * @return Nutzer
 	 */
@@ -112,7 +112,7 @@ public class NutzerMapper {
 	//Nutzer per ID holen
 	
 	/**
-	 * Diese Methode gibt einen Nutzer anhand der ID zurück
+	 * Diese Methode gibt einen Nutzer anhand der ID zurÃ¼ck
 	 * @param id Eindeutiger Identifikator eines Nutzers
 	 * @return Nutzer
 	 */
@@ -149,7 +149,7 @@ public class NutzerMapper {
 	
 	//Die ID des Nutzer zurÃ¼ckgeben
 	/**
-	 * Diese Methode gibt die ID eines Nutzers zurück
+	 * Diese Methode gibt die ID eines Nutzers zurÃ¼ck
 	 * @param id Eindeutiger Identifikator eines Nutzers in der Datenbank
 	 * @return Nutzer ID
 	 */
@@ -219,8 +219,8 @@ public class NutzerMapper {
 	
 	
 	/**
-	 * Diese Methode löscht einen Nutzer in der Datenbank
-	 * @param n Nutzer, der gelöscht werden soll
+	 * Diese Methode lÃ¶scht einen Nutzer in der Datenbank
+	 * @param n Nutzer, der gelÃ¶scht werden soll
 	 */
 	public void nutzerLoeschen(Nutzer n){
 		Connection con = DBConnection.connection();
@@ -314,8 +314,8 @@ public class NutzerMapper {
 
 
 	 /**
-	  * Diese Methode gibt einen Nutzer anhand des nicknames zurück
-	  * @param nickname übergebener nickname
+	  * Diese Methode gibt einen Nutzer anhand des nicknames zurÃ¼ck
+	  * @param nickname Ã¼bergebener nickname
 	  * @return Nutzer
 	  */
 	 public Nutzer sucheNickname(String nickname) {
@@ -351,8 +351,8 @@ public class NutzerMapper {
 	return null;
 	}
 	 	/**
-	 	 * Diese Methode überprüft, ob ein nickname bereits in der Datenbank gespeichert ist 
-	 	 * @param nickName übergebener nickname
+	 	 * Diese Methode Ã¼berprÃ¼ft, ob ein nickname bereits in der Datenbank gespeichert ist 
+	 	 * @param nickName Ã¼bergebener nickname
 	 	 * @return true/false, je nachdem ob der nickname schon vergeben wurde oder nicht
 	 	 */
 		public boolean sucheNickName(String nickName) {
@@ -375,7 +375,7 @@ public class NutzerMapper {
 	 
 	
 		/**
-		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zurück
+		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zurï¿½ck
 		 * @return Anzahl aller Nutzer
 		 */
 		 public int zaehleNutzer(){

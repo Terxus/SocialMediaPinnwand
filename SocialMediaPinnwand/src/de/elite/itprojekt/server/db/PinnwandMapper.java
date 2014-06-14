@@ -9,7 +9,7 @@ import de.elite.itprojekt.shared.bo.*;
 
 /**
  * Diese Klasse bildet die Pinnwandobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin AuwÃ¤rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class PinnwandMapper {
@@ -38,7 +38,7 @@ public class PinnwandMapper {
 	
 	
 	/**
-	 * Diese Methode gibt eine einzelne Pinnwand anhand der ID zurück
+	 * Diese Methode gibt eine einzelne Pinnwand anhand der ID zurÃ¼ck
 	 * @param id Eindeutiger Identifikator einer Pinnwand in der Datenbank
 	 * @return Pinnwand
 	 */
@@ -72,7 +72,7 @@ public class PinnwandMapper {
 	return null;
 	}
 	/**
-	 * Diese Methode löscht eine Pinnwand in der Datenbank
+	 * Diese Methode lÃ¶scht eine Pinnwand in der Datenbank
 	 * @param n Eindeutiger Identifikator eines Nutzers in der Datenbank
 	 */
 	public void loeschen(Nutzer n) {

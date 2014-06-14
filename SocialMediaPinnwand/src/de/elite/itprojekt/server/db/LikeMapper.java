@@ -10,7 +10,7 @@ import de.elite.itprojekt.shared.bo.*;
 
 /**
  * Diese Klasse bildet die Likeobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin AuwÃ¤rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class LikeMapper {
@@ -36,7 +36,7 @@ public class LikeMapper {
 		return likeMapper;
 	}
 	/**
-	 * Diese Methode gibt die Likes eines Beitrags in einer Liste zurück
+	 * Diese Methode gibt die Likes eines Beitrags in einer Liste zurÃ¼ck
 	 * @param id Eindeutiger Identifikator eines Beitrags in der Datenbank
 	 * @return Like
 	 */
@@ -116,9 +116,9 @@ public class LikeMapper {
 		
 		//Checken ob beitrag schon von Nutzer geliked wurde - Noch nicht implementiert
 		/**
-		 * Diese Methode überprüft, ob ein Beitrag schon von einem Nutzer geliked wurde
-		 * @param n Nutzer, dessen "LikeStatus" überprüft werden soll
-		 * @param b Der entsprechende Beitrag, dessen likes geprüft werden
+		 * Diese Methode Ã¼berprÃ¼ft, ob ein Beitrag schon von einem Nutzer geliked wurde
+		 * @param n Nutzer, dessen "LikeStatus" Ã¼berprÃ¼ft werden soll
+		 * @param b Der entsprechende Beitrag, dessen likes geprÃ¼ft werden
 		 * @return True/false, je nachdem ob schon geliked wurde oder nicht
 		 */
 		public boolean likeUeberpruefung(Nutzer n, Beitrag b) {
@@ -139,8 +139,8 @@ public class LikeMapper {
 		}
 		//Likes von Beitrag lÃ¶schen Sinn?
 		/**
-		 * Diese Methode löscht alle likes eines Beitrags
-		 * @param beitrag Beitrag, dessen likes gelöscht werden sollen
+		 * Diese Methode lÃ¶scht alle likes eines Beitrags
+		 * @param beitrag Beitrag, dessen likes gelÃ¶scht werden sollen
 		 */
 	 	public void loeschen(Beitrag beitrag) {
 	 		
@@ -165,7 +165,7 @@ public class LikeMapper {
 		
 	
 		/**
-		 * Diese Methode gibt ein einzelnes Like anhand der ID zurück
+		 * Diese Methode gibt ein einzelnes Like anhand der ID zurï¿½ck
 		 * @param id Eindeutiger Identifikator eines likes in der Datenbank
 		 * @return like
 		 */
@@ -202,8 +202,8 @@ public class LikeMapper {
 		
 		
 		/**
-		 * Diese Methode gibt zurück, wie oft ein Beitrag geliked wurde
-		 * @param beitrag Beitrag, dessen likes gezählt werden sollen
+		 * Diese Methode gibt zurÃ¼ck, wie oft ein Beitrag geliked wurde
+		 * @param beitrag Beitrag, dessen likes gezÃ¤hlt werden sollen
 		 * @return Anzahl der likes
 		 */
 		public int zaehleAlleLikesProBeitrag(Beitrag beitrag) {
@@ -235,8 +235,8 @@ public class LikeMapper {
 		}
 		
 		 /**
-		  * Diese Methode löscht ein einzelnes like eines Beitrags
-		  * @param beitrag Beitrag, dessen like gelöscht werden soll
+		  * Diese Methode lÃ¶scht ein einzelnes like eines Beitrags
+		  * @param beitrag Beitrag, dessen like gelÃ¶scht werden soll
 		  * @param nutzer Nutzer, der den like abgegeben hat
 		  */
 		public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) {
@@ -254,7 +254,7 @@ public class LikeMapper {
 		
 		
 		/**
-		 * Wenn ein Beitrag gelöscht wird, löscht diese Methode automatisch alle zugehörigen likes
+		 * Wenn ein Beitrag gelï¿½scht wird, lÃ¶scht diese Methode automatisch alle zugehÃ¶rigen likes
 		 * @param id Eindeutiger Identifikator eines Beitrags in der Datenbank
 		 */
 	 	public void likesVonBeitragLoeschen(int id) {
@@ -278,7 +278,7 @@ public class LikeMapper {
 		
 		 
 			/**
-			 * Diese Methode gibt die Anzahl aller likes zurück
+			 * Diese Methode gibt die Anzahl aller likes zurï¿½ck
 			 * @return Anzahl der likes
 			 */
 			 public int zaehleLikes(){
@@ -305,8 +305,8 @@ public class LikeMapper {
 			 
 			
 			 /**
-			  * Die Methode gibt die Anzahl der likes zurück, die ein Nutzer abgegeben hat
-			  * @param nutzer Nutzer, dessen likes gezählt werden sollen
+			  * Die Methode gibt die Anzahl der likes zurÃ¼ck, die ein Nutzer abgegeben hat
+			  * @param nutzer Nutzer, dessen likes gezÃ¤hlt werden sollen
 			  * @return Anzahl der likes
 			  */
 			 public int zaehleLikesPerNutzer(Nutzer nutzer){

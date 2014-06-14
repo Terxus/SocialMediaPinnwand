@@ -10,7 +10,7 @@ import de.elite.itprojekt.shared.bo.*;
 
 /**
  * Diese Klasse bildet die Beitragsobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin AuwÃ¤rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class BeitragMapper {
@@ -37,9 +37,9 @@ public class BeitragMapper {
 	}
 	
 	/**
-	 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehören, anhand der Nutzer ID in einer Liste aus
+	 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehÃ¶ren, anhand der Nutzer ID in einer Liste aus
 	 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
-	 * @return Liste der Beiträge
+	 * @return Liste der BeitrÃ¤ge
 	 */
 	 public ArrayList<Beitrag> getBeitragByPinnwand(int id) {
 
@@ -103,9 +103,9 @@ public class BeitragMapper {
 	}
 	 
 	 /**
-	  * Diese Methode gibt alle Beiträge eines Nutzers anhand der ID in einer Liste aus
+	  * Diese Methode gibt alle BeitrÃ¤ge eines Nutzers anhand der ID in einer Liste aus
 	  * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
-	  * @return Liste der Beiträge
+	  * @return Liste der BeitrÃ¤ge
 	  */
 	 public ArrayList<Beitrag> findeAlleUserBeitraege(int id) {
 		 Connection con = DBConnection.connection();
@@ -134,8 +134,8 @@ public class BeitragMapper {
 			return result;
 		}
 	 	/**
-	 	 * Diese Methode löscht einen Beitrag aus der Datenbank
-	 	 * @param beitrag Der Beitrag, der gelöscht werden soll
+	 	 * Diese Methode lÃ¶scht einen Beitrag aus der Datenbank
+	 	 * @param beitrag Der Beitrag, der gelÃ¶scht werden soll
 	 	 */
 	 	public void textBeitragLoeschen(Beitrag beitrag) {
 	 		
@@ -216,9 +216,9 @@ public class BeitragMapper {
 		
 		//Alle Beitraege die zu einer Pinnwand gehÃ¶ren (Abobeziehung)
 		/**
-		 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehören, anhand der Nutzer ID in einer Liste aus
+		 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehÃ¶ren, anhand der Nutzer ID in einer Liste aus
 		 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
-		 * @return Liste der Beiträge
+		 * @return Liste der BeitrÃ¤ge
 		 */
 		 public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id){
 
@@ -260,8 +260,8 @@ public class BeitragMapper {
 			}
 		
 			/**
-			 * Diese Methode gibt die gesamte Anzahl der in der Datenbank gespeicherten Beiträge zurück
-			 * @return Anzahl der Beiträge 
+			 * Diese Methode gibt die gesamte Anzahl der in der Datenbank gespeicherten BeitrÃ¤ge zurï¿½ck
+			 * @return Anzahl der BeitrÃ¤ge 
 			 */
 			 public int zaehleBeitraege(){
 				 int count = -1;
@@ -287,9 +287,9 @@ public class BeitragMapper {
 			 
 	
 			 /**
-			  * Diese Methode gibt die Anzahl der verfassten Beiträge eines Nutzers aus
+			  * Diese Methode gibt die Anzahl der verfassten Beitrï¿½ge eines Nutzers aus
 			  * @param nutzer Nutzer, dessen Beitragsanzahl ermittelt werden soll
-			  * @return Anzahl der Beiträge  
+			  * @return Anzahl der BeitrÃ¤ge  
 			  */
 			 public int zaehleBeitraegePerNutzer(Nutzer nutzer){
 				 int count = -1;
@@ -315,12 +315,12 @@ public class BeitragMapper {
 			 
 			 //BeitrÃ¤ge sortiert nach Likes und Datum
 			 /**
-			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Likes und Datum
-			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
-			  * @param von frühester Erstellungszeitpunkt
-			  * @param bis spätester Erstellungszeitpunkt
+			  * Diese Methode gibt alle BeitrÃ¤ge eines Nutzers aus, sortiert nach Likes und Datum
+			  * @param nutzer Nutzer, dessen BeitrÃ¤ge ausgegeben werden sollen
+			  * @param von frÃ¼hester Erstellungszeitpunkt
+			  * @param bis spÃ¤tester Erstellungszeitpunkt
 			  * @param sortierung
-			  * @return Sortierte Liste der Beiträge
+			  * @return Sortierte Liste der BeitrÃ¤ge
 			  */
 			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachLikes(Nutzer nutzer, String von, String bis, int sortierung) {
 					//Aufbau der DBVerbindung
@@ -352,10 +352,10 @@ public class BeitragMapper {
 				}
 			 //BeitrÃ¤ge sortiert nach Kommentare und Datum
 			 /**
-			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Kommentare und Datum
-			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
-			  * @param von frühester Erstellzeitpunkt
-			  * @param bis spätester Erstellzeitpunkt
+			  * Diese Methode gibt alle Beitrï¿½ge eines Nutzers aus, sortiert nach Kommentare und Datum
+			  * @param nutzer Nutzer, dessen Beitrï¿½ge ausgegeben werden sollen
+			  * @param von frÃ¼hester Erstellzeitpunkt
+			  * @param bis spÃ¤tester Erstellzeitpunkt
 			  * @param sortierung
 			  * @return
 			  */

@@ -10,7 +10,7 @@ import com.google.cloud.sql.jdbc.Statement;
 
 /**
  * Diese Klasse dient der Verwaltung der Datenbankverbindung (Auf- und Abbau)
- * @author Maik Piskors, Benjamin Auw‰rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin Auw√§rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 

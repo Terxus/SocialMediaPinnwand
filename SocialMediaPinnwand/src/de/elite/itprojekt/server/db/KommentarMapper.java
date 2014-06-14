@@ -10,7 +10,7 @@ import de.elite.itprojekt.shared.bo.*;
 
 /**
  * Diese Klasse bildet die Kommentarobjekte auf eine relationale Datenbank ab
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author Maik Piskors, Benjamin AuwÃ¤rter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  *
  */
 public class KommentarMapper {
@@ -68,7 +68,7 @@ public class KommentarMapper {
 
 		 }
 	 /**
-		 * Diese Methode gibt alle Kommentare eines Beitrags in einer Liste zurück
+		 * Diese Methode gibt alle Kommentare eines Beitrags in einer Liste zurÃ¼ck
 		 * @param id Eindeutiger Identifikator des Beitrags in der Datenbank
 		 * @return Liste der Kommentare
 		 */
@@ -139,8 +139,8 @@ public class KommentarMapper {
 	 
 	
 	 /**
-		 * Durch diese Methode wird ein Kommentar aus der Datenbank gelöscht
-		 * @param kommentar Der Kommentar, der gelöscht werden soll
+		 * Durch diese Methode wird ein Kommentar aus der Datenbank gelÃ¶scht
+		 * @param kommentar Der Kommentar, der gelÃ¶scht werden soll
 		 */
 	 	public void kommentarLoeschen(Kommentar kommentar) {
 	 		
@@ -187,7 +187,7 @@ public class KommentarMapper {
 	 
 	 
 	/**
-	 * Wenn ein Beitrag gelöscht wird, löscht diese Methode automatisch alle zugehörigen Kommentare
+	 * Wenn ein Beitrag gelÃ¶scht wird, lÃ¶scht diese Methode alle zugehÃ¶rigen Kommentare
 	 * @param id Eindeutiger Identifikator des Beitrags in der Datenbank
 	 */
  	public void autoKommentarLoeschen(int id) {
@@ -208,8 +208,8 @@ public class KommentarMapper {
  			return;
  		}
  	/**
- 	 * Diese Methode zählt die Anzahl der Kommentare, die einem Beitrag zugehören
- 	 * @param beitrag Beitrag, dessen Kommentare gezählt werden sollen
+ 	 * Diese Methode zÃ¤hlt die Anzahl der Kommentare, die einem Beitrag zugehï¿½ren
+ 	 * @param beitrag Beitrag, dessen Kommentare gezÃ¤hlt werden sollen
  	 * @return Anzahl der Kommentare des Beitrags 
  	 */
 	public int zaehleAlleKommentareProBeitrag(Beitrag beitrag) {
@@ -242,7 +242,7 @@ public class KommentarMapper {
 	 
 	
  	/**
- 	 * Diese Methode gibt die Anzahl aller Kommentare zurück
+ 	 * Diese Methode gibt die Anzahl aller Kommentare zurÃ¼ck
  	 * @return Anzahl der Kommentare 
  	 */
 	 public int zaehleKommentare(){
@@ -269,8 +269,8 @@ public class KommentarMapper {
 	 
 
 	 /**
-	  * Diese Methode gibt die Anzahl der Kommentare zurück, die ein Nutzer verfasst hat
-	  * @param nutzer Nutzer, dessen Kommentare gezählt werden sollen
+	  * Diese Methode gibt die Anzahl der Kommentare zurÃ¼ck, die ein Nutzer verfasst hat
+	  * @param nutzer Nutzer, dessen Kommentare gezï¿½hlt werden sollen
 	  * @return Anzahl der Kommentare
 	  */
 	 public int zaehleKommentarePerNutzer(Nutzer nutzer){
