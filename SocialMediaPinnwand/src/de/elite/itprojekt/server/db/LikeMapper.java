@@ -56,10 +56,6 @@ public class LikeMapper {
 			        l.setID(rs.getInt("Like_ID"));
 			        l.setErstellZeitpunkt(rs.getTimestamp("Datum"));
 			        l.setNutzer(NutzerMapper.nutzerMapper().sucheNutzerID(rs.getInt("Nutzer_ID")));
-
-			        //Mit Beitrag verknüpfen?!
-
-
 			        likeListe.add(l);
 
 			      }
@@ -137,7 +133,7 @@ public class LikeMapper {
 			}
 
 		}
-		//Likes von Beitrag löschen Sinn?
+		//Likes von Beitrag löschen
 		/**
 		 * Diese Methode löscht alle likes eines Beitrags
 		 * @param beitrag Beitrag, dessen likes gelöscht werden sollen

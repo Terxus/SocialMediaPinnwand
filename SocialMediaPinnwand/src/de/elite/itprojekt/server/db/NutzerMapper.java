@@ -93,10 +93,6 @@ public class NutzerMapper {
 		        n.seteMail(rs.getString("Email"));
 		        n.setNickname(rs.getString("Nickname"));
 
-
-		        //Pinnwand und Abonnement?! :D
-
-		        //NutzerObjekte der ArrayList hinzufügen
 		        alleNutzer.add(n);
 		      }
 			return alleNutzer;
@@ -105,11 +101,8 @@ public class NutzerMapper {
 	    catch (SQLException e) {
 	    		e.printStackTrace();
 	    }
-	//Falls keines gefunden leeres Objekt
 	return alleNutzer;
 	}
-
-	//Nutzer per ID holen
 
 	/**
 	 * Diese Methode gibt einen Nutzer anhand der ID zurück
@@ -185,16 +178,6 @@ public class NutzerMapper {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * Diese Methode aktualisiert einen Nutzerdatensatz in der Datenbank
 	 * @param n Nutzer, dessen Datensatz aktualisiert werden soll
@@ -228,8 +211,6 @@ public class NutzerMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 	      stmt.executeUpdate("DELETE FROM Nutzer WHERE Nutzer_ID=" + n.getID());
-
-	    //  PinnwandMapper.pinnwandMapper().loeschen(n);
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
@@ -438,9 +419,5 @@ public class NutzerMapper {
 			    		return null;
 				    }				
 			}
-
-
-
-
 
 }

@@ -50,9 +50,6 @@ public class BeitragMapper {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Beitrag WHERE Nutzer_ID="+id + " ORDER BY Datum DESC");
 
-
-		//hier eventl. mit Pinnwand verknüpfen?!
-
 			while (rs.next()) {
 		        Beitrag b = new Beitrag();
 		        b.setID(rs.getInt("Beitrag_ID"));
@@ -214,7 +211,6 @@ public class BeitragMapper {
 		return null;
 		}
 
-		//Alle Beitraege die zu einer Pinnwand gehören (Abobeziehung)
 		/**
 		 * Diese Methode gibt alle Beitrage, die zu einer Pinnwand gehören, anhand der Nutzer ID in einer Liste aus
 		 * @param id Eindeutiger Identifikator des Nutzers in der Datenbank
@@ -307,7 +303,6 @@ public class BeitragMapper {
 
 			 }
 
-			 //Beiträge sortiert nach Likes und Datum
 			 /**
 			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Likes und Datum
 			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
@@ -344,7 +339,6 @@ public class BeitragMapper {
 				    		return null;
 					    }				
 				}
-			 //Beiträge sortiert nach Kommentare und Datum
 			 /**
 			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Kommentare und Datum
 			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
@@ -399,7 +393,6 @@ public class BeitragMapper {
 						ResultSet rs = stmt.executeQuery(sql);
 
 						while (rs.next()) {
-							// Ergebnis in Beitrag- Objekt umwandeln
 					        Beitrag b = new Beitrag();
 					        b.setID(rs.getInt("Beitrag_ID"));
 					        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));

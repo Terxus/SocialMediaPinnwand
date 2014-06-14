@@ -127,8 +127,6 @@ public class KommentarMapper {
 		        stmt.executeUpdate("INSERT INTO Kommentar (Kommentar_ID, Nutzer_ID, Beitrag_ID, Text, Datum) "
 			            + "VALUES (" + kommentar.getID() + ",'" + kommentar.getNutzer().getID() + "','"  + kommentar.getBeitrag().getID() + "','" + kommentar.getText() + "','" + kommentar.getErstellZeitpunkt() +"')");
 
-		        System.out.println(kommentar.getErstellZeitpunkt());
-
 	      }
 	    }
 
@@ -209,7 +207,7 @@ public class KommentarMapper {
  			return;
  		}
  	/**
- 	 * Diese Methode zählt die Anzahl der Kommentare, die einem Beitrag zugeh�ren
+ 	 * Diese Methode zählt die Anzahl der Kommentare, die einem Beitrag zugehören
  	 * @param beitrag Beitrag, dessen Kommentare gezählt werden sollen
  	 * @return Anzahl der Kommentare des Beitrags 
  	 */
