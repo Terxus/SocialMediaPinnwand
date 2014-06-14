@@ -120,7 +120,7 @@ public class LikeMapper {
 			}
 
 		}
-		//Likes von Beitrag löschen Sinn?
+		//Likes von Beitrag löschen
 	 
 	 	public void loeschen(Beitrag beitrag) {
 	 		

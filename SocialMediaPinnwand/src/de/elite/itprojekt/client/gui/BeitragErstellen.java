@@ -28,28 +28,61 @@ import de.elite.itprojekt.shared.bo.Kommentar;
 import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
+/**
+ * Diese Klasse ist fast für die gesamte Pinnwandkommunikation zuständig. In ihr werden Beiträge erstellt,
+ * Beiträge kommentiert, Beiträge geliked, selbige gelöscht und auch bearbeitet.
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
+
 public class BeitragErstellen {
 
 	public BeitragErstellen() {
 		// Konstruktor des Todes
 
 	}
+	
+	/**
+	 * Ein kleiner Logger der die System.out's in den Client bringen soll. Wird benutzt um die Errors auszulesen.
+	 */
 
 	Logger logger = SocialMediaPinnwand.getLogger();
+	
+	/**
+	 * Wir Nutzen ein Timestampobjekt als Datum für Kommentare, Likes, Beiträge.
+	 */
+	
 	private Timestamp aktuellesDatum;
+	
+	/**
+	 * Ein Nutzer welcher Aktuell eingeloggt ist.
+	 */
+	
 	private static Nutzer nutzer;
-	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy
-																			// aufbauen
-																			// für
-																			// Pinnwandverwaltung
-
-	// Nutzerobjekt per ID von Cookie holen
+	
+	/**
+	 * service heisst unsere Proxyreferenz welches mit dem Server interagiert.
+	 */
+	
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); 
+	
+	/**
+	 * Hier wird der aktuell eingeloggter Nutzer festgelegt.
+	 * @param nutzer
+	 */
+	
 	public void setNutzer(Nutzer nutzer) {
 		BeitragErstellen.nutzer = nutzer;
 		logger.severe("Nutzerobjekt zu Nutzer mit der ID:" + " "
 				+ BeitragErstellen.nutzer.getID() + " " + "gesetzt.");
 	}
 
+	/**
+	 * Diese Methode durchsucht den Clienten nach einem Cookie Namens: <b>gp5cookie</b>
+	 * In diesem Cookie ist die eindeutige ID gespeichert, die einem Nutzer zuordenbar ist.
+	 * Nachdem die ID ausgelesen ist, wird auf der Server bzw. in der Datenbank nach einem Nutzer-Tupel gesucht 
+	 * mit dieser ID, und das Nutzerobjekt erstellt. Danach wird das Nutzerobjekt zurückgegeben.
+	 */
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")),
 				new AsyncCallback<Nutzer>() {
@@ -64,11 +97,26 @@ public class BeitragErstellen {
 					}
 				});
 	}
+	
+	/**
+	 * Diese Methode gibt den aktuell eingeloggten Nutzer zurück.
+	 * @return Der eingeloggte Nutzer.
+	 */
 
 	public Nutzer getNutzer() {
 		return BeitragErstellen.nutzer;
 	}
+	
+	/*
+	 * Hier folgen einige Designanordnungen für Kommentare, Beiträge und Likes.
+	 */
 
+	/**
+	 * Die Gesamte Beitragsstruktur ist einem VerticalPanel zugeordnet.
+	 * Sämtliche Inhalte sind in einem Flextable enthalten.
+	 * Wie zum Beispiel das Design der Beiträge und Kommentare.
+	 */
+	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label eingeloggterUser;
 	private PushButton kommentieren;
@@ -81,17 +129,25 @@ public class BeitragErstellen {
 	private Label anzahlLikes;
 	private FlexTable beitragsGrid = new FlexTable();
 
-	// Neuer Beitrag
+	/**
+	 * Hier werden die Widgets erstellt um einen neuen Beitrag hinzuzufügen.
+	 */
 
 	private VerticalPanel vPanelAddBeitrag = new VerticalPanel();
 	private TextArea tArea = new TextArea();
 	private Button addBeitrag;
 
-	// Kommentare anlegen
+	/**
+	 * Widgets für Kommentare anlegen.
+	 */
+	
 	private TextArea tAreak;
 	private Button addKommentar;
 
-	// Kommentare ausgeben
+	/**
+	 * Widgets um Kommentare auszugeben.
+	 */
+	
 	private VerticalPanel vPanelk = new VerticalPanel();
 	private Label kommentarNutzer;
 	private PushButton bearbeitenk;
@@ -100,11 +156,20 @@ public class BeitragErstellen {
 	private Label datumsAnzeigek;
 	FlexTable kommentarFlexTable = new FlexTable();
 
-	// Fuer neuen Beitraghinzufuegen
+	/**
+	 * In dieser Methode werden nur die Beiträge von Nutzern angezeigt, welche man Abonniert hat. Diese Unterteilung ist
+	 * notwendig, da man fremde Beiträge von eigenen Unterscheiden muss. Fremde Beiträge sollen nicht von anderen Nutzern
+	 * gelöscht oder bearbeitet werden. Nur Kommentiert und Geliked werden. Ein solcher fremder Beitrag besteht einem FlexTable
+	 * mit Informationen wie: Beitragsschreiber, Text, Erstelldatum, Likes, und zusätzliche Kommentare zu dem Beitrag.
+	 * @param beitrag
+	 * @param nutzer
+	 */
 
 	public void beitragAnzeigenVonAbo(final Beitrag beitrag, final Nutzer nutzer) {
 
-		// Widgets fuer AboBeitrag
+		/**
+		 * Widgets für Abobeitrag.
+		 */
 
 		this.eingeloggterUser = new Label(nutzer.getVorname() + " "
 				+ nutzer.getNachname());
@@ -114,12 +179,16 @@ public class BeitragErstellen {
 		this.like = new PushButton("Like");
 		this.anzahlLikes = new Label();
 
-		// CSS Bezeichner
+		/**
+		 * CSS Definitionen.
+		 */
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
 		this.textBeitrag.setStylePrimaryName("umBruch");
 
-		// Dem FlexTable zuordnen
+		/**
+		 * Widgets werden dem FlexTable zugeordnet.
+		 */
 
 		beitragsGrid.setStyleName("panel flexTable");
 
@@ -130,7 +199,9 @@ public class BeitragErstellen {
 		beitragsGrid.setWidget(2, 2, like);
 		beitragsGrid.setWidget(2, 3, anzahlLikes);
 
-		// Likes des jeweiligen Beitrags anzeigen
+		/**
+		 * Likes des jeweiligen Beitrags anzeigen.
+		 */
 
 		service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
 
@@ -148,7 +219,9 @@ public class BeitragErstellen {
 
 		});
 
-		// Fremden Beitrag kommentieren
+		/**
+		 * Fremder Beitrag kommentieren.
+		 */
 
 		kommentieren.addClickHandler(new ClickHandler() {
 			@Override
@@ -164,7 +237,10 @@ public class BeitragErstellen {
 				beitragsGrid.setWidget(4, 0, tAreak);
 				beitragsGrid.setWidget(5, 0, addKommentar);
 
-				// Bei Klick in das TextAreafeld wird der aktuelle Nutzer geholt
+				/**
+				 * Bei Klick in das TextAreafeld wird der aktuelle Nutzer geholt
+				 */
+				
 				tAreak.addClickHandler(new ClickHandler() {
 
 					@Override
@@ -175,7 +251,10 @@ public class BeitragErstellen {
 
 				});
 
-				// Kommentar speichern
+				/**
+				 * Kommentar soll erstellt werden.
+				 */
+				
 				addKommentar.addClickHandler(new ClickHandler() {
 
 					@Override
@@ -233,8 +312,12 @@ public class BeitragErstellen {
 
 		});
 
-		// DAVOR ERST UEBERPRUEFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
-		// NUTZER!
+		
+		/**
+		 * Um einen Beitrag nicht doppelt Liken zu können, muss zuerst überprüft werden, ob dieser von 
+		 * dem aktuell eingeloggten Nutzer schon geliked wurde. Wenn dieser schon geliked wurde, dann
+		 * wird dem aktuell eingeloggten Nutzer die Möglichkeit gegeben, den Status zu De-Liken.
+		 */
 
 		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
 
@@ -302,7 +385,10 @@ public class BeitragErstellen {
 
 				} else {
 
-					// Liken
+					/**
+					 * Der Status wurde noch nicht geliked, also kann der aktuelle Nutzer den Status liken.
+					 */
+					
 					like.addClickHandler(new ClickHandler() {
 
 						@Override
@@ -369,15 +455,29 @@ public class BeitragErstellen {
 			}
 
 		});
-
+		
+		/**
+		 * Das VerticalPanel wird dem RootPanel zugeordnet.
+		 */
+		
 		this.vPanel.add(beitragsGrid);
 		RootPanel.get("Beitrag").add(vPanel);
 
 	}
+	
+	/**
+	 * Diese Methode zeigt eigene Beiträge an. Diese Methode ist äquivalent zu der Methode 
+	 * <b>beitragAnzeigenVonAbo(final Beitrag beitrag, final Nutzer nutzer)</b>
+	 * Mit der Ausnahme, dass man eigene Beiträge löschen und bearbeiten kann.
+	 * @param beitrag
+	 * @param nutzer
+	 */
 
 	public void beitragAnzeigen(final Beitrag beitrag, final Nutzer nutzer) {
 
-		// Widgets erzeugen fuer Beitrag
+		/**
+		 * Erzeugung der Widgets für eigene Beiträge
+		 */
 
 		this.eingeloggterUser = new Label(nutzer.getVorname() + " "
 				+ nutzer.getNachname());
@@ -389,7 +489,10 @@ public class BeitragErstellen {
 		this.like = new PushButton("Like");
 		this.anzahlLikes = new Label();
 
-		// CSS Bezeichner
+		/**
+		 * CSS Definitionen
+		 */
+		
 		this.loeschen.setStylePrimaryName("Loeschen");
 		this.eingeloggterUser.setStylePrimaryName("NutzerName");
 		this.datumsAnzeige.setStylePrimaryName("Date");
@@ -406,7 +509,9 @@ public class BeitragErstellen {
 		beitragsGrid.setWidget(2, 3, like);
 		beitragsGrid.setWidget(2, 4, anzahlLikes);
 
-		// Likes des Beitrags anzeigen
+		/**
+		 * Likes des jeweiligen Beitrags werden angezeigt.
+		 */
 
 		service.likeZaehlen(beitrag, new AsyncCallback<Integer>() {
 
@@ -426,11 +531,15 @@ public class BeitragErstellen {
 
 		this.vPanel.add(beitragsGrid);
 		RootPanel.get("Beitrag").add(vPanel);
+		
+		/**
+		 * Die ClickHandler müssen für jedes Beitragsobjekt gelten, darum müssen sie hier 
+		 * definiert werden.
+		 */
 
-		// ClickHandler muessen fuer jedes Beitragobjekt gelten, darum muessen sie
-		// hier definiert werden
-
-		// Beitrag loeschen
+		/**
+		 * ClickHandler der einen Beitrag löscht.
+		 */
 
 		loeschen.addClickHandler(new ClickHandler() {
 
@@ -456,7 +565,9 @@ public class BeitragErstellen {
 
 		});
 
-		// Beitrag bearbeiten
+		/**
+		 * ClickHandler der einen Beitrag bearbeiten lässt.
+		 */
 
 		bearbeiten.addClickHandler(new ClickHandler() {
 			@Override
@@ -467,9 +578,15 @@ public class BeitragErstellen {
 				newBeitrag.setText(textBeitrag.getText());
 				beitragsGrid.setWidget(1, 0, newBeitrag);
 				beitragsGrid.setWidget(1, 1, speichern);
-
-				// Bearbeiteter Text Speichern und in Label zurueckverwandeln
-				// (*Magic*)
+				
+				/**
+				 * Durch einen ClickHandler der dem Label zugeordnet ist, lässt sich dieser Text in ein TextField an der richtigen
+				 * stelle im FlexTable umwandeln. In dieses TextField wird danach der aktuelle Text geschrieben, welcher sich 
+				 * dann verändern lasst. Bei Klick wird zusätzlich ein Button im TextField angezeigt, welcher dann den neuen Text
+				 * ausließt und in die Datenbank speichert. Wenn der Datenbankeintrag erfolgreich war, wird das TextField
+				 * mit dem neuen Text wieder in ein Label umgewandelt.
+				 */
+				
 				speichern.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -504,7 +621,9 @@ public class BeitragErstellen {
 			}
 		});
 
-		// Kommentar hinzufuegen
+		/**
+		 * Hier wird ein Kommentar dem Beitrag hinzugefügt.
+		 */
 
 		kommentieren.addClickHandler(new ClickHandler() {
 			@Override
@@ -520,7 +639,10 @@ public class BeitragErstellen {
 				beitragsGrid.setWidget(4, 0, tAreak);
 				beitragsGrid.setWidget(5, 0, addKommentar);
 
-				// Kommentar speichern
+				/**
+				 * ClickHandler der das neue Kommentar speichert.
+				 */
+				
 				addKommentar.addClickHandler(new ClickHandler() {
 
 					@Override
@@ -549,19 +671,16 @@ public class BeitragErstellen {
 										public void onSuccess(Void result) {
 											tAreak.setVisible(false);
 											addKommentar.setVisible(false);
-
-											// KommentareAuslesen(beitrag);								
-										      RootPanel.get("Navigator").clear();
-										      RootPanel.get("Kommentar").clear();
-										      RootPanel.get("Beitrag").clear();
-										      RootPanel.get("neuer_Beitrag").clear();
+										    RootPanel.get("Navigator").clear();
+										    RootPanel.get("Kommentar").clear();
+										    RootPanel.get("Beitrag").clear();
+										    RootPanel.get("neuer_Beitrag").clear();
 											NutzerLogin login = new NutzerLogin();
 											login.refreshPinnwand();
 
 										}
 
 									});
-
 						}
 
 					}
@@ -571,8 +690,11 @@ public class BeitragErstellen {
 
 		});
 
-		// DAVOR ERST UEBERPRUEFEN OB SCHON GELIKED IST VON DEM EINGELOGGTEN
-		// NUTZER!
+		/**
+		 * Um einen Beitrag nicht doppelt Liken zu können, muss zuerst überprüft werden, ob dieser von 
+		 * dem aktuell eingeloggten Nutzer schon geliked wurde. Wenn dieser schon geliked wurde, dann
+		 * wird dem aktuell eingeloggten Nutzer die Möglichkeit gegeben, den Status zu De-Liken.
+		 */
 
 		service.likeCheck(getNutzer(), beitrag, new AsyncCallback<Boolean>() {
 
@@ -638,8 +760,11 @@ public class BeitragErstellen {
 					});
 
 				} else {
-
-					// Liken
+					
+					/**
+					 * Der Status wurde noch nicht geliked, also kann der aktuelle Nutzer den Status liken.
+					 */
+					
 					like.addClickHandler(new ClickHandler() {
 
 						@Override
@@ -705,12 +830,16 @@ public class BeitragErstellen {
 		});
 
 	}
-
-	// Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers
-	// angezeigt.
-	// Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann
-	// aendert sich die darstellung.
-	// Denn dann kann man die Kommentare nicht bearbeiten und loeschen.
+	
+	/**
+	 * Diese Methode hat die selbe Logik wie die der Beiträge.
+	 * Eigene Kommentare werden anhand des aktuell eingeloggten Nutzers
+	 * angezeigt. Wenn ein Kommentar nicht von dem aktuell eingeloggten Nutzer stammt, dann
+	 * aendert sich die darstellung. Denn dann kann man die Kommentare nicht bearbeiten und loeschen.
+	 * 
+	 * @param beitrag
+	 */
+	
 	public void KommentareAuslesen(final Beitrag beitrag) {
 
 		int id = beitrag.getID();
@@ -741,16 +870,20 @@ public class BeitragErstellen {
 									.toString().substring(0, 19));
 							loeschenk = new Button();
 
-							// Design
+							/**
+							 * CSS Definitionen
+							 */
+							
 							loeschenk.setStylePrimaryName("Loeschen");
 							kommentarNutzer.setStylePrimaryName("NutzerName");
 							datumsAnzeigek.setStylePrimaryName("Date");
 							textBeitragk.setStylePrimaryName("umBruch");
 
 							kommentarFlexTable.setStylePrimaryName("Kommentar");
-							// kmt.setStylePrimaryName("Kommentar");
 
-							// Dem FlexTable zuordnen
+							/**
+							 * Zuordnung der Widgets in ein FlexTable.
+							 */
 
 							kommentarFlexTable.setWidget(1, 0, kommentarNutzer);
 							kommentarFlexTable.setWidget(1, 1, bearbeitenk);
@@ -758,6 +891,11 @@ public class BeitragErstellen {
 							kommentarFlexTable.setWidget(2, 0,textBeitragk);
 							kommentarFlexTable.setWidget(3, 0,datumsAnzeigek);
 
+							/**
+							 * Um die Methodik zu vereinfachen, wurde hier geschaut ob der aktuelle
+							 * Nutzer die selbe ID besitzt wie der Ersteller der Kommentare. Je nach Ergebnis werden die
+							 * Eigenschaften der Widgets auf Visible true/false gesetzt.
+							 */
 
 							if (getNutzer().getID() != k.getNutzer().getID()) {
 								bearbeitenk.setVisible(false);
@@ -768,7 +906,10 @@ public class BeitragErstellen {
 
 							vPanel.add(vPanelk);
 
-							// Kommentar loeschen
+							/**
+							 * ClickHandler um ein Kommentar zu löschen
+							 */
+							
 							loeschenk.addClickHandler(new ClickHandler() {
 
 								@Override
@@ -799,7 +940,10 @@ public class BeitragErstellen {
 
 							});
 
-							// Kommentar bearbeiten
+							/**
+							 * ClickHandler um eigenes Kommentar zu bearbeiten.
+							 */
+							
 							bearbeitenk.addClickHandler(new ClickHandler() {
 
 								@Override
@@ -813,10 +957,16 @@ public class BeitragErstellen {
 											newKommentar);
 									kommentarFlexTable.setWidget(1, 1,
 											speichern);
-									// Bearbeiteter Text Speichern und in Label
-									// zurueckverwandeln (*Magic*)
-									speichern
-											.addClickHandler(new ClickHandler() {
+									
+									/**
+									 * Durch einen ClickHandler der dem Label zugeordnet ist, lässt sich dieser Text in ein TextField an der richtigen
+									 * stelle im FlexTable umwandeln. In dieses TextField wird danach der aktuelle Text geschrieben, welcher sich 
+									 * dann verändern lasst. Bei Klick wird zusätzlich ein Button im TextField angezeigt, welcher dann den neuen Text
+									 * ausließt und in die Datenbank speichert. Wenn der Datenbankeintrag erfolgreich war, wird das TextField
+									 * mit dem neuen Text wieder in ein Label umgewandelt.
+									 */
+									
+									speichern.addClickHandler(new ClickHandler() {
 												@Override
 												public void onClick(
 														ClickEvent event) {
@@ -876,7 +1026,14 @@ public class BeitragErstellen {
 
 	}
 
-	// Abobeitraege anzeigen
+	/**
+	 * In dieser Methode werden alle Abonnemnts des aktuell eingeloggten Nutzers aus der Datenbank
+	 * in einer ArrayList als Abonnements gespeichert. Jedesmal wenn ein Abonnement gefunden wurde, wird
+	 * dabei die Methode <b>getBeitraeVonAbo(abo)</b> aufgerufen.
+	 * @param nutzer
+	 */
+	
+
 	public void abonnementBeitraegeAnzeigen(Nutzer nutzer) {
 
 		// Ersmal alle abo's rausziehen
@@ -902,7 +1059,13 @@ public class BeitragErstellen {
 				});
 	}
 
-	// Dann die Beitraege von den Abonnenten rausziehen
+	/**
+	 * In dieser Methode werden die IDs der Nutzer, die der aktuell eingeloggter Nutzer abonniert hat, ausgelesen. 
+	 * Mit diesen IDs werden dann die Beiträge in der Datenbank, in einer ArrayList gespeichert. Danach werden alle
+	 * Beiträge in die Methode <b>beitragAnzeigenVonAbo(Beitrag, Nutzer)</b> übergeben. Dadurch werden alle Beiträge
+	 * der Abonnements angezeigt, und ebenso die Kommentare durch den Aufruf <b>KommentareAuslesen(Beitrag)</b>
+	 * @param abo
+	 */
 	public void getBeitraeVonAbo(final Abonnement abo) {
 
 		int id = abo.getPinnwand().getNutzer().getID();
@@ -933,15 +1096,16 @@ public class BeitragErstellen {
 
 	}
 
-	// END OF ABOBEITRAEGE
+	/**
+	 * Diese Methode erstellt in dem HTML-DIV Element <b>neuer_Beitrag</b> eine TextArea und einen Button um einen 
+	 * neuen Beitrag hinzuzufügen. Dem Button wird dann ein ClickHandler zugeordnet.
+	 */
 
 	public void beitragHinzufuegen() {
 
 		tArea.setVisibleLines(2);
 		tArea.setPixelSize(473, 15);
 		this.addBeitrag = new Button("Hinzufuegen");
-
-		// ClickHandler fuer neuen Beitrag
 
 		this.addBeitrag.addClickHandler(new addBeitragClickHandler());
 		this.tArea.addClickHandler(new getNutzerClickHandler());
@@ -952,7 +1116,11 @@ public class BeitragErstellen {
 		RootPanel.get("neuer_Beitrag").add(vPanelAddBeitrag);
 	}
 
-	// ClickHandler der den Beitrag hinzufuegt
+	/**
+	 * Dies ist der ClickHandler welcher einen neuen Beitrag hinzufügt. Inhalt dieses ClickHandler ist eine kleine
+	 * Überprüfung ob der Inhalt der TextArea befüllt oder leer ist. 
+	 */
+	
 	private class addBeitragClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -966,7 +1134,10 @@ public class BeitragErstellen {
 		}
 	}
 
-	// ClickHandler muss da sein, damit das Nutzer objekt geholt wird.
+	/**
+	 * Um jedoch sicherzugehen, dass ein Nutzer existiert wurde dieser ClickHandler erschaffen. Er dient legidlich 
+	 * darum, sicherzustellen, dass der aktuelle Nutzer angelegt ist. Der ClickHandler befindet sich auf der TextArea.
+	 */
 
 	private class getNutzerClickHandler implements ClickHandler {
 
@@ -976,6 +1147,14 @@ public class BeitragErstellen {
 		}
 	}
 
+	/**
+	 * Diese Methode schreibt nun tatsächlich einen neuen Beitrag in die Datenbank durch aufruf des Proxys.
+	 * Mit den Informationen wie NutzerID, Text und Erstellzeitpunkt, wird ein neues Objekt vom Typ Beitrag erstellt.
+	 * Bei erfolgreichem Einfügen in die Datenbank, wird die Methode <b>zeigeAlleBeitraege(Nutzer)</b> aufgerufen.
+	 * @param nutzer
+	 * @param textBeitrag
+	 */
+	
 	public void addBeitragAsync(Nutzer nutzer, String textBeitrag) {
 
 		Beitrag beitrag = new Beitrag();
@@ -999,6 +1178,12 @@ public class BeitragErstellen {
 
 		});
 	}
+	
+	/**
+	 * Mann kann sagen, dass diese Methode die "main" Methode dieser Klasse ist. In ihr werden alle Methoden aufgerufen,
+	 * die die Kommentare und Beiträge anzeigen, seien es die eigenen Beiträge/Kommentare oder die fremden.
+	 * @param nutzer
+	 */
 
 	public void zeigeAlleBeitraege(Nutzer nutzer) {
 
@@ -1006,7 +1191,6 @@ public class BeitragErstellen {
 		int id = nutzer.getID();
 		final Nutzer n = nutzer;
 
-		// Ließt fremde Kommentare aus
 		abonnementBeitraegeAnzeigen(n);
 
 		service.findeAlleUserBeitraege(id,

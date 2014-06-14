@@ -12,13 +12,19 @@ import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
+/**
+ * Entry-Point-Klasse des Projekts <b>SocialMediaPinnwand</b>.
+ * @autor Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
+
 public class SocialMediaPinnwand implements EntryPoint {
+	
+
 	
 	private static final String LOGGER_NAME = "Social Media";
 	private static final Logger log = Logger.getLogger(LOGGER_NAME);
-	
-	
-	 public static Logger getLogger() {
+	public static Logger getLogger() {
 		    return log;
 		  }
 	
@@ -30,6 +36,13 @@ public class SocialMediaPinnwand implements EntryPoint {
 	 */
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 	
+	
+	  /**
+	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
+	   * zusichert, benötigen wir eine Methode
+	   * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
+	   * <code>main()</code>-Methode normaler Java-Applikationen.
+	   */
 	
   public void onModuleLoad() {
 	  

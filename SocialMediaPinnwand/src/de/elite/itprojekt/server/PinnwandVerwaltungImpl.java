@@ -23,7 +23,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Klasse ist die Implementierungsklasse des Interfaces PinnwandVerwaltung. Enthalten sind alle Methoden die von der GUI benötigt werden. Diese Klasse enthält die entsprechende Applikationslogik und greift auf die verschiedenen Mapper zu.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * 
 	 *
 	 */
@@ -34,7 +34,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle Nutzer im System. Die Nutzer-Objekte werden als ArrayList zurückgegeben. 
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @return ArrayList<Nutzer>
 	 * 
 	 */
@@ -46,7 +46,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode legt einen neuen Nutzer im System an.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Nutzer nutzer
 	 * @return void
 	 * 
@@ -58,7 +58,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode erlaubt es einen bestehenden Nutzer zu editieren. (Vorname, Nachname, Email, Passwort) 
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Nutzer nutzer
 	 * @return void
 	 * 
@@ -70,7 +70,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode löscht einen bestehenden Nutzer komplett aus dem System.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Nutzer nutzer
 	 * @return void
 	 * 
@@ -82,7 +82,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Pinnwände. Die Pinnwand-Objekte werden als ArrayList zurückgegeben. 
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @return ArrayList<Pinnwand>
 	 * 
 	 */
@@ -94,7 +94,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Durch den Aufruf dieser Methode lästt sich ein neuer Textbeitrag auf der Pinnwand erstellen.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag
 	 * @return void
 	 * 
@@ -106,7 +106,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode überprüft beim Anmelden ob der eingegebene Nutzername und das zugehörtige Passwort korrekt sind.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param String nutzerName, String passWort
 	 * @return Nutzer
 	 * 
@@ -118,7 +118,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode sucht einen Nutzer anhand einer bestimmten ID und gibt das Nutzerobjekt anschließend zurück.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return Nutzer
 	 * 
@@ -130,7 +130,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode erlaubt es einen bestehenden Nutzer zu editieren. (Vorname, Nachname, Email, Passwort) 
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Nutzer nutzer
 	 * @return Nutzer
 	 * 
@@ -142,7 +142,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Beiträge eines bestimmten Nutzers im System. Die Beiträge-Objekte werden als ArrayList zurückgegeben.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return ArrayList<Beitrag>
 	 * 
@@ -154,7 +154,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode löscht einen einzelnen Beitrag aus der Datenbank.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag
 	 * @return void
 	 * 
@@ -166,7 +166,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode erlaubt es einen bestimmten Beitrag zu editieren und anschließend in die Datenbank zu speichern.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag
 	 * @return Beitrag
 	 * 
@@ -179,7 +179,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Abonnementbeziehungen eines bestimmten Nutzers im System. Die Abonnement-Objekte werden als ArrayList zurückgegeben.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return ArrayList<Abonnement> 
 	 * 
@@ -192,7 +192,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode erlaubt es ein Kommentar zu erstellen und in der Datenbank abzuspeichern.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Kommentar kommentar
 	 * @return void 
 	 * 
@@ -205,7 +205,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Kommentare zu einem bestimmten Beitrag. Die Kommentar-Objekte werden als ArrayList zurückgegeben.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return ArrayList<Kommentar> 
 	 * 
@@ -218,7 +218,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Beiträge zu einer bestimmten Pinnwand. Die Beitrag-Objekte werden als ArrayList zurückgegeben.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return ArrayList<Beitrag> 
 	 * 
@@ -231,7 +231,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode sucht nach einem bestimmten Nutznamen in der Datenbank. Sie wird benötigt um Nutzer abonnieren zu können
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param String nickname
 	 * @return Nutzer
 	 * 
@@ -243,7 +243,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode legt eine Abonnementbeziehung an.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int AbonnentID, int PinnwandID
 	 * @return Abonnement
 	 * 
@@ -259,7 +259,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode löscht eine Abonnementbeziehung.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Abonnement a
 	 * @return void
 	 * 
@@ -270,7 +270,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode liefert alle existierenden Beiträge zu einer bestimmten Pinnwand. Die Beitrag-Objekte werden als ArrayList zurückgegeben.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return ArrayList<Beitrag> 
 	 * 
@@ -284,7 +284,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode lässt den Nutzer einen bestimmten Beitrag liken.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Like like, Beitrag beitrag
 	 * @return void
 	 * 
@@ -296,7 +296,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode löscht einen bestimmten Kommentar aus der Datenbank.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Kommentar kommentar
 	 * @return void
 	 * 
@@ -308,7 +308,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode ermöglicht es einen bestimmten Kommentar zu editieren und in der Datenbank zu speichern.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Kommentar kommentar
 	 * @return Kommentar
 	 * 
@@ -321,7 +321,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode überprüft ob ein Nutzer Beiträge geliked hat oder nicht. Dies ist wichtig da festgelegt werden muss ob der Beitrag noch geliked werden kann oder deliked.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Nutzer nutzer, Beitrag beitrag
 	 * @return boolean
 	 * 
@@ -334,7 +334,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode löscht einen Like zu einem bestimmten Beitrag aus der Datenbank.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag
 	 * @return void
 	 * 
@@ -346,7 +346,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode sucht einen Like anhand einer ID.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param int id
 	 * @return Like
 	 * 
@@ -358,7 +358,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode ermttelt wieviele Likes ein bestimmter Beitrag erhalten hat.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag
 	 * @return int
 	 * 
@@ -371,7 +371,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode lässt einen Like zu einem bestimmten Beitrag löschen.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param Beitrag beitrag, Nutzer nutzer
 	 * @return void
 	 * 
@@ -385,7 +385,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	/**
 	 * Diese Methode sucht nach einem bestimmten Nutznamen in der Datenbank.
 	 * 
-	 * @author Dominik Liebscher
+	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * @param String nickName
 	 * @return boolean
 	 * 

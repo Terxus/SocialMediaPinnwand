@@ -82,7 +82,6 @@ public class NutzerMapper {
 		        n.setNickname(rs.getString("Nickname"));
 
 		        
-		        //Pinnwand und Abonnement?! :D
 
 		        //NutzerObjekte der ArrayList hinzufügen
 		        alleNutzer.add(n);
@@ -163,17 +162,7 @@ public class NutzerMapper {
 	    }
 	return 0;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//Nutzer updaten
 	
 	public Nutzer updateNutzer(Nutzer n){
@@ -202,7 +191,6 @@ public class NutzerMapper {
 	      Statement stmt = con.createStatement();
 	      stmt.executeUpdate("DELETE FROM Nutzer WHERE Nutzer_ID=" + n.getID());
 	      
-	    //  PinnwandMapper.pinnwandMapper().loeschen(n);
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
@@ -364,7 +352,6 @@ public class NutzerMapper {
 				//Versuch der Abfrage
 				try{
 					Statement stmt = con.createStatement();
-			//		String sql = "SELECT * from Beitrag WHERE Nutzer_ID =" + nutzer.getID() + " AND Datum between '" + von + "' AND '" + bis + "'";
 					String sql = "SELECT * from Nutzer WHERE Datum between '" + von + "' AND '" + bis + "'";
 					ResultSet rs = stmt.executeQuery(sql);
 
