@@ -24,11 +24,10 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 /**
  * In dieser Klasse kann sich ein Nutzer im System registrieren lassen. Die
- * Daten eines Nicknames und Passwort sind erforderlich um sich registrieren zu
- * können Die Angabe einer E-Mail Adresse sowie Vorname und Nachname können
- * optional angegeben werden Der Nickname ist ein eindeutiges Erkennungsmerkmal,
- * d.h. er darf nich doppelt vorkommen, Sollte der Nickname bereits vergeben
- * sein weist das System den Nutzer darauf.
+ * Angaben eines Benutzernamens, Vornamen, Nachnamen, Email-Adresee und Passwort 
+ * sind erforderlich um sich registrieren zu können.
+ * Der Benutzername ist ein eindeutiges Erkennungsmerkmal, d.h. er darf nich doppelt 
+ * vorkommen. Sollte der Nickname bereits vergeben sein weist das System den Nutzer darauf hin.
  * 
  * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla,
  *         Yen Nguyen
@@ -137,17 +136,27 @@ public class NutzerRegistrieren {
 	 * im System schon existiert. Der Nutzer wird daraufhin informaiert.
 	 * Bei der Eingabe des Passworts findet ebenfalls eine Überprüfung statt. Sollte das Passwort
 	 * nicht übereinstimmen wird eine Fehlermeldung auf dem Bildschirm ausgegeben.
+	 * Eine weitere Anweisung prüft ob der Nutzer auch wirklich alle Felder ausgefüllt hat.
 	 * 
 	 * @param void
 	 */
 
 	public void neuenNutzerRegistrieren() {
 
-		// Von Domi
 		final String s1 = usertextBox.getText();
 		String s2 = passwordTextBox.getText();
 		String s3 = passwordTextBox_1.getText();
-		if (s2.equals(s3)) {
+		
+			
+			if(usertextBox.getText().isEmpty() || passwordTextBox.getText().isEmpty()
+					|| vntextBox.getText().isEmpty() || nntextBox.getText().isEmpty()
+					|| emailtextBox.getText().isEmpty()) {
+			
+			Window.alert("Bitte füllen Sie alle Felder aus!");}
+			
+			else {
+				if (s2.equals(s3)) {
+			
 
 			final Nutzer n = new Nutzer();
 			n.setNickname(usertextBox.getText());
@@ -201,11 +210,12 @@ public class NutzerRegistrieren {
 											public void onFailure(
 													Throwable caught) {
 												logger.severe("Fehler beim Registrieren eines neuen Nutzers");
+											
 											}
 										});
-
+							
 							}
-
+						
 						}
 
 					});
@@ -216,4 +226,4 @@ public class NutzerRegistrieren {
 		}
 
 	}
-}
+}}
