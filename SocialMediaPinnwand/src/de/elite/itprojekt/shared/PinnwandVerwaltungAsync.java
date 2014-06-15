@@ -11,6 +11,16 @@ import de.elite.itprojekt.shared.bo.Like;
 import de.elite.itprojekt.shared.bo.Nutzer;
 import de.elite.itprojekt.shared.bo.Pinnwand;
 
+/**
+ * Das asynchrone Gegenstück des Interface {@link PinnwandVerwaltung}. Es wird
+ * semiautomatisch durch das Google Plugin erstellt und gepflegt. Daher erfolgt
+ * hier keine weitere Dokumentation. Für weitere Informationen siehe das
+ * synchrone Interface {@link PinnwandVerwaltung}.
+ * 
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @author In Anlehung an Prof. Dr. Thies
+ */
+
 public interface PinnwandVerwaltungAsync {
 
 	void textBeitragErstellen(Beitrag beitrag, AsyncCallback<Void> callback);

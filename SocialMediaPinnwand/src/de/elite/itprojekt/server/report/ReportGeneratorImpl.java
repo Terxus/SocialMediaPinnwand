@@ -20,7 +20,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * 
 	 * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
 	 * 
-	 *
 	 */
 
 	private static final long serialVersionUID = 1L;
