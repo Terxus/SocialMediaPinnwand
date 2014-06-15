@@ -17,7 +17,16 @@ import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
-
+/**
+ * Diese Klasse erstellt die Reports für alle registrierten Nutzer im System.
+ * Nutzer können individuell nach Zeitraum des jeweiligen Registrierungsdatums
+ * gefiltert werden. Zusätzlich ist es möglich die Nutzer nach Anzahl Ihrer
+ * geschriebenen Kommentare oder vergeben Likes zu sortieren.
+ * 
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla,
+ *         Yen Nguyen
+ * @version 1.0
+ */
 
 
 public class NutzerReport extends VerticalPanel{

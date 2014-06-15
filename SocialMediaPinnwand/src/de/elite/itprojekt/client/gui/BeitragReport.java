@@ -17,6 +17,14 @@ import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
 import de.elite.itprojekt.shared.bo.Beitrag;
 
+/**
+ * Diese Klasse erstellt die Reports für alle erstellten Beiträge im System.
+ * Beiträge können individuell nach Zeitraum des jeweiligen Erstellungsdatums gefiltert werden.
+ * Zusätzlich ist es möglich die Beiträge nach Anzahl Ihrer Kommentare oder erhaltenen Likes zu sortieren.
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
+
 public class BeitragReport extends SplitLayoutPanel {
 
 	 // Obere Beitragsliste

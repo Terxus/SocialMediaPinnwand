@@ -1,6 +1,7 @@
 package de.elite.itprojekt.client.gui;
 
 import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -28,6 +29,19 @@ import de.elite.itprojekt.client.SocialMediaPinnwand;
 import de.elite.itprojekt.shared.ReportGenerator;
 import de.elite.itprojekt.shared.ReportGeneratorAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
+
+/**
+ * Diese Klasse stellt das Grundgerüst des Reportgenerators dar.
+ * Hier wird die grafische Darstellung des Reportgenerators definiert und
+ * die globalen Nutzerstatistiken ermittelt.
+ * Desweiteren ist die Klasse zuständig für die getroffene Auswahl der Reportart und ruft die 
+ * dementsprechenden Methoden für die Reportgenerierung in den Klassen {@link NutzerReport}
+ * und {@link BeitragReport} auf.
+ * 
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla,
+ *         Yen Nguyen
+ * @version 1.0
+ */
 
 public class Report {
 
