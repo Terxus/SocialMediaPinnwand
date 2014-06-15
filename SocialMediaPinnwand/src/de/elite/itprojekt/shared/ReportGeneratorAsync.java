@@ -37,6 +37,5 @@ public interface ReportGeneratorAsync {
 	void alleNutzerNachZeitraum(String von, String bis, AsyncCallback<ArrayList<Nutzer>> callback);
 	
 	void alleBeitraegeNachZeitraum(String von, String bis, AsyncCallback<ArrayList<Beitrag>> callback);
-	
 
 }
