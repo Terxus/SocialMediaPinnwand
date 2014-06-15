@@ -45,10 +45,12 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class Report {
 
-	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy
-																		// aufbauen
-																		// für
-																		// pinnwandverwaltung
+	ReportGeneratorAsync report = GWT.create(ReportGenerator.class); // Proxy aufbauen für Pinnwandverwaltung
+																
+	/**
+	 * Ein kleiner Logger der die System.out's in den Client bringen soll. Wird benutzt um die Errors auszulesen.
+	 */
+
 	Logger logger = SocialMediaPinnwand.getLogger();
 
 	private VerticalPanel vPanel = new VerticalPanel();
@@ -96,7 +98,11 @@ public class Report {
 	final MultiWordSuggestOracle orakel = new MultiWordSuggestOracle();
 	final SuggestBox vBox = new SuggestBox(orakel);
 
-	// Konstruktor
+	/**
+	 * Hier werden zunächst alle Nutzerobjekte geladen. Dies wird für unsere Nutzersuche benötigt um 
+	 * die SuggestBox zu befüllen.
+	 * 
+	 */
 
 	public Report() {
 		logger.severe("Report Generator einsatzbereit");
@@ -118,7 +124,6 @@ public class Report {
 		});
 	}
 
-	@SuppressWarnings("deprecation")
 	public void reportNavigation() {
 
 		this.reportButton = new Button("Report");
@@ -207,6 +212,12 @@ public class Report {
 		lb.setVisibleItemCount(2);
 
 		globleStatistikenausgeben();
+		
+		/**
+		 * Abhängig vom Klick auf die Radiobuttons der jeweiligen Reportart werden verschiedene Widgets 
+		 * entwerder ein- oder ausgeblendet.
+		 * 
+		 */
 
 		radioButtonBeitrag.addClickHandler(new ClickHandler() {
 
@@ -247,7 +258,11 @@ public class Report {
 
 		});
 
-		// Datum auslesen
+		/**
+		 * Der ValueChangeHandler erkennt wenn ein Datum aus den DateBoxen neu ausgewählt oder geändert wird.
+		 * 
+		 */
+		
 		dateBoxVon.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				datumVon = event.getValue();
@@ -259,6 +274,13 @@ public class Report {
 				datumBis = event.getValue();
 			}
 		});
+		
+		/**
+		 * Abhängig vom Klick auf die Radiobuttons der jeweiligen Reportart und dem Sortierungskriterium
+		 * (Likes oder Kommentare) wird die entsprechende Methode in der Klasse {@link NutzerReport}
+		 * oder {@link BeitragReport} aufgerufen.
+		 * 
+		 */
 
 		reportButton.addClickHandler(new ClickHandler() {
 
@@ -301,6 +323,14 @@ public class Report {
 		});
 
 	}
+	
+	/**
+	 * Diese Methode gibt die globalen Nutzerstatistiken auf dem Bildschirm aus.
+	 * Die Angaben beinhalten die gesamten registrierten Nutzer, Anzahl der Kommentare, Anzahl der Likes,
+	 * Anzahl der Beiträge und Anzahl der Abonnements.
+	 * @param void
+	 * 
+	 */
 
 	// Zuerst einmal die Globalen Statisiken ausgeben
 	public void globleStatistikenausgeben() {
@@ -402,6 +432,14 @@ public class Report {
 		;
 
 	}
+	
+	/**
+	 * Diese Methode übergibt den eingegeben String in der SuggestBox "vBox" und ruft die Methode 
+	 * zeigeStatistikeinzelnerNutzer() in der Klasse {@link NutzerReport} auf. 
+	 * Sie wird benötigt wenn der Nutzer sich einen <b>individuellen Nutzerreport</b> ausgeben lassen will.
+	 * @param void
+	 * 
+	 */
 
 	public void userSuchen() {
 

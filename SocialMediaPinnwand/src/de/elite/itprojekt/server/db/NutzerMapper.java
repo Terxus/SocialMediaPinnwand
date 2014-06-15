@@ -202,7 +202,7 @@ public class NutzerMapper {
 
 
 	/**
-	 * Diese Methode löscht einen Nutzer in der Datenbank
+	 * Diese Methode löscht einen Nutzer in der Datenbank die dazugehörigen Nutzer-Referenzen in allen Tabellen
 	 * @param n Nutzer, der gelöscht werden soll
 	 */
 	public void nutzerLoeschen(Nutzer n){
@@ -210,6 +210,11 @@ public class NutzerMapper {
 
 	    try {
 	      Statement stmt = con.createStatement();
+	      stmt.executeUpdate("DELETE FROM Beitrag WHERE Nutzer_ID=" + n.getID());
+	      stmt.executeUpdate("DELETE FROM Kommentar WHERE Nutzer_ID=" + n.getID());
+	      stmt.executeUpdate("DELETE FROM Likee WHERE Nutzer_ID=" + n.getID());
+	      stmt.executeUpdate("DELETE FROM Abonnement WHERE Nutzer_ID=" + n.getID());
+	      stmt.executeUpdate("DELETE FROM Pinnwand WHERE Nutzer_ID=" + n.getID());
 	      stmt.executeUpdate("DELETE FROM Nutzer WHERE Nutzer_ID=" + n.getID());
 	    }
 	    catch (SQLException e) {
@@ -356,7 +361,7 @@ public class NutzerMapper {
 
 
 		/**
-		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zur�ck
+		 * Diese Methode gibt die Anzahl aller registrierten Nutzer zurück
 		 * @return Anzahl aller Nutzer
 		 */
 		 public int zaehleNutzer(){
