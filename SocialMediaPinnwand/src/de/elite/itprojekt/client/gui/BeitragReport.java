@@ -43,6 +43,16 @@ public class BeitragReport extends SplitLayoutPanel {
 	private static Label likesLabelheader = new Label("Likes");
 
 	static ReportGeneratorAsync report = GWT.create(ReportGenerator.class);
+	
+	/**
+	 * Diese Methode sortiert die Anzahl der erhaltenen Likes aller Beiträge in absteigender Reihenfolge.
+	 * Die Parameter <b>datumVon</b> und <b>datumBis</b> kennzeichnen den Zeitraum. 
+	 * Die Methode zeigt nur die Beiträge an, die innerhalb dieses Zeitraums erstellt wurden.
+	 * 
+	 * @param datumVon
+	 * @param datumBis
+	 * 
+	 */
 
 	public static void sortiereBeitraegeAnhandLikes(Date datumVon, Date datumBis) {
 
@@ -114,6 +124,16 @@ public class BeitragReport extends SplitLayoutPanel {
 
 	}
 
+	/**
+	 * Diese Methode sortiert die Anzahl der erhaltenen Kommentare aller Beiträge in absteigender Reihenfolge.
+	 * Die Parameter <b>datumVon</b> und <b>datumBis</b> kennzeichnen den Zeitraum. 
+	 * Die Methode zeigt nur die Beiträge an, die innerhalb dieses Zeitraums erstellt wurden.
+	 * 
+	 * @param datumVon
+	 * @param datumBis
+	 * 
+	 */
+	
 	public static void sortiereBeitraegeAnhandKommentare(Date datumVon,
 			Date datumBis) {
 		DateTimeFormat simpleDateFormat = DateTimeFormat

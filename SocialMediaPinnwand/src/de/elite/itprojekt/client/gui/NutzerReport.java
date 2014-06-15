@@ -50,6 +50,16 @@ public class NutzerReport extends VerticalPanel{
 
 	
 	 static ReportGeneratorAsync report = GWT.create(ReportGenerator.class);
+	 
+	 	/**
+		 * Diese Methode sortiert die Anzahl der vergebenen Likes aller Nutzer in absteigender Reihenfolge.
+		 * Die Parameter <b>datumVon</b> und <b>datumBis</b> kennzeichnen den Zeitraum. 
+		 * Die Methode zeigt nur die Nutzer an die sich innerhalb dieses Zeitraums registriert haben.
+		 * 
+		 * @param datumVon
+		 * @param datumBis
+		 * 
+		 */
 	
 	public static void sortiereNutzerAnhandLikes(Date datumVon, Date datumBis) {
 		
@@ -74,7 +84,7 @@ public class NutzerReport extends VerticalPanel{
 				
 				
 				
-						// Sortieralgorithmus für Kommentare
+						// Sortieralgorithmus für Likes
 						Collections.sort(nutzer, Nutzer.sortiereLikes());
 				
 				int i = 0;
@@ -112,6 +122,15 @@ public class NutzerReport extends VerticalPanel{
 
 		}
 	
+	/**
+	 * Diese Methode sortiert die Anzahl der Kommentare aller Nutzer in absteigender Reihenfolge.
+	 * Die Parameter <b>datumVon</b> und <b>datumBis</b> kennzeichnen den Zeitraum. 
+	 * Die Methode zeigt nur die Nutzer an die sich innerhalb dieses Zeitraums registriert haben.
+	 * 
+	 * @param datumVon
+	 * @param datumBis
+	 * 
+	 */
 
 	public static void sortiereNutzerAnhandKommentare(Date datumVon,
 			Date datumBis) {
@@ -139,7 +158,7 @@ public class NutzerReport extends VerticalPanel{
 			public void onSuccess(ArrayList<Nutzer> nutzer) {
 				
 
-				//Sortieralgorithmus für Likes
+				//Sortieralgorithmus für Kommentare
 				Collections.sort(nutzer, Nutzer.sortiereKommentare());
 				
 				int i = 0;
@@ -180,11 +199,14 @@ public class NutzerReport extends VerticalPanel{
 		}
 
 	
+	/**
+	 * Diese Methode zeigt die Anzahl der Abonnenten, geschriebene Beiträge, geschriebene Kommentare, 
+	 * und vergebenen Likes eines einzelnen Nutzers an.
+	 * @param nickname
+	 * 
+	 */
 	
 	public static void zeigeStatistikeinzelnerNutzer(String nickname)	{
-		
-		
-		
 	
 		report.getUserByNickname(nickname, new AsyncCallback<Nutzer>() {
 			
