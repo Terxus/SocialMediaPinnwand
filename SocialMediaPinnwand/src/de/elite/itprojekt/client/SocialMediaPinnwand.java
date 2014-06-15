@@ -20,6 +20,10 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class SocialMediaPinnwand implements EntryPoint {
 	
+	/**
+	 * Logger für Clientseitige Ausgabe von Informationen
+	 */
+	
 	private static final String LOGGER_NAME = "Social Media";
 	private static final Logger log = Logger.getLogger(LOGGER_NAME);
 	public static Logger getLogger() {
@@ -27,6 +31,10 @@ public class SocialMediaPinnwand implements EntryPoint {
 		  }
 	
 	public final Nutzer n = new Nutzer();
+	
+	/**
+	 * <b>service</b> heißt unsere Proxyreferenz, welche mit dem Server interagiert.
+	 */
 	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 	
