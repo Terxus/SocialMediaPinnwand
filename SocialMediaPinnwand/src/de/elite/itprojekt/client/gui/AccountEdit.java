@@ -25,16 +25,16 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 public class AccountEdit {
 	
 	private Nutzer nutzer;
-	
+
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 	Logger logger = SocialMediaPinnwand.getLogger();
-	
+
 	public AccountEdit() {
 		logger.severe("Kontoansicht geladen");
 	}
-	
-	
-	
+
+
+
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
 			@Override
@@ -47,7 +47,7 @@ public class AccountEdit {
 			}
 		});
 	}
-	
+
 	public void setNutzer(Nutzer eingeloggterNutzer) {
 		this.nutzer = eingeloggterNutzer;
 		this.Vorname.setText(this.nutzer.getVorname());
@@ -56,7 +56,7 @@ public class AccountEdit {
 		this.Passwort.setText(this.nutzer.getPassWort());
 		this.Email.setText(this.nutzer.geteMail());
 	}
-	
+
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label Vorname;
 	private Label VornamenLabel = new Label("Vorname:");
@@ -71,24 +71,24 @@ public class AccountEdit {
 	private Button bestaetigenLoeschenButton;
 	private Button bestaetigenEditierenButton;
 	FlexTable editUser = new FlexTable();
-	
+
 	//Textboxen für Änderungen
-	
+
 	private TextBox vorNameTextBox = new TextBox();
 	private TextBox nachNameTextBox = new TextBox();
 	private TextBox nickNameTextBox = new TextBox();
 	private TextBox passWortTextBox = new TextBox();
 	private TextBox eMailTextBox = new TextBox();
-	
+
 	//Account Loeschen?
-	
-	
+
+
 	private Label accountDelLabel = new Label("Account Loeschen");
 	private PushButton deleteAccountButton = new PushButton(new Image("images/loeschen.png"));
-	
+
 
 	public void editNutzer() {
-		
+
 		//Widgets erzeugen für Beitrag
 
 		this.Vorname = new Label("");
@@ -98,10 +98,10 @@ public class AccountEdit {
 		this.Email = new Label("");
 		this.bestaetigenLoeschenButton = new Button("Bestätigen");
 		this.bestaetigenEditierenButton = new Button("Bestätigen");
-		
+
 		this.bestaetigenLoeschenButton.setVisible(false);
 		this.bestaetigenEditierenButton.setVisible(false);
-		
+
 		editUser.setWidget(0, 0, VornamenLabel);
 		editUser.setWidget(0, 1, Vorname);
 		editUser.setWidget(1, 0, NachnamenLabel);
@@ -116,20 +116,20 @@ public class AccountEdit {
 		editUser.setWidget(7, 0, bestaetigenEditierenButton);
 		editUser.setWidget(6, 1, accountDelLabel);
 		editUser.setWidget(6, 2, deleteAccountButton);
-		
+
 
 		this.vPanel.add(editUser);
-		
+
 		//Styles
 		this.VornamenLabel.setStylePrimaryName("editUser");
 		this.NachnamenLabel.setStylePrimaryName("editUser");
 		this.NicknamenLabel.setStylePrimaryName("editUser");
 		this.PasswortLabel.setStylePrimaryName("editUser");
 		this.EmailLabel.setStylePrimaryName("editUser");
-		
+
 		RootPanel.get("Beitrag").add(vPanel);
 		holeNutzer();
-		
+
 		this.Vorname.addClickHandler(new infoClickHandler());
 		this.Nachname.addClickHandler(new infoClickHandler());
 		this.Nickname.addClickHandler(new infoClickHandler());
@@ -144,10 +144,11 @@ public class AccountEdit {
 		@Override
 		public void onClick(ClickEvent event) {
 			bestaetigenEditierenButton.setVisible(true);
+			bestaetigenLoeschenButton.setVisible(false);
 			accountDelLabel.setVisible(false);
 			deleteAccountButton.setVisible(false);		
 			nutzerDatenAendern();
-		
+
 		}
 	}
 	//Umwandlungen der Labels zu Textboxen
@@ -168,7 +169,7 @@ public class AccountEdit {
 	}
 
 	//Bestätige Ergebnisse
-	
+
 	private class okButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -177,7 +178,7 @@ public class AccountEdit {
 	}
 	//Erstelle neues Nutzerobjekt
 	public void updateNutzer() {
-		
+
 		if (passWortTextBox.getValue().isEmpty()) {
 			Window.alert("Passwort darf nicht leer sein!");
 		}
@@ -190,7 +191,7 @@ public class AccountEdit {
 		updatedNutzer.setPassWort(passWortTextBox.getText());
 		updatedNutzer.seteMail(eMailTextBox.getText());
 		updateNutzerinDB(updatedNutzer);
-		
+
 		}
 
 	}
@@ -203,9 +204,9 @@ public class AccountEdit {
 			}
 			@Override
 			public void onSuccess(Nutzer result) {
-				
+
 				//Textboxen wieder in Labels verwandeln mit dem aktuellen Text
-				
+
 				Vorname.setText(vorNameTextBox.getText().toString());
 				Nachname.setText(nachNameTextBox.getText().toString());
 				Nickname.setText(nickNameTextBox.getText().toString());
@@ -223,30 +224,31 @@ public class AccountEdit {
 			}
 		});
 	}
-	
+
 	//Nutzer Löschen
 	private class deleteAccountButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
 			Window.alert("Bitte klicken Sie auf bestätigen wenn Sie ihren Account löschen wollen!");
 			bestaetigenLoeschenButton.setVisible(true);
+			bestaetigenEditierenButton.setVisible(false);
 		}
 	}
-	
+
 	private class bestaetigenLoeschenButton implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
 		nutzerLoeschen();
 		}
 	}
-	
+
 	public void nutzerLoeschen() {
 		service.nutzerLoeschen(nutzer, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				logger.severe("Nutzer konnte nicht gelöscht werden.");
-				
+
 			}
 			@Override
 			public void onSuccess(Void result) {
@@ -255,7 +257,7 @@ public class AccountEdit {
 			}
 		});
 	}
-	
+
 	public void logout() {
 	 Window.alert("Account gelöscht!");
    	 Cookies.removeCookie("gp5cookie");

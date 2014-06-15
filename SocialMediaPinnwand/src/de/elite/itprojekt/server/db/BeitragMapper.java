@@ -339,42 +339,7 @@ public class BeitragMapper {
 				    		return null;
 					    }				
 				}
-			 /**
-			  * Diese Methode gibt alle Beiträge eines Nutzers aus, sortiert nach Kommentare und Datum
-			  * @param nutzer Nutzer, dessen Beiträge ausgegeben werden sollen
-			  * @param von frühester Erstellzeitpunkt
-			  * @param bis spätester Erstellzeitpunkt
-			  * @param sortierung
-			  * @return
-			  */
-			 public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung) {
-					//Aufbau der DBVerbindung
-					Connection con = DBConnection.connection();
-					ArrayList <Beitrag> beitraege= new ArrayList<Beitrag>();
-					//Versuch der Abfrage
-					try{
-						Statement stmt = con.createStatement();
-						String sql = "SELECT * from Beitrag WHERE Nutzer_ID =" + nutzer.getID() + " AND Datum between '" + von + "' AND '" + bis + "'";
-						ResultSet rs = stmt.executeQuery(sql);
 
-						while (rs.next()) {
-							// Ergebnis in Beitrag- Objekt umwandeln
-					        Beitrag b = new Beitrag();
-					        b.setID(rs.getInt("Beitrag_ID"));
-					        b.setErstellZeitpunkt(rs.getTimestamp("Datum"));
-					        b.setText(rs.getString("Text"));
-					        b.setLikeAnzahl(LikeMapper.likeMapper().zaehleAlleLikesProBeitrag(b));
-					        b.setKommentarAnzahl(KommentarMapper.kommentarMapper().zaehleAlleKommentareProBeitrag(b));
-
-					        beitraege.add(b);
-						}
-						return beitraege;		
-					}
-					   catch (SQLException e) {
-				    		e.printStackTrace();
-				    		return null;
-					    }				
-				}
 			 
 			 
 			 /**
