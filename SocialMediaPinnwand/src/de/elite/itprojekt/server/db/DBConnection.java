@@ -45,7 +45,7 @@ public class DBConnection {
 	
 	private static String dbHost = "localhost"; // Hostname
 	private static String dbPort = "3306";      // Port -- Standard: 3306
-	private static String dbName = "wtf";   // Datenbankname
+	private static String dbName = "gruppe5db";   // Datenbankname
 	private static String dbUser = "root";     // Datenbankuser
 	private static String dbPass = "";      // Datenbankpasswort
 
