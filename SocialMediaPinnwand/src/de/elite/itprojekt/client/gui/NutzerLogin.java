@@ -13,7 +13,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hyperlink;
@@ -28,32 +27,67 @@ import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
+/**
+ * Diese Klasse ermöglicht einem registrierten Nutzer einen Login zu seiner Pinnwand.
+ * Sollte ein Nutzer nicht dem System angehören, dann hat er die Möglichkeit, sich anhand
+ * eines Hyperlinks zu registrieren. Dafür ist dann die Klasse <b>NutzerRegistrieren</b> 
+ * zuständig.
+ * 
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
 
 public class NutzerLogin {
 	
+	/**
+	 * <b>service</b> heißt unsere Proxyreferenz, welche mit dem Server interagiert.
+	 */
+	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	
+	/**
+	 * Ein kleiner Logger der die System.out's in den Client bringen soll. Wird benutzt um die Errors auszulesen.
+	 * Aurufbar z.B. durch: logger.severe("Beispieltext");
+	 */
+	
 	Logger logger = SocialMediaPinnwand.getLogger();
 
-	//Get the Nutzer
+	/**
+	 * Instanzierung eines Nutzers.
+	 */
 	
 	private Nutzer nutzer;
+	
+	/**
+	 * Methode die den aktuellen Nutzer ausließt.
+	 * @return Nutzer
+	 */
 	
 	public Nutzer getNutzer() {
 		return this.nutzer;
 	}
+	
+	/**
+	 * Methode die den aktuellen Nutzer setzt.
+	 * @param nutzer
+	 */
 	public void setNutzer(Nutzer nutzer) {
 		this.nutzer = nutzer;
 	}
 	
 
+	/**
+	 * Hier befindet sich das Design des Loginfensters.
+	 * Das erste was ein Nutzer sieht, wenn er kein Cookie besitzt,
+	 * ist dieses FlexTable, welches zu einer schöneren Darstellung in 
+	 * einem DecoratorPanel eingeschlossen ist.
+	 */
 	
-	  //Startpage <b>HOME</b>
 		private DecoratorPanel decPanel = new DecoratorPanel();
 		private TextBox nutzerNameBox = new TextBox();
 		private PasswordTextBox passwortBox = new PasswordTextBox();
 		private Button loginButton = new Button("Login");
 		private Label errorLabel = new Label();
-		private DialogBox dialogBox = new DialogBox();
 		private HTML successHTML = new HTML();
 		private Button closeButton = new Button("Close");
 		private FlexTable loginFlex = new FlexTable();
@@ -64,10 +98,14 @@ public class NutzerLogin {
 		
 		private Label willKommenLabel = new Label();
 
-
+/**
+ * Diese Methode nutzt die oben instanzierten Widgets, und ordnet sie in dem FlexTable <b>loginFlex</b> an.
+ */
 	  public void loadLoginView() {
 			
-		//FlexTable für Login
+		/**
+		 * Anordnung der Widgets in der FlexTable.
+		 */
 		
 		loginFlex.setWidget(0, 1, nutzerNameBox);
 		loginFlex.setWidget(1, 1, passwortBox);
@@ -77,26 +115,33 @@ public class NutzerLogin {
 		loginFlex.setWidget(2, 1, registerLink);
 		loginFlex.setWidget(3, 0, errorLabel);
 		
+		/**
+		 * Hier wird das FlexTable in ein DecoratorPanel gepackt.
+		 */
+		
 		decPanel.add(loginFlex);
 		
 		
-		// HTML element hinzufügen
+		/**
+		 * Das Loginfenster (DecoratorPanel) wird dem DIV-Element <b>Navigator</b> zugeordnet.
+		 */
 		
 		RootPanel.get("Navigator").add(decPanel);
 		
-		// cursor in die input box
+		/**
+		 * Bei Aufruf ist der Mauscursor direkt in der Box, in der der Nutzername reingeschrieben
+		 * werden soll.
+		 */
 		
 		nutzerNameBox.setFocus(true);
 		
-		//style 
+		/**
+		 * Dem Errorlabel wird ein Stylenamen hinzugefügt, welches in der CSS Datei definiert ist.
+		 */
 		
 		errorLabel.setStyleName("errorLabel");
 		errorLabel.setVisible(false);
 		
-		
-		//Popupbox
-		dialogBox.setText("Login vollbracht! yay!");
-		dialogBox.setAnimationEnabled(true);
 		
 		closeButton.getElement().setId("closeButton");
 		VerticalPanel dialogVPanel = new VerticalPanel();
@@ -104,16 +149,27 @@ public class NutzerLogin {
 		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 		dialogVPanel.add(successHTML);
 		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
 
 		//CloseClickHandler zu der Dialogbox adden
 		
 		closeButton.addClickHandler(new CloseButtonClickHandler());
+		
+		/**
+		 * ClickHandler der auf den Hyperlink zur Registration reagiert.
+		 */
+		
 		registerLink.addDomHandler(new RegistrierClickHandler(), ClickEvent.getType());
+		
+		/**
+		 * ClickHandler der auf den Button Login reagiert.
+		 */
+		
 		loginButton.addClickHandler(new LoginClickHandler());
 
-		//Gleichzeitig noch ein ClickHandler der auf die Entertaste reagiert.
-		
+		/**
+		 * In der TextBox befindet sich ein ClickHandler welches bei Drücken der Entertaste
+		 * reagiert. Dies erleichert das Einloggen.
+		 */
 		
 		passwortBox.addKeyPressHandler(new KeyPressHandler() {
  			public void onKeyPress(KeyPressEvent event) {
@@ -125,6 +181,11 @@ public class NutzerLogin {
 		
 	  }
 
+	  /**
+	   * Bei Aufruf dieser Methode wird zuerst das Cookie ausgelesen. Wenn die ID des Nutzer gefunden wurde, wird
+	   * darauf ein Nutzerobjekt erstellt. Wenn das Objekt erstellt wurde, wird die Pinnwand aufgebaut - mit
+	   * sämtlichen Inhalten: Navigation, Abonnements, und die Beiträge+Kommentare der Pinnwand.
+	   */
 	  public void loadPinnwand() {
 		  
 		  
@@ -155,7 +216,9 @@ public class NutzerLogin {
 				}
 			});
 	  }
-	  
+	  /**
+	   * Diese Methode wurde geschaffen um die Pinnwand neu zu laden. Eine Art <b>refresh</b> Funktion.
+	   */
 	  public void refreshPinnwand() {
 		  
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
@@ -188,6 +251,10 @@ public class NutzerLogin {
 	  
 	  
 	  //Navigationsrefresh
+	  /**
+	   * Um nicht jedesmal den gesamten Inhalt der Pinnwand neu zu laden wurde diese Methode geschaffen.
+	   * Sie lädt nur die Navigation (DIV-Element: <b>Navigator</b>) neu, zum Beispiel wenn ein neuer Abonnement hinzugefügt oder gelöscht wurde.
+	   */
 	  
 	  public void refreshNavi() {
 		  
@@ -214,6 +281,10 @@ public class NutzerLogin {
 			});
 		  
 	  }
+	  
+	  /**
+	   * Äquivalent zu oberen Methode, lädt diese Methode nur die Beiträge neu. Also das DIV-Element: <b>Beitrag</b>.
+	   */
 	  public void refreshBeitraege() {
 		  
 			service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
@@ -234,17 +305,24 @@ public class NutzerLogin {
 	  }
 	  
 
-	  // ClickHandler #1
+	 /**
+	  * ClickHandler ermöglicht das anzeigen des Buttons: Login
+	  *
+	  */
+	  
 	  private class CloseButtonClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			dialogBox.hide();
 			loginButton.setEnabled(true);
 			loginButton.setFocus(true);
 		}
 	  }
-	  // ClickHandler der neuen User hinzufügen soll
+	  /**
+	   * Dieser ClickHandler erstellt ein neues Objekt der Klasse <b>NutzerRegistrieren</b>,
+	   * und ruft danach die Methode <b>nutzerRegistrieren()</b> auf.
+	   *
+	   */
 	  
 	  private class RegistrierClickHandler implements ClickHandler {
 
@@ -255,7 +333,12 @@ public class NutzerLogin {
 		}
 	  }
 	  
-	  // ClickHandler der einen Login ermöglichen soll
+	  /**
+	   * Dieser ClickHandler ruft die Methode checkValues() auf,
+	   * die die Eingabe des Nutzer überprüft.
+	   *
+	   */
+	  
 	  private class LoginClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -264,7 +347,10 @@ public class NutzerLogin {
 	  }
 	  
 
-	  
+	  /**
+	   * Diese Methode überprüft ob in der Textbox <b>Nutzer</b> und in der Textbox <b>Passwort</b>
+	   * sich Einträge befinden. Sollte dies der Fall sein wird die Methode <b>checkUser()</b> aufgerufen.
+	   */
 	  
 	  private void checkValues() {
 				if ((nutzerNameBox.getValue() == "") || (passwortBox.getValue() == "")) {
@@ -275,9 +361,14 @@ public class NutzerLogin {
 				}
 	  }
 	  
+	  /**
+	   * Diese Methode überprüft ob sich Nutzer mit dem angegeben Namen und Passwort in der Datenbank befinden.
+	   * Bei Erfolg wird eine Willkommensnachricht im Footer erscheinen und die Methode <b>login()</b> aufgerufen.
+	   */
+	  
 	  public void checkUser() {		  
 			service.loginCheck(nutzerNameBox.getText(), passwortBox.getText(), new AsyncCallback<Nutzer>() {
-				
+
 				@Override
 				public void onSuccess(Nutzer result) {
 					if (result.getID() != 0) {
@@ -286,9 +377,7 @@ public class NutzerLogin {
 						RootPanel.get().clear();
 						login();
 
-						
-						
-						//Willkommensnachricht
+	
 						willKommenLabel.setText("Willkommen" + " " + result.getVorname() + "!");
 						RootPanel.get("Footer").add(willKommenLabel);
 					} 
@@ -304,6 +393,10 @@ public class NutzerLogin {
 			});
 
 		}
+	  
+	  /**
+	   * Wenn der Nutzer vorhanden ist, dann wird die Pinnwand geladen.
+	   */
 
 	  private void login() {
 		  loadPinnwand();

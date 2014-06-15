@@ -3,20 +3,25 @@ package de.elite.itprojekt.client.gui;
 
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
 
-
-
-
+/**
+ * Diese Klasse stellt unsere oberere Navigationsleiste dar im DIV-Element <b>Header</b>
+ * Die Navigationsleiste besteht aus:
+ * 1. Pinnwand
+ * 2. Konto
+ * 3. Reports
+ * 4. Logout
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
 
 public class TopLevelNavigation {
 
-	FlexTable kommentarFlexTable = new FlexTable();
-	
-	
-
+/**
+ * Diese Methode erstellt ein MenuBar Widget, mit den oben genannten Reitern.
+ */
 	public void addTopLevelNavi() {
 		
 	    MenuBar headerMenu = new MenuBar();
@@ -24,6 +29,12 @@ public class TopLevelNavigation {
 		//ClickListener
 		Command home = new Command() {
 		     public void execute() {
+		    	 
+		    	 /**
+		    	  * Bei dem Aufruf des Reiters: Pinnwand, werden alle DIV-Element gelöscht.
+		    	  * Dadurch werden alle vorherigen Inhalte geleert und neu erstellt. Dies geschieht
+		    	  * bei jedem Reiter 
+		    	  */
 		    	 
 			      RootPanel.get("Navigator").clear();
 			      RootPanel.get("neuer_Beitrag").clear();

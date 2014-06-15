@@ -24,21 +24,44 @@ import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Abonnement;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
-
+/**
+ * Diese Klasse ist für die Navigation zuständig. Alle Pinnwandelemente wie Abo's und die Nutzersuche sind
+ * hier enthalten.
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
 
 public class Navigation {
+	
+	/**
+	 * Ein kleiner Logger der die System.out's in den Client bringen soll. Wird benutzt um die Errors auszulesen.
+	 * Aurufbar z.B. durch: logger.severe("Beispieltext");
+	 */
 
 	Logger logger = SocialMediaPinnwand.getLogger();
 	
+	/**
+	 * Instanzierung eines Nutzers.
+	 */
+	
 	private Nutzer nutzer = null;
+	
+	/**
+	 * Auslesen der NutzerID durch das Cookie
+	 */
+	
 	private int nutzerID = Integer.valueOf(Cookies.getCookie("gp5cookie"));
+	
+	/**
+	 * <b>service</b> heißt unsere Proxyreferenz, welche mit dem Server interagiert.
+	 */
 
-	//Hole Aktuellen eingeloggten Nutzer per Cookie anhand der ID
-
-	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class); // Proxy aufbauen für Pinnwandverwaltung
+	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
 
 
-	//Methode die den Nutzer holt
+   /**
+    * Diese Methode ließt sicht den aktuell eingeloggten Nutzer aus der Datenbank anhand der Cookies.
+    */
 
 
 	public void holeNutzer() {
@@ -56,23 +79,28 @@ public class Navigation {
 				});
 	}
 	
+	/**
+	 * Diese Methode setzt den aktuell eingeloggten Nutzer.
+	 * @param nutzer
+	 */
+	
 	public void setNutzer(Nutzer nutzer) {
 		this.nutzer = nutzer;
-
-		if (this.nutzer.getVorname().isEmpty()) {
-
-			this.name.setText(this.nutzer.getNickname() + " " + this.nutzer.getNachname());
-		}
-		else {
-			this.name.setText(this.nutzer.getVorname() + " " + this.nutzer.getNachname());
-		}
 	}
 
-	//Ende Nutzer holen
+	/**
+	 * Hier ist der aufbau des Design für unsere Navigation 
+	 */
 
 		private VerticalPanel vPanel = new VerticalPanel();
 		private Label name = new Label("");
 		private Label aboNutzer;
+		
+		/**
+		 * Zwei PushButtons wurden gewählt, da man in ihnen besonders einfach Bilder 
+		 * hinzufügen kann.
+		 */
+		
 	 	private PushButton aboLoeschen = new PushButton(new Image("images/loeschen.png"));
 	 	private PushButton pinnwandSucheButton = new PushButton(new Image("images/hinzufuegen.png"));
 	 
@@ -80,23 +108,26 @@ public class Navigation {
 	 	private FlexTable suchTabelle = new FlexTable();
 	
 	 	private FlexTable abonnierteNutzerAnzeigen = new FlexTable();
-	 	private FlexTable sucheResultatTabelle = new FlexTable();
+	 	
+	 	/**
+	 	 * Eine Besonderheit ist unsere Suggestbox, die Aufgrund von Anfangsbuchstaben
+	 	 * Nutzerobjekte anzeigt.
+	 	 */
 
 	 	final MultiWordSuggestOracle orakel = new MultiWordSuggestOracle();
 	 	final SuggestBox vBox = new SuggestBox(orakel);
 
 
-	/*
-	 * Code
+	/**
+	 * In dieser Methode wird anhand des aktuell eingeloggten Nutzers, der Name der Pinnwand
+	 * angezeigt. Danach werden zwei Tabellen dem VerticalPanel zugeordnet.
+	 * 1. nutzerTabelle: Diese Tabelle stellt lediglich den aktuellen Nutzer in einem Label dar.
+	 * 2. suchTabelle: In dieser Tabelle
+	 * @param nutzer
 	 */
-	
-	
-	
-	//Hier die Abos auslesen per Nutzer
 	
 	public void addNavigation(Nutzer nutzer) {
 
-		//holeNutzer();
 		this.name = new Label(nutzer.getVorname() + " " + nutzer.getNachname());
 
 
@@ -108,29 +139,37 @@ public class Navigation {
 
 
 
-		//Clickhandler den Buttons adden
+		/**
+		 * Dem Button einen ClickHandler zuordnen
+		 */
 
 		this.pinnwandSucheButton.addClickHandler(new pinnwandSucheClickHandler());
 
-		//Styles
+		/**
+		 * Der Nutzer soll in einem bestimmen Style angezeigt werden.
+		 */
 				this.name.setStylePrimaryName("NutzerName");
 
-
-
-
-				//Tabellen dem Vertikalen Panel hinzufügen
+				/**
+				 * Beide FlexTables dem VericalPanel zuordnen
+				 */
+				
 				vPanel.add(nutzerTabelle);
 				vPanel.add(suchTabelle);
-				vPanel.add(sucheResultatTabelle);
-
-
+				
+				/**
+				 * Das Panel dem RootPanel zuordnen
+				 */
 
 				RootPanel.get("Navigator").add(vPanel);
 
 
 			}
 	
-	//Abonnierte Nutzer anzeigen
+	/**
+	 * In dieser Methode wird anhand des aktuell eingeloggten Nutzer die Abonnements von diesem angezeigt.
+	 * @param nutzer
+	 */
 		public void getAbonnierteNutzerListe(Nutzer nutzer) {
 			int id = nutzer.getID();
 
@@ -144,6 +183,11 @@ public class Navigation {
 
 				@Override
 				public void onSuccess(ArrayList<Abonnement> result) {
+					
+					/**
+					 * Für jedes Abonnement Tupel das gefunden wurde, soll ein neues FlexTable
+					 * mit diesen Informationen erstellt werden. 
+					 */
 
 						for (Abonnement abo :result) {
 							Navigation navi = new Navigation();
@@ -154,6 +198,12 @@ public class Navigation {
 			});
 		}
 
+		/**
+		 * Diese Methode wird aufgerufen von der Methode <b>getAbonnierteNutzerListe(Nutzer)</b>
+		 * Sie Formatiert die Informationen des Abonnements in ein FlexTable.
+		 * Ein Abonnement kann darin auch gelöscht werden.
+		 * @param abo
+		 */
 
 		public void abonnierteNutzerAnzeigen(final Abonnement abo) {
 
@@ -167,6 +217,10 @@ public class Navigation {
 
 			this.vPanel.add(abonnierteNutzerAnzeigen);
 			RootPanel.get("Navigator").add(vPanel);
+			
+			/**
+			 * Bei einem Klick auf der aboLoeschen Button kann ein Abonnement gelöscht werden.
+			 */
 			
 			aboLoeschen.addClickHandler(new ClickHandler(){
 				@Override
@@ -196,6 +250,10 @@ public class Navigation {
 			        
 	
 				};
+				
+				/**
+				 * In diesem Konstruktor werden alle Nutzer in die Suggestbox geschrieben.
+				 */
 
 		public Navigation() {
 
@@ -212,7 +270,9 @@ public class Navigation {
 
 				@Override
 				public void onSuccess(ArrayList<Nutzer> result) {
-
+					/**
+					 * Für jeden Nutzer der in der Datenbank existiert, soll ein Eintrag in der SuggestBox entstehen.
+					 */
 
 					for (Nutzer n : result) {
 						orakel.add(n.getVorname() + " " + n.getNachname() + "     [ "
@@ -224,7 +284,10 @@ public class Navigation {
 			}
 		
 	
-		
+		/**
+		 * Mit diesem ClickHandler kann ein Nutzer abonniert werden.
+		 *
+		 */
 		
 		private class pinnwandSucheClickHandler implements ClickHandler {
 			@Override
@@ -232,9 +295,12 @@ public class Navigation {
 				abonnieren();
 			}
 			
-			}
+		}
 		
-		//Abos werden angelegt
+		/**
+		 * Diese Methode legt letztendlich das Abonnement an. Dabei gibt es einige exeptions z.B. wenn man sich
+		 * selbst Abonnieren will.
+		 */
 		
 	public void abonnieren() {	
 	
