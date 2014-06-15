@@ -7,6 +7,31 @@
 
   <!-- Servlets -->
   
+  <servlet>
+  	<servlet-name>pinnwandVerwaltung</servlet-name>
+  	<servlet-class>de.elite.itprojekt.server.PinnwandVerwaltungImpl</servlet-class>
+  </servlet>
+  
+ <servlet-mapping>
+ <servlet-name>pinnwandVerwaltung</servlet-name>
+ <url-pattern>/socialmediapinnwand/pinnwandVerwaltung</url-pattern>
+ </servlet-mapping>
+ 
+ 
+ <!--  Report -->
+ 
+   <servlet>
+  	<servlet-name>reportGenerator</servlet-name>
+  	<servlet-class>de.elite.itprojekt.server.report.ReportGeneratorImpl</servlet-class>
+  </servlet>
+  
+ <servlet-mapping>
+ <servlet-name>reportGenerator</servlet-name>
+ <url-pattern>/socialmediapinnwand/reportGenerator</url-pattern>
+ </servlet-mapping>
+
+<!-- End of Report -->  
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>SocialMediaPinnwand.html</welcome-file>
