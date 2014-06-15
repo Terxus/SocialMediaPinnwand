@@ -38,8 +38,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
  * dementsprechenden Methoden für die Reportgenerierung in den Klassen {@link NutzerReport}
  * und {@link BeitragReport} auf.
  * 
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla,
- *         Yen Nguyen
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  * @version 1.0
  */
 
