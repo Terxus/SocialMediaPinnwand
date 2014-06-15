@@ -22,18 +22,49 @@ import de.elite.itprojekt.shared.PinnwandVerwaltung;
 import de.elite.itprojekt.shared.PinnwandVerwaltungAsync;
 import de.elite.itprojekt.shared.bo.Nutzer;
 
+/**
+ * Diese Klasse stellt die Kontoverwaltung des Nutzers dar.
+ * Der eingeloggte Nutzer kann hier seine Daten, sprich seinen Vor- und Nachnamen, Passwort und E-Mail Adresse
+ * ändern. Einzig der Nickname kann nicht geändert werden da er in unserem System ein eindeutiges
+ * Erkennungsmerkmal darstellt.
+ * Eine weitere Funktion der Klasse ist, dass man hier seinen Account löschen kann. Es wird nicht nur der 
+ * Nutzer gelöscht sondern alle zusammenhängenden Referenzen mit diesem. Diese wären die Pinnwand, Beiträge,
+ * Kommentare, Likes und sämtliche Abonnementbeziehungen.
+ * 
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
+ * @version 1.0
+ */
+
 public class AccountEdit {
+	
+	/**
+	 * Ein Nutzer welcher Aktuell eingeloggt ist.
+	 */
 	
 	private Nutzer nutzer;
 
+	/**
+	 * <b>service</b> heißt unsere Proxyreferenz, welche mit dem Server interagiert.
+	 */
+	
 	PinnwandVerwaltungAsync service = GWT.create(PinnwandVerwaltung.class);
+	
+	/**
+	 * Ein kleiner Logger der die System.out's in den Client bringen soll. Wird benutzt um die Errors auszulesen.
+	 */
+	
 	Logger logger = SocialMediaPinnwand.getLogger();
 
 	public AccountEdit() {
 		logger.severe("Kontoansicht geladen");
 	}
 
-
+	/**
+	 * Diese Methode durchsucht den Clienten nach einem Cookie Namens: <b>gp5cookie</b>
+	 * In diesem Cookie ist die eindeutige ID gespeichert, die einem Nutzer zuordenbar ist.
+	 * Nachdem die ID ausgelesen ist, wird auf der Server bzw. in der Datenbank nach einem Nutzer-Tupel gesucht 
+	 * mit dieser ID, und das Nutzerobjekt erstellt. Danach wird das Nutzerobjekt zurückgegeben.
+	 */
 
 	public void holeNutzer() {
 		service.sucheNutzerID(Integer.valueOf(Cookies.getCookie("gp5cookie")), new AsyncCallback<Nutzer>() {
@@ -47,6 +78,11 @@ public class AccountEdit {
 			}
 		});
 	}
+	
+	/**
+	 * Hier wird der aktuell eingeloggte Nutzer festgelegt.
+	 * @param eingeloggterNutzer
+	 */
 
 	public void setNutzer(Nutzer eingeloggterNutzer) {
 		this.nutzer = eingeloggterNutzer;
@@ -72,20 +108,19 @@ public class AccountEdit {
 	private Button bestaetigenEditierenButton;
 	FlexTable editUser = new FlexTable();
 
-	//Textboxen für Änderungen
-
 	private TextBox vorNameTextBox = new TextBox();
 	private TextBox nachNameTextBox = new TextBox();
 	private TextBox nickNameTextBox = new TextBox();
 	private TextBox passWortTextBox = new TextBox();
 	private TextBox eMailTextBox = new TextBox();
 
-	//Account Loeschen?
-
-
 	private Label accountDelLabel = new Label("Account Loeschen");
 	private PushButton deleteAccountButton = new PushButton(new Image("images/loeschen.png"));
-
+	
+	/**
+	 * Erzeugung der Widgets
+     *
+	 */
 
 	public void editNutzer() {
 
@@ -139,7 +174,13 @@ public class AccountEdit {
 		this.bestaetigenLoeschenButton.addClickHandler(new bestaetigenLoeschenButton());
 		this.deleteAccountButton.addClickHandler(new deleteAccountButtonClickHandler());
 	}
-	//Vorname 
+
+	/**
+	 * Mit einem Klick auf ein beliebiges Label in der Kontoverwaltung wird die Methode
+	 *  {@link nutzerDatenAendern} aufgerufen.
+	 * 
+	 */
+	
 	private class infoClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -151,7 +192,13 @@ public class AccountEdit {
 
 		}
 	}
-	//Umwandlungen der Labels zu Textboxen
+	
+	/**
+	 * Diese Methode sorgt für die Umwandlungen der Labels in Eingabefelder.
+	 * Mit einem Klick auf ein Label erscheinen Eingabefelder in denen die Daten geändert werden können
+	 * @param void
+	 */
+
 	public void nutzerDatenAendern() {
 		vorNameTextBox.setText(this.Vorname.getText().toString()); //Hier wird der alte Name in die Textbox geschrieben
 		editUser.setWidget(0, 1, vorNameTextBox); //Das Label an der Position 0, 1 wird mit der Textbox überschrieben
@@ -176,7 +223,14 @@ public class AccountEdit {
 			updateNutzer();
 		}
 	}
-	//Erstelle neues Nutzerobjekt
+
+	/**
+	 * Diese Methode liest die geänderten Daten aus und setzt die Daten in ein neues Nutzerobjekt ein.
+	 * Anschließend wird die Methode {@link updateNutzerinDB} aufgerufen
+	 * 
+	 * @param void
+	 */
+	
 	public void updateNutzer() {
 
 		if (passWortTextBox.getValue().isEmpty()) {
@@ -195,6 +249,13 @@ public class AccountEdit {
 		}
 
 	}
+	
+	/**
+	 * Diese Methode schreibt dann letztendlich die Werte aus dem aktualisierten Nutzerobjekt in die Datenbank.
+	 * 
+	 * @param neuerNutzer
+	 */
+	
 	public void updateNutzerinDB(Nutzer neuerNutzer) {
 
 		service.updateNutzer(neuerNutzer, new AsyncCallback<Nutzer>() {
@@ -225,7 +286,6 @@ public class AccountEdit {
 		});
 	}
 
-	//Nutzer Löschen
 	private class deleteAccountButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
@@ -242,6 +302,12 @@ public class AccountEdit {
 		}
 	}
 
+	/**
+	 * Diese Methode löscht den Nutzer aus dem System.
+	 * 
+	 * @param void
+	 */
+	
 	public void nutzerLoeschen() {
 		service.nutzerLoeschen(nutzer, new AsyncCallback<Void>() {
 
@@ -258,6 +324,12 @@ public class AccountEdit {
 		});
 	}
 
+	/**
+	 * Nachdem der Nutzer bestätigt hat seinen Account zu löschen wird er automatisch ausgeloggt.
+	 * Sein Cookie wird gelöscht und er wird zum Anmeldebildschirm weitergeleitet.
+	 * 
+	 * @param neuerNutzer
+	 */
 	public void logout() {
 	 Window.alert("Account gelöscht!");
    	 Cookies.removeCookie("gp5cookie");

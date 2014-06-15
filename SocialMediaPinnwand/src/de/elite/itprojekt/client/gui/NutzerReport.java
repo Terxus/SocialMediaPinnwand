@@ -23,8 +23,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
  * gefiltert werden. Zusätzlich ist es möglich die Nutzer nach Anzahl Ihrer
  * geschriebenen Kommentare oder vergeben Likes zu sortieren.
  * 
- * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla,
- *         Yen Nguyen
+ * @author Maik Piskors, Benjamin Auwärter, Dominik Liebscher, Raphael Abdalla, Yen Nguyen
  * @version 1.0
  */
 
