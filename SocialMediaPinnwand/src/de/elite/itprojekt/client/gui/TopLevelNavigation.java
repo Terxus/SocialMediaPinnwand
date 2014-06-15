@@ -102,7 +102,5 @@ public class TopLevelNavigation {
 	    headerMenu.addItem("Logout", logout);
 		
 		RootPanel.get("Header").add(headerMenu);
-		
-
 	}
 }
