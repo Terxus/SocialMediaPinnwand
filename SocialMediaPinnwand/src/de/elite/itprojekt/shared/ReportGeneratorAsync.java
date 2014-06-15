@@ -12,20 +12,6 @@ public interface ReportGeneratorAsync {
 
 	void init(AsyncCallback<Void> callback);
 
-	void setNutzer(AsyncCallback<Void> callback);
-
-	void nutzerReport(AsyncCallback<Void> callback);
-
-	void likeReport(AsyncCallback<Void> callback);
-
-	void kommentarReport(AsyncCallback<Void> callback);
-
-	void likeReportSortiert(AsyncCallback<Void> callback);
-
-	void kommentarReportSortiert(AsyncCallback<Void> callback);
-	
-	//
-
 	void zaehleAlleNutzer(AsyncCallback<Integer> callback);
 
 	void zaehleAlleKommentare(AsyncCallback<Integer> callback);
@@ -47,8 +33,6 @@ public interface ReportGeneratorAsync {
 	void zaehleLikesPerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
 
 	void zaehleKommentarePerNutzer(Nutzer nutzer, AsyncCallback<Integer> callback);
-
-	void alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung, AsyncCallback<ArrayList<Beitrag>> callback);
 
 	void alleNutzerNachZeitraum(String von, String bis, AsyncCallback<ArrayList<Nutzer>> callback);
 	

@@ -15,9 +15,7 @@ import de.elite.itprojekt.shared.bo.Nutzer;
 
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	public ReportGeneratorImpl() throws IllegalArgumentException {
@@ -29,50 +27,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	@Override
-	public void setNutzer() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void nutzerReport() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void likeReport() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void kommentarReport() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void likeReportSortiert() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void kommentarReportSortiert() {
-		// TODO Auto-generated method stub
-	}
-	/////BALBLALBALFB
-
-	@Override
-	public int zaehleAlleNutzer() {
+	public int zaehleAlleNutzer() throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().zaehleNutzer();
-		
 	}
 
 	@Override
-	public int zaehleAlleKommentare() {
+	public int zaehleAlleKommentare() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return KommentarMapper.kommentarMapper().zaehleKommentare();
 	}
 
 	@Override
-	public int zaehleAlleLikes() {
+	public int zaehleAlleLikes() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return LikeMapper.likeMapper().zaehleLikes();
 	}
@@ -84,61 +50,56 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	@Override
-	public int zaehleAlleAbonnements() {
+	public int zaehleAlleAbonnements() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return AbonnementMapper.abonnementMapper().zaehleAbonnements();
 	}
 
 	@Override
-	public ArrayList<Nutzer> zeigeAlleNutzer() {
+	public ArrayList<Nutzer> zeigeAlleNutzer() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return NutzerMapper.nutzerMapper().sucheAlleNutzer();
 	}
 
 	@Override
-	public Nutzer getUserByNickname(String nickname) {
+	public Nutzer getUserByNickname(String nickname) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
 	}
 
 	@Override
-	public int zaehleAlleAbonnementsPerNutzer(Nutzer nutzer) {
+	public int zaehleAlleAbonnementsPerNutzer(Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return AbonnementMapper.abonnementMapper().zaehleAbonnementsPerNutzer(nutzer);
 	}
 
 	@Override
-	public int zaehleBeitraegePerNutzer(Nutzer nutzer) {
+	public int zaehleBeitraegePerNutzer(Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().zaehleBeitraegePerNutzer(nutzer);
 	}
 
 	@Override
-	public int zaehleLikesPerNutzer(Nutzer nutzer) {
+	public int zaehleLikesPerNutzer(Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return LikeMapper.likeMapper().zaehleLikesPerNutzer(nutzer);
 	}
 
 	@Override
-	public int zaehleKommentarePerNutzer(Nutzer nutzer) {
+	public int zaehleKommentarePerNutzer(Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return KommentarMapper.kommentarMapper().zaehleKommentarePerNutzer(nutzer);
 	}
 
-	@Override
-	public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(
-			Nutzer nutzer, String von, String bis, int sortierung) {
-		// TODO Auto-generated method stub
-		return BeitragMapper.beitragMapper().alleBeitraegeEinesNutzersNachKommentare(nutzer, von, bis, sortierung);
-	}
+
 
 	@Override
-	public ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis) {
+	public ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis) throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().alleNutzerNachZeitraum(von, bis);
 	}
 	
 	@Override
-	public ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis) {
+	public ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().alleBeitraegeNachZeitraum(von, bis);
 	}

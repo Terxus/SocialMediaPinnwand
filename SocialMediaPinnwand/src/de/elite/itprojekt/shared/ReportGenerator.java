@@ -20,21 +20,7 @@ public interface ReportGenerator extends RemoteService {
 	   * @throws IllegalArgumentException
 	   */
 	  public void init() throws IllegalArgumentException;
-	  
-	  public void setNutzer();
-	  
-	  public void nutzerReport();
-	  
-	  public void likeReport();
-	  
-	  public void kommentarReport();
-	  
-	  public void likeReportSortiert();
-	  
-	  public void kommentarReportSortiert();
-	  
-	  
-	  
+
 	  //Global
 	  public int zaehleAlleNutzer();
 	  public int zaehleAlleKommentare();
@@ -63,8 +49,4 @@ public interface ReportGenerator extends RemoteService {
 	  
 	  ArrayList<Beitrag> alleBeitraegeNachZeitraum(String von, String bis);
 	  ArrayList<Nutzer> alleNutzerNachZeitraum(String von, String bis);
-	  
-	  //Alle Beiträge des Nutzers sortiert nach Kommentare
-	  public ArrayList<Beitrag> alleBeitraegeEinesNutzersNachKommentare(Nutzer nutzer, String von, String bis, int sortierung);
-
 }

@@ -39,7 +39,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Nutzer> zeigeAlleNutzer() {
+	public ArrayList<Nutzer> zeigeAlleNutzer() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return NutzerMapper.nutzerMapper().sucheAlleNutzer();
 	}
@@ -52,7 +52,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void nutzerAnlegen(Nutzer nutzer) {
+	public void nutzerAnlegen(Nutzer nutzer) throws IllegalArgumentException {
 		NutzerMapper.nutzerMapper().nutzerAnlegen(nutzer);
 	}
 	/**
@@ -64,7 +64,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void nutzerEditieren(Nutzer nutzer) {
+	public void nutzerEditieren(Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 	}
 	/**
@@ -76,7 +76,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void nutzerLoeschen(Nutzer nutzer) {
+	public void nutzerLoeschen(Nutzer nutzer) throws IllegalArgumentException {
 		NutzerMapper.nutzerMapper().nutzerLoeschen(nutzer);
 	}
 	/**
@@ -87,7 +87,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Pinnwand> zeigeAllePinnwaende() {
+	public ArrayList<Pinnwand> zeigeAllePinnwaende() throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,7 +100,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void textBeitragErstellen(Beitrag beitrag) {
+	public void textBeitragErstellen(Beitrag beitrag) throws IllegalArgumentException {
 		BeitragMapper.beitragMapper().textBeitragErstellen(beitrag);
 	}
 	/**
@@ -112,7 +112,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Nutzer loginCheck(String nutzerName, String passWort) {
+	public Nutzer loginCheck(String nutzerName, String passWort) throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().loginCheckerNutzer(nutzerName, passWort);
 	}
 	/**
@@ -124,7 +124,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Nutzer sucheNutzerID(int id) {
+	public Nutzer sucheNutzerID(int id) throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().sucheNutzerID(id);
 	}
 	/**
@@ -136,7 +136,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Nutzer updateNutzer(Nutzer nutzer) {
+	public Nutzer updateNutzer(Nutzer nutzer) throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().updateNutzer(nutzer);
 	}
 	/**
@@ -148,7 +148,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Beitrag> findeAlleUserBeitraege(int id) {
+	public ArrayList<Beitrag> findeAlleUserBeitraege(int id) throws IllegalArgumentException {
 		return BeitragMapper.beitragMapper().findeAlleUserBeitraege(id);
 	}
 	/**
@@ -160,7 +160,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void textBeitragLoeschen(Beitrag beitrag) {
+	public void textBeitragLoeschen(Beitrag beitrag) throws IllegalArgumentException {
 		BeitragMapper.beitragMapper().textBeitragLoeschen(beitrag);
 	}
 	/**
@@ -172,7 +172,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Beitrag textBeitragBearbeiten(Beitrag beitrag) {
+	public Beitrag textBeitragBearbeiten(Beitrag beitrag) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().updateBeitrag(beitrag);
 	}
@@ -185,7 +185,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id) {
+	public ArrayList<Abonnement> zeigeAlleAbosPerNutzer(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return AbonnementMapper.abonnementMapper().getAboByNutzer(id);
 	}
@@ -198,7 +198,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void kommentarErstellen(Kommentar kommentar) {
+	public void kommentarErstellen(Kommentar kommentar) throws IllegalArgumentException {
 		KommentarMapper.kommentarMapper().kommentarErstellen(kommentar);
 		
 	}
@@ -211,7 +211,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Kommentar> findeAlleKommentare(int id) {
+	public ArrayList<Kommentar> findeAlleKommentare(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return KommentarMapper.kommentarMapper().findeDurchId(id);
 	}
@@ -224,7 +224,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id) {
+	public ArrayList<Beitrag> sucheBeitragPerPinnwand(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().getBeitragByPinnwand(id);
 	}
@@ -237,7 +237,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Nutzer getNutzerAnhandNickname(String nickname) {
+	public Nutzer getNutzerAnhandNickname(String nickname) throws IllegalArgumentException {
 		return NutzerMapper.nutzerMapper().getNutzerAnhandNickname(nickname);
 	}
 	/**
@@ -249,7 +249,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID) {
+	public Abonnement abonnementAnlegen(int AbonnentID, int PinnwandID) throws IllegalArgumentException {
 		Abonnement a = new Abonnement();
 		a.setNutzerId(AbonnentID);
 		a.setPinnwandId(PinnwandID);
@@ -264,7 +264,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * @return void
 	 * 
 	 */
-	public void abonnementLoeschen(Abonnement a) throws IllegalArgumentException{
+	public void abonnementLoeschen(Abonnement a) throws IllegalArgumentException {
 		AbonnementMapper.abonnementMapper().abonnementLoeschen(a);
 	}
 	/**
@@ -276,7 +276,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public ArrayList<Beitrag> alleBeitraegePerPinnwand(int id) {
+	public ArrayList<Beitrag> alleBeitraegePerPinnwand(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return BeitragMapper.beitragMapper().sucheBeitragPerPinnwand(id);
 	}
@@ -289,7 +289,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * @return void
 	 * 
 	 */
-	public void likeAnlegen(Like like, Beitrag beitrag) {
+	public void likeAnlegen(Like like, Beitrag beitrag) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		LikeMapper.likeMapper().anlegen(like, beitrag);
 	}
@@ -302,7 +302,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void kommentarLoeschen(Kommentar kommentar) {
+	public void kommentarLoeschen(Kommentar kommentar) throws IllegalArgumentException {
 		KommentarMapper.kommentarMapper().kommentarLoeschen(kommentar);
 	}
 	/**
@@ -314,7 +314,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Kommentar kommentarBearbeiten(Kommentar kommentar) {
+	public Kommentar kommentarBearbeiten(Kommentar kommentar) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return KommentarMapper.kommentarMapper().kommentarBearbeiten(kommentar);
 	}
@@ -327,7 +327,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public boolean likeCheck(Nutzer nutzer, Beitrag beitrag) {
+	public boolean likeCheck(Nutzer nutzer, Beitrag beitrag) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return LikeMapper.likeMapper().likeUeberpruefung(nutzer, beitrag);
 	}
@@ -340,7 +340,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void likeLoeschen(Beitrag beitrag) {
+	public void likeLoeschen(Beitrag beitrag) throws IllegalArgumentException {
 		LikeMapper.likeMapper().loeschen(beitrag);
 	}
 	/**
@@ -352,7 +352,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public Like likeSuchen(int id) {
+	public Like likeSuchen(int id) throws IllegalArgumentException {
 		return LikeMapper.likeMapper().findeEinzelneDurchID(id);
 	}
 	/**
@@ -364,7 +364,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public int likeZaehlen(Beitrag beitrag) {
+	public int likeZaehlen(Beitrag beitrag) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return LikeMapper.likeMapper().zaehleAlleLikesProBeitrag(beitrag);
 	}
@@ -377,7 +377,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * 
 	 */
 	@Override
-	public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) {
+	public void einzelnesLikeLoeschen(Beitrag beitrag, Nutzer nutzer) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		LikeMapper.likeMapper().einzelnesLikeLoeschen(beitrag, nutzer);
 	}
@@ -390,7 +390,7 @@ public class PinnwandVerwaltungImpl extends RemoteServiceServlet implements Pinn
 	 * @return boolean
 	 * 
 	 */
-	public boolean sucheNickName(String nickName) {
+	public boolean sucheNickName(String nickName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return NutzerMapper.nutzerMapper().sucheNickName(nickName);
 	}
