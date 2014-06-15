@@ -436,7 +436,7 @@ public class Report {
 	/**
 	 * Diese Methode übergibt den eingegeben String in der SuggestBox "vBox" und ruft die Methode 
 	 * zeigeStatistikeinzelnerNutzer() in der Klasse {@link NutzerReport} auf. 
-	 * Sie wird benötigt wenn der Nutzer sich einen <b>individuellen Nutzerreport<b> ausgeben lassen will.
+	 * Sie wird benötigt wenn der Nutzer sich einen <b>individuellen Nutzerreport</b> ausgeben lassen will.
 	 * @param void
 	 * 
 	 */
