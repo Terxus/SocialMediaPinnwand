@@ -11,13 +11,18 @@ import java.util.Comparator;
 public class Beitrag extends Textbeitrag {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Beitrag() {
 	}
 
 	/**
 	 * 
 	 */ 
-	private static final long serialVersionUID = 1L;
+
 	
 	/**
 	 * Ein Beitrag besteht aus folgenden Werten:
